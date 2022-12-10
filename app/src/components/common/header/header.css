@@ -1,0 +1,41 @@
+.header{
+    background-color:rgb(99, 11, 140);
+    font-size: 12px;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px; 
+    position: sticky;    
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.location{
+    font-size: 12px;
+}
+.location-icon{
+    padding-right: 7px;
+}
+
+.phone{
+    padding-right: 650px;
+}
+
+.phone-icon{
+    padding-left: 15px;
+    padding-right: 10px;
+    size: 13px;
+}
+.facebook-icon{
+    padding-left: 860px;
+    padding-right: 10px;
+    color: #ffffff;
+}
+
+
+.instagram-icon{
+    color: #ffffff;
+}
