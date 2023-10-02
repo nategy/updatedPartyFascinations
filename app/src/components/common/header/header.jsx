@@ -8,14 +8,14 @@ import "./header.css"
 function Header() {
     return (
         <section className="header">
-            <div className="location">
+            <p className="location">
             <HiLocationMarker className="location-icon" />
                 9941 Old Lockhart Rd, Austin, TX 78747
-            </div>
-            <div className="phone">
+            </p>
+            <p className="phone">
             <FaPhoneAlt className="phone-icon" />
                 (512) 402-2141
-            </div>
+            </p>
             <a className="facebook-icon" target="_blank" rel="nofollow noopener noreferrer"
                 href="https://www.facebook.com/PartyFascinations/" >
                 <FaFacebookF size="13px" />

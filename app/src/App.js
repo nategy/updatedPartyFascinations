@@ -8,8 +8,11 @@ import Subtotal from "./components/common/subtotal/Subtotal";
 import { Suspense, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
+import { useTexture } from "@react-three/drei";
 //import { Router } from 'react-router-dom'
 import { BrowserRouter as Router } from "react-router-dom";
+import TextureSelector from "./components/common/texturehandler/TextureSelector";
+
 import Selector from "./components/common/selector/Selector";
 import Cloth from "./components/common/selector/ClothColor";
 import Fabrics from "./components/common/fabrics/Fabrics";
@@ -20,6 +23,8 @@ import ClothColor from "./components/common/selector/ClothColor";
 function Model({ ...props }) {
   const group = useRef();
   const { nodes, materials } = useGLTF("/scene.gltf");
+  const texture = useTexture(props.texture.selectedTexture);
+
   return (
     <group ref={group} {...props} dispose={null} scale={1.5}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -51,11 +56,9 @@ function Model({ ...props }) {
             rotation={[-Math.PI / 2, 0, 0]}
             scale={[155, 155, 100]}
           >
-            <mesh
-              geometry={nodes.Plane_Cloth_0.geometry}
-              material={materials.Cloth}
-              material-color={props.customColors.Cloth}
-            />
+            <mesh geometry={nodes.Plane_Cloth_0.geometry}>
+              <meshStandardMaterial map={texture} />
+            </mesh>
           </group>
         </group>
       </group>
@@ -65,20 +68,17 @@ function Model({ ...props }) {
 
 function App() {
   const [Cloth, setCloth] = useState("#ffffff");
-
-  const setTablecloth = (cloth) => {
-    document.documentElement.style.setProperty("--bg-cloth", cloth);
+  const [selectedTexture, setSelectedTexture] = useState("/testtexture.jpg"); // Initial texture
+  const handleTextureSelect = (texturePath) => {
+    setSelectedTexture(texturePath);
   };
 
-  const getTableCloth = (event) => {
-    const currentCloth = event.target.style.getPropertyValue("--bg-cloth");
-    setCloth = currentCloth;
-    setTablecloth(currentCloth);
-
-    console.log(currentCloth);
-  };
-
-  const cloths = ["#4834d4", "#f9ca24", "#30336b"];
+  const texturePaths = [
+    "/tablecloths/pexels-anni-roenkae-4175070.jpg",
+    "/tablecloths/pexels-laura-james-6101966.jpg",
+    "/tablecloths/pexels-maryann-kariuki-4303015.jpg",
+    // Add more texture paths as needed
+  ];
 
   return (
     <div className='App'>
@@ -100,7 +100,7 @@ function App() {
                   castShadow
                 />
 
-                <Model customColors={{ Cloth: Cloth }} />
+                <Model texture={{ selectedTexture: selectedTexture }} />
                 <OrbitControls
                   enablePan={true}
                   enableZoom={false}
@@ -111,6 +111,57 @@ function App() {
           </div>
 
           <h2>Table Linens</h2>
+          <TextureSelector
+            textures={texturePaths}
+            selectedTexture={selectedTexture}
+            onSelectTexture={handleTextureSelect}
+          />
+        </div>
+        <Subtotal />
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
+
+{
+  /* 
+//pertaining to model  
+<group
+position={[0, 177.69, 0]}
+rotation={[-Math.PI / 2, 0, 0]}
+scale={[155, 155, 100]}
+>
+<mesh
+  geometry={nodes.Plane_Cloth_0.geometry}
+  material={materials.Cloth}
+  material-color={props.customColors.Cloth}
+/>
+</group> 
+
+//in main function
+  const setTablecloth = (cloth) => {
+    document.documentElement.style.setProperty("--bg-cloth", cloth);
+  };
+
+  const getTableCloth = (event) => {
+    const currentCloth = event.target.style.getPropertyValue("--bg-cloth");
+    setCloth = currentCloth;
+    setTablecloth(currentCloth);
+
+    console.log(currentCloth);
+  };
+
+  const cloths = ["#4834d4", "#f9ca24", "#30336b"];
+
+
+  //original model element
+      <Model customColors={{ Cloth: Cloth }} />
+
+
+//color section
           <div className='colors'>
             <div>
               <input
@@ -135,12 +186,5 @@ function App() {
               </div>
             </div>
           </div>
-        </div>
-        <Subtotal />
-      </div>
-      <Footer />
-    </div>
-  );
+*/
 }
-
-export default App;
