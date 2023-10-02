@@ -1,7 +1,8 @@
 import "./index.css";
-//import Navbar from './components/common/Navbar'
+import Navbar from "./components/common/Navbar";
 import Header from "./components/common/header/header";
 import Footer from "./components/common/footer/Footer";
+import Subtotal from "./components/common/subtotal/Subtotal";
 //import ImageSlider from './components/common/ImageSlider'
 //import { SliderData } from './components/common/SliderData'
 import { Suspense, useRef, useState } from "react";
@@ -9,6 +10,12 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 //import { Router } from 'react-router-dom'
 import { BrowserRouter as Router } from "react-router-dom";
+import Selector from "./components/common/selector/Selector";
+import Cloth from "./components/common/selector/ClothColor";
+import Fabrics from "./components/common/fabrics/Fabrics";
+import purple from "./components/common/images/purple.jpg";
+import charcol from "./components/common/images/charcoal.png";
+import ClothColor from "./components/common/selector/ClothColor";
 
 function Model({ ...props }) {
   const group = useRef();
@@ -59,14 +66,26 @@ function Model({ ...props }) {
 function App() {
   const [Cloth, setCloth] = useState("#ffffff");
 
+  const setTablecloth = (cloth) => {
+    document.documentElement.style.setProperty("--bg-cloth", cloth);
+  };
+
+  const getTableCloth = (event) => {
+    const currentCloth = event.target.style.getPropertyValue("--bg-cloth");
+    setCloth = currentCloth;
+    setTablecloth(currentCloth);
+
+    console.log(currentCloth);
+  };
+
+  const cloths = ["#4834d4", "#f9ca24", "#30336b"];
+
   return (
     <div className='App'>
       <Header />
-      {/*
       <Router>
         <Navbar />
       </Router>
-*/}
       <div className='wrapper'>
         <div className='card'>
           <div className='product-canvas'>
@@ -91,7 +110,7 @@ function App() {
             </Canvas>
           </div>
 
-          <h2>Linens</h2>
+          <h2>Table Linens</h2>
           <div className='colors'>
             <div>
               <input
@@ -101,12 +120,23 @@ function App() {
                 value={Cloth}
                 onChange={(e) => setCloth(e.target.value)}
               />
-              <label for='head' className='color-tab'>
+              <label htmlFor='head' className='color-tab'>
                 Color
               </label>
+              <div className='color-section'>
+                {cloths.map((cloth, idx) => (
+                  <ClothColor
+                    key={idx}
+                    Value={Cloth}
+                    onClick={(e) => setCloth(e.target.value)}
+                    cloth={cloth}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
+        <Subtotal />
       </div>
       <Footer />
     </div>

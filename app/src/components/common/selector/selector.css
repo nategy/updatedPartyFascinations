@@ -1,0 +1,8 @@
+.selector-wrapper {
+     display: flex;
+     flex-direction: row;
+     background-color: rgb(34, 117, 117);
+     height: 50vh;
+     width: 50vh;
+     color: black;
+}

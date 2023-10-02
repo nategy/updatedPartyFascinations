@@ -18,24 +18,17 @@ function Footer(){
                         {/*column1*/}
                         <div className="col">
                             {/*<h3 className="footer-name">Party Fascinations</h3>*/}
-                            <ul className="list"> 
                                 <p>Party Fascinations goes that extra step </p>
                                 <p> to make sure your Wedding Day, Birthday,</p>
                                 <p> Corporate event or even Family Reunion </p>
                                 <p> is fun and truly unforgettable.</p>
-                                <p> </p>
-                            </ul>
                         </div>
                         {/* column 2 */}
                         <div className="col2">
-                            <h3>Contact Info</h3>
-                            <ul className="list2">
+                            <h3 className="contact">Contact Info</h3>
+                            <div className="icons">
                                 <p>
-                                <HiLocationMarker className="location-icon" />
-                                    9941 Old Lockhart Rd, Austin, TX 78747
-                                </p>
-                                <p>
-                                <ImPhone className="phone-icon" size="13px"/>
+                                <ImPhone className="phone-icon" />
                                     (512) 402-2141
                                 </p>
                                 <p>
@@ -46,26 +39,27 @@ function Footer(){
                                 <BiEnvelope className="mail-icon" />
                                     partyfascinations.com
                                 </p>
-                            </ul>
+                                <p>
+                                <HiLocationMarker className="location-icon" />
+                                    9941 Old Lockhart Rd, Austin, TX 78747
+                                </p>
+                            </div>
                         </div>
                                                 {/*column3*/}
-                        <div className="socials">
-                        <a className="facebook-icon" target="_blank" rel="nofollow noopener noreferrer"
-                             href="https://www.facebook.com/PartyFascinations/" >
-                            <FaFacebookF size="40px" />
-                        </a>
+                            <a className="facebook-icon" target="_blank" rel="nofollow noopener noreferrer"
+                                href="https://www.facebook.com/PartyFascinations/" >
+                                <FaFacebookF size="40px" />
+                            </a>
                             <a className="instagram-icon" target="_blank" rel="nofollow noopener noreferrer"
                                 href="https://www.instagram.com/partyfascinations/" >
                                 <BsInstagram size="40px" />
                             </a>
-                        </div>
                 </div>
-                <div className="row2">
-                            <p></p>
-                            <p className="col-sm">
-                            &copy; 2020 Party Fascinations. Site created by CS Web Design.
-                            </p>
-                        </div>
+                <div className="copyright">
+                    <p className="col-sm">
+                    &copy; 2020 Party Fascinations. Site created by CS Web Design. Model Feature created by NG Web Creations.
+                    </p>
+                </div>
             </div>
        </div>
     )
