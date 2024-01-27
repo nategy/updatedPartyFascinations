@@ -1,0 +1,39 @@
+h2 {
+     font-size: 30px;
+     text-decoration: underline;
+}
+
+.tablecloth-wrapper {
+     padding: 5px;
+     height: 17vh;
+     width: 40vw;
+     background-color: #b086cd;
+}
+
+.tcslider-wrapper {
+     padding: 2px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+.tc-Sarrow {
+     padding: 3px;
+}
+
+.tablecloth-selector {
+     height: 10vh;
+     width: 40vw;
+     border-radius: 5px;
+     background-color: #9d72bc;
+}
+
+.tablecloth-btn {
+     border-style: 5px solid black;
+     margin: 5px;
+}
+
+img {
+     height: 50px;
+     width: 50px;
+}

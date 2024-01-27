@@ -130,6 +130,10 @@ h1{
   /*box-shadow:  10px 15px 15px 6px #6e6971;*/
 }
 
+.tcselector-wrapper {
+  padding-top: 25px;
+}
+
 .cloths {
   padding: 1rem;
 }

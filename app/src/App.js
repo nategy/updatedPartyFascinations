@@ -109,13 +109,13 @@ function App() {
               </Suspense>
             </Canvas>
           </div>
-
-          <h2>Table Linens</h2>
-          <TextureSelector
-            textures={texturePaths}
-            selectedTexture={selectedTexture}
-            onSelectTexture={handleTextureSelect}
-          />
+          <div className='tcselector-wrapper'>
+            <TextureSelector
+              textures={texturePaths}
+              selectedTexture={selectedTexture}
+              onSelectTexture={handleTextureSelect}
+            />
+          </div>
         </div>
         <Subtotal />
       </div>
