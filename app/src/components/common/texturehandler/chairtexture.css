@@ -3,7 +3,7 @@ h2 {
      text-decoration: underline;
 }
 
-.tablecloth-wrapper {
+.chaircloth-wrapper {
      padding: 5px;
      /* height: 17vh; */
      width: 40vw;
@@ -11,7 +11,7 @@ h2 {
      position: relative;
 }
 
-.tcslider-wrapper {
+.ccslider-wrapper {
      padding: 2px;
      /* display: flex; */
      justify-content: center;
@@ -22,18 +22,18 @@ h2 {
      box-shadow: 0 2px 5px 0 rgba(0,0,0,.5);
 }
 
-.tc-Sarrow {
+.cc-Sarrow {
      padding: 3px;
 }
 
-.tablecloth-selector {
+.chaircloth-selector {
      height: 10vh;
      width: 40vw;
      border-radius: 5px;
      background-color: #9d72bc;
 }
 
-.tablecloth-btn {
+.chaircloth-btn {
      border-style: 5px solid black;
      margin: 5px;
 }
