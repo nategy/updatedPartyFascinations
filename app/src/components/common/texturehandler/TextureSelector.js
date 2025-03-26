@@ -10,11 +10,11 @@ function TextureSelector({ textures, selectedTexture, onSelectTexture }) {
   //Left off here
   const toggleTablecloths = () => setTablecloths(!showTablecloths);
   return (
-    <div className='tablecloth-wrapper'>
+    <div className='s-wrapper'>
       <h2>
         Tablecloths
         <RiArrowDropDownLine
-          className='tc-Darrow'
+          className='s-down-arrow'
           onClick={toggleTablecloths}
           style={{
             border:
@@ -25,12 +25,12 @@ function TextureSelector({ textures, selectedTexture, onSelectTexture }) {
         />
       </h2>
       {showTablecloths && (
-        <div className='tcslider-wrapper'>
-          <BsArrowLeftCircleFill className='tc-Sarrow' />
-          <div className='tablecloth-selector'>
+        <div className='s-slider-wrapper'>
+          <BsArrowLeftCircleFill className='s-arrow' />
+          <div className='s-selector'>
             {textures.map((texture, index) => (
               <button
-                className='tablecloth-btn'
+                className='s-btn'
                 key={index}
                 onClick={() => onSelectTexture(texture)}
               >
@@ -38,7 +38,7 @@ function TextureSelector({ textures, selectedTexture, onSelectTexture }) {
               </button>
             ))}
           </div>
-          <BsArrowRightCircleFill className='tc-Sarrow' />
+          <BsArrowRightCircleFill className='s-arrow' />
         </div>
       )}
     </div>

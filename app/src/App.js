@@ -19,6 +19,8 @@ import Fabrics from "./components/common/fabrics/Fabrics";
 import purple from "./components/common/images/purple.jpg";
 import charcol from "./components/common/images/charcoal.png";
 import ClothColor from "./components/common/selector/ClothColor";
+import ChairRunnerSelector from "./components/common/texturehandler/ChairRunnerSelector";
+import TableRunnerSelector from "./components/common/texturehandler/TableRunner";
 
 function Model({ ...props }) {
   const group = useRef();
@@ -111,6 +113,20 @@ function App() {
           </div>
           <div className='tcselector-wrapper'>
             <TextureSelector
+              textures={texturePaths}
+              selectedTexture={selectedTexture}
+              onSelectTexture={handleTextureSelect}
+            />
+          </div>
+          <div className='trselector-wrapper'>
+            <TableRunnerSelector
+              textures={texturePaths}
+              selectedTexture={selectedTexture}
+              onSelectTexture={handleTextureSelect}
+            />
+          </div>
+          <div className='crselector-wrapper'>
+            <ChairRunnerSelector
               textures={texturePaths}
               selectedTexture={selectedTexture}
               onSelectTexture={handleTextureSelect}

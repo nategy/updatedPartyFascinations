@@ -1,50 +1,51 @@
-.main-footer{
-    color:#ffffff;
-    background-color: rgb(42, 39, 39);
-    position: relative;
-    width: 100%;
-    font-family: 'Arial', 'Helvetica', sans-serif;
+.main-footer {
+  color: #ffffff;
+  background-color: rgb(42, 39, 39);
+  position: relative;
+  width: 100%;
+  margin-top: 3em;
+  font-family: "Arial", "Helvetica", sans-serif;
 }
 
-.row{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 40px 0 30px 0;
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 40px 0 30px 0;
 }
 
 .row p {
-    font-size: medium;
-    color: #949292;
+  font-size: medium;
+  color: #949292;
 }
 
-.col p{
-    font-size: 20px;
+.col p {
+  font-size: 20px;
 }
 
 .contact {
-    font-size: 20px;
+  font-size: 20px;
 }
 
-.col2 p{
-    font-size: 15px;
-    left: 0;
+.col2 p {
+  font-size: 15px;
+  left: 0;
 }
 
-.location-icon{
-    padding: 0;
+.location-icon {
+  padding: 0;
 }
 
-.phone-icon{
-    padding: 0;
+.phone-icon {
+  padding: 0;
 }
 
-.facebook-icon{
-    padding-left: 15px;
-    color: #ffffff;
+.facebook-icon {
+  padding-left: 15px;
+  color: #ffffff;
 }
 
-.copyright p{
-    font-size: 12px;
-    color: #ffffff;
+.copyright p {
+  font-size: 12px;
+  color: #ffffff;
 }
