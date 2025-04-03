@@ -26,6 +26,9 @@ function Model({ ...props }) {
   const group = useRef();
   const { nodes, materials } = useGLTF("TableScene.gltf");
   const texture = useTexture(props.texture.selectedTexture);
+  const tablerunnertexture = useTexture(
+    props.tablerunnertexture.selectedTableRunnerTexture
+  );
 
   return (
     <group ref={group} {...props} dispose={null} scale={1.5}>
@@ -38,6 +41,15 @@ function Model({ ...props }) {
           >
             <mesh geometry={nodes.TableCloth.geometry}>
               <meshStandardMaterial map={texture} />
+            </mesh>
+          </group>
+          <group
+            position={[0, 73, 10]}
+            rotation={[Math.PI / 12, 0, 600]}
+            scale={[20, 200, 90]}
+          >
+            <mesh geometry={nodes.TableRunner.geometry}>
+              <meshStandardMaterial map={tablerunnertexture} />
             </mesh>
           </group>
         </group>
@@ -54,8 +66,9 @@ function App() {
     setSelectedTexture(texturePath);
   };
 
-  const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] =
-    useState("/testtexture.jpg"); // Initial texture
+  const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] = useState(
+    "/pexels-maryann-kariuki-4303015.jpg"
+  ); // Initial texture
   const handleTableRunnerTextureSelect = (tablerunnertexturePath) => {
     setSelectedTableRunnerTexture(tablerunnertexturePath);
   };
@@ -87,7 +100,12 @@ function App() {
                   castShadow
                 />
 
-                <Model texture={{ selectedTexture: selectedTexture }} />
+                <Model
+                  texture={{ selectedTexture: selectedTexture }}
+                  tablerunnertexture={{
+                    selectedTableRunnerTexture: selectedTableRunnerTexture,
+                  }}
+                />
                 <OrbitControls
                   enablePan={true}
                   enableZoom={false}

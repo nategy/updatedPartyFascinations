@@ -4,21 +4,25 @@ import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
-function TableRunnerSelector({ textures, selectedTexture, onSelectTexture }) {
+function TableRunnerSelector({
+  textures,
+  selectedTableRunnerTexture,
+  onSelectTexture,
+}) {
   const [click, setClick] = useState(false);
   const [showTablerunners, setTablerunners] = useState(false);
   //Left off here
-  const tableChairrunners = () => setTablerunners(!showTablerunners);
+  const tablerunners = () => setTablerunners(!showTablerunners);
   return (
     <div className='s-wrapper'>
       <h2>
         Table Runners
         <RiArrowDropDownLine
           className='s-down-arrow'
-          onClick={tableChairrunners}
+          onClick={tablerunners}
           style={{
             border:
-              textures === selectedTexture
+              textures === selectedTableRunnerTexture
                 ? "2px solid blue"
                 : "2px solid transparent",
           }}
