@@ -29,6 +29,9 @@ function Model({ ...props }) {
   const tablerunnertexture = useTexture(
     props.tablerunnertexture.selectedTableRunnerTexture
   );
+  const chairrunnertexture = useTexture(
+    "/tablecloths/pexels-laura-james-6101966.jpg"
+  );
 
   return (
     <group ref={group} {...props} dispose={null} scale={1.5}>
@@ -49,6 +52,15 @@ function Model({ ...props }) {
             scale={[20, 200, 90]}
           >
             <mesh geometry={nodes.TableRunner.geometry}>
+              <meshStandardMaterial map={chairrunnertexture} />
+            </mesh>
+          </group>
+          <group
+            position={[-275, 80, 10]}
+            rotation={[-Math.PI / -12, 300, 0]}
+            scale={[40, 60, 50]}
+          >
+            <mesh geometry={nodes.Chair.geometry}>
               <meshStandardMaterial map={tablerunnertexture} />
             </mesh>
           </group>

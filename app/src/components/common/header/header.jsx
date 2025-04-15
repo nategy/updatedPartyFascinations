@@ -9,18 +9,18 @@ function Header() {
     return (
         <section className="header">
             <p className="location">
-            <HiLocationMarker className="location-icon" />
-                9941 Old Lockhart Rd, Austin, TX 78747
+            <HiLocationMarker className="location-icon icon" />
+                <span className="icon-text">9941 Old Lockhart Rd, Austin, TX 78747</span>
             </p>
-            <p className="phone">
+            <p className="phone icon">
             <FaPhoneAlt className="phone-icon" />
-                (512) 402-2141
+                <span className="icon-text">(512) 402-2141</span>
             </p>
-            <a className="facebook-icon" target="_blank" rel="nofollow noopener noreferrer"
+            <a className="facebook-icon icon" target="_blank" rel="nofollow noopener noreferrer"
                 href="https://www.facebook.com/PartyFascinations/" >
                 <FaFacebookF size="13px" />
             </a>
-            <a className="instagram-icon" target="_blank" rel="nofollow noopener noreferrer"
+            <a className="instagram-icon icon" target="_blank" rel="nofollow noopener noreferrer"
                 href="https://www.instagram.com/partyfascinations/" >
                 <BsInstagram size="12px" />
             </a>
