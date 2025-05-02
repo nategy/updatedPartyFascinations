@@ -52,7 +52,7 @@ function Model({ ...props }) {
             scale={[20, 200, 90]}
           >
             <mesh geometry={nodes.TableRunner.geometry}>
-              <meshStandardMaterial map={chairrunnertexture} />
+              <meshStandardMaterial map={tablerunnertexture} />
             </mesh>
           </group>
           <group
@@ -61,7 +61,7 @@ function Model({ ...props }) {
             scale={[40, 60, 50]}
           >
             <mesh geometry={nodes.Chair.geometry}>
-              <meshStandardMaterial map={tablerunnertexture} />
+              <meshStandardMaterial map={chairrunnertexture} />
             </mesh>
           </group>
         </group>
@@ -148,7 +148,6 @@ function App() {
             />
           </div>
         </div>
-        <Subtotal />
       </div>
       <Footer />
     </div>

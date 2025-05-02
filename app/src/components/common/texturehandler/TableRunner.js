@@ -12,7 +12,10 @@ function TableRunnerSelector({
   const [click, setClick] = useState(false);
   const [showTablerunners, setTablerunners] = useState(false);
   //Left off here
-  const tablerunners = () => setTablerunners(!showTablerunners);
+  const tablerunners = () => {
+    setTablerunners(!showTablerunners);
+    click(!setClick);
+  };
   return (
     <div className='s-wrapper'>
       <h2>

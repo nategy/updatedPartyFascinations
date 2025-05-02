@@ -98,7 +98,7 @@ h1{
   padding-top: 75px;
   display: flex;
   flex-direction: row;
-  align-items: start;
+  justify-content: center;
   background-color: #f5f5f5;
   color: white;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -118,7 +118,7 @@ h1{
 
 .card {
   height: 45vh;
-  width: 40vw;
+  width: 70vw;
   border-radius: 9.3%;
   box-shadow: 0 4px 8px 10px rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -130,7 +130,7 @@ h1{
 
 .product-canvas {
   height: 45vh;
-  width: 40vw;
+  width: 60vw;
   border-radius: 9.3%;
   background: rgb(213, 208, 208);
   /*box-shadow:  10px 15px 15px 6px #6e6971;*/
