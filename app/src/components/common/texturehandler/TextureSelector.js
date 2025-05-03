@@ -1,44 +1,62 @@
 import "./texture.css";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
-function TextureSelector({ textures, selectedTexture, onSelectTexture }) {
-  const [click, setClick] = useState(false);
-  const [showTablecloths, setTablecloths] = useState(false);
-  //Left off here
-  const toggleTablecloths = () => setTablecloths(!showTablecloths);
+function TextureSelector({
+  selector,
+  textures,
+  selectedTexture,
+  onSelectTexture,
+}) {
+  const [showChairrunners, setChairrunners] = useState(false);
+
+  // Use useCallback to memoize the toggle function to prevent unnecessary re-renders
+  const toggleChairrunners = useCallback(() => {
+    setChairrunners((prevState) => !prevState);
+  }, []);
+
   return (
     <div className='s-wrapper'>
-      <h2>
-        Tablecloths
+      <div className='header'>
+        <h2>{selector}</h2>
         <RiArrowDropDownLine
           className='s-down-arrow'
-          onClick={toggleTablecloths}
+          onClick={toggleChairrunners}
+          aria-label='Toggle chairrunners'
           style={{
             border:
               textures === selectedTexture
-                ? "2px solid blue"
+                ? "2px solid #4a90e2"
                 : "2px solid transparent",
+            cursor: "pointer",
           }}
         />
-      </h2>
-      {showTablecloths && (
+      </div>
+
+      {showChairrunners && (
         <div className='s-slider-wrapper'>
-          <BsArrowLeftCircleFill className='s-arrow' />
+          <BsArrowLeftCircleFill
+            className='s-arrow'
+            aria-label='Previous texture'
+          />
           <div className='s-selector'>
             {textures.map((texture, index) => (
               <button
                 className='s-btn'
                 key={index}
                 onClick={() => onSelectTexture(texture)}
+                aria-label={`Select texture ${index + 1}`}
               >
-                <img src={texture} alt='no display found' />
+                <img src={texture} alt={`Texture ${index + 1}`} />
               </button>
             ))}
           </div>
-          <BsArrowRightCircleFill className='s-arrow' />
+          <BsArrowRightCircleFill
+            className='s-arrow'
+            aria-label='Next texture'
+          />
         </div>
       )}
     </div>

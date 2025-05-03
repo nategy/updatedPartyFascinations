@@ -4,18 +4,18 @@ import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
-function ChairRunnerSelector({ textures, selectedTexture, onSelectTexture }) {
+function TextureSelector({ textures, selectedTexture, onSelectTexture }) {
   const [click, setClick] = useState(false);
-  const [showChairrunners, setChairrunners] = useState(false);
+  const [showTablecloths, setTablecloths] = useState(false);
   //Left off here
-  const toggleChairrunners = () => setChairrunners(!showChairrunners);
+  const toggleTablecloths = () => setTablecloths(!showTablecloths);
   return (
     <div className='s-wrapper'>
       <h2>
-        Chair Runners
+        Tablecloths
         <RiArrowDropDownLine
           className='s-down-arrow'
-          onClick={toggleChairrunners}
+          onClick={toggleTablecloths}
           style={{
             border:
               textures === selectedTexture
@@ -24,7 +24,7 @@ function ChairRunnerSelector({ textures, selectedTexture, onSelectTexture }) {
           }}
         />
       </h2>
-      {showChairrunners && (
+      {showTablecloths && (
         <div className='s-slider-wrapper'>
           <BsArrowLeftCircleFill className='s-arrow' />
           <div className='s-selector'>
@@ -45,4 +45,4 @@ function ChairRunnerSelector({ textures, selectedTexture, onSelectTexture }) {
   );
 }
 
-export default ChairRunnerSelector;
+export default TextureSelector;
