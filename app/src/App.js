@@ -160,17 +160,16 @@ function App() {
       <div className='wrapper'>
         <div className='card'>
           <div className='product-canvas'>
-            <Canvas>
+            <Canvas camera={{ position: [0, 5, 15], fov: 35 }}>
               <Suspense fallback={null}>
-                <ambientLight />
+                <ambientLight intensity={0.5} />
                 <spotLight
                   intensity={0.9}
-                  angle={0.1}
+                  angle={0.15}
                   penumbra={1}
                   position={[10, 15, 10]}
                   castShadow
                 />
-
                 <Model
                   tableClothTexture={{
                     selectedTableClothTexture: selectedTableClothTexture,
@@ -184,8 +183,11 @@ function App() {
                 />
                 <OrbitControls
                   enablePan={true}
-                  enableZoom={false}
+                  enableZoom={true}
                   enableRotate={true}
+                  maxPolarAngle={Math.PI / 2.2}
+                  minDistance={5}
+                  maxDistance={25}
                 />
               </Suspense>
             </Canvas>

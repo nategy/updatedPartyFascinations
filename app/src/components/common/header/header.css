@@ -1,40 +1,69 @@
 .header {
-  padding: 10px;
+  padding: 12px 20px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-around;
-  align-content: center;
-  position: sticky;
-  color: #ffffff;
   background-color: rgb(99, 11, 140);
-  font-size: 12px;
+  color: #fff;
+  font-size: 14px;
   font-family: "Arial", "Helvetica", sans-serif;
   font-weight: bold;
-  text-decoration: none;
-  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.header p {
-  justify-self: center;
-  color: #ffffff;
+.left-group {
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 
-.icon {
-  color: #ffffff;
+.right-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  gap: 16px;
 }
 
 .icon-text {
-  padding-left: 5px;
+  margin-left: 6px;
+  line-height: 1.4;
 }
 
-@media screen and (max-width: 800px) {
-  /* .header {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-    
-      .header p {} */
+.header p,
+.header a {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.header a:hover {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.facebook-icon,
+.instagram-icon {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .left-group,
+  .right-group {
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .right-group {
+    gap: 12px;
+  }
 }
