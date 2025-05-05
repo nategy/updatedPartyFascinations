@@ -1,5 +1,5 @@
 .navbar {
-  background: #fff;
+  background: #3f3f3f;
   height: 80px;
   width: 100%;
   display: flex;
@@ -46,8 +46,12 @@
   position: relative;
 }
 
+#nav-home-link {
+  color: #b677c5;
+}
+
 .nav-links {
-  color: #000;
+  color: #eee;
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -55,8 +59,7 @@
 }
 
 .nav-links:hover {
-  background-color: #7e2e90;
-  color: white;
+  color: #c992d6;
 }
 
 /* Mobile Styles */

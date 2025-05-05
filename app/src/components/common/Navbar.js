@@ -54,38 +54,70 @@ function Navbar() {
         </button>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <li className='nav-item'>
-            <Link
-              to='/portfolio'
+            <a
+              id='nav-home-link'
+              href='https://partyfascinations.com/'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Home
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a
+              href='https://partyfascinations.com/portfolio'
               className='nav-links'
               onClick={closeMobileMenu}
             >
               Portfolio
-            </Link>
+            </a>
           </li>
           <li className='nav-item'>
-            <Link
-              to='/services'
+            <a
+              href='https://partyfascinations.com/services'
               className='nav-links'
               onClick={closeMobileMenu}
             >
               Services
-            </Link>
+            </a>
           </li>
           <li className='nav-item'>
-            <Link to='/about' className='nav-links' onClick={closeMobileMenu}>
+            <a
+              href='https://partyfascinations.com/packages'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Packages
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a
+              href='https://partyfascinations.com/reviews'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Reviews
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a
+              href='https://partyfascinations.com/About'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
               About
-            </Link>
+            </a>
           </li>
-          <li
-            className='nav-item'
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-          >
-            <Link to='/contact' className='nav-links' onClick={closeMobileMenu}>
+          <li className='nav-item'>
+            <a
+              href='https://partyfascinations.com/contact'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
               Contact
-            </Link>
-            {dropdown && <Dropdown />}
+            </a>
           </li>
+          {dropdown && <Dropdown />}
         </ul>
       </div>
     </nav>
