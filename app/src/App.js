@@ -23,6 +23,9 @@ function Model({ ...props }) {
   const chairClothTexture = useTexture(
     props.chairCoverTexture.selectedChairCoverTexture
   );
+  const chairRunnerTexture = useTexture(
+    props.chairRunnerTexture.selectedChairRunnerTexture
+  );
 
   return (
     <group ref={group} {...props} dispose={null} scale={1.5}>
@@ -47,7 +50,7 @@ function Model({ ...props }) {
           </mesh>
         </group>
 
-        {/* Chair */}
+        {/* Chairs */}
         <group
           name='Chair1'
           position={[0, 0, -300]}
@@ -118,6 +121,20 @@ function Model({ ...props }) {
             <meshStandardMaterial map={chairClothTexture} />
           </mesh>
         </group>
+
+        {/* Chair Runners */}
+        {/*   gonna need to make 6 total one for each chair.
+        <group
+          name='ChairRunner'
+          position={[0, 5.5, 0]}
+          rotation={[0, 0, Math.PI]}
+          scale={[100, 2, 25]}
+        >
+          <mesh geometry={nodes.ChairRunner.geometry}>
+            <meshStandardMaterial map={chairRunnerTexture} />
+          </mesh>
+        </group>
+*/}
       </group>
     </group>
   );
@@ -142,6 +159,12 @@ function App() {
     useState("/testtexture.jpg"); // Initial texture
   const handleChairCoverTextureSelect = (chairCoverTexturePath) => {
     setSelectedChairCoverTexture(chairCoverTexturePath);
+  };
+
+  const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] =
+    useState("/testtexture.jpg"); // Initial texture
+  const handleChairRunnerTextureSelect = (chairRunnerTexturePath) => {
+    setSelectedChairRunnerTexture(chairRunnerTexturePath);
   };
 
   const texturePaths = [
@@ -180,6 +203,9 @@ function App() {
                   chairCoverTexture={{
                     selectedChairCoverTexture: selectedChairCoverTexture,
                   }}
+                  chairRunnerTexture={{
+                    selectedChairRunnerTexture: selectedChairRunnerTexture,
+                  }}
                 />
                 <OrbitControls
                   enablePan={true}
@@ -214,6 +240,14 @@ function App() {
               textures={texturePaths}
               selectedTexture={selectedChairCoverTexture}
               onSelectTexture={handleChairCoverTextureSelect}
+            />
+          </div>
+          <div className='crselector-wrapper'>
+            <TextureSelector
+              selector='Chair Runners'
+              textures={texturePaths}
+              selectedTexture={selectedChairRunnerTexture}
+              onSelectTexture={handleChairRunnerTextureSelect}
             />
           </div>
         </div>

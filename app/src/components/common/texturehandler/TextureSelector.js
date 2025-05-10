@@ -10,11 +10,11 @@ function TextureSelector({
   selectedTexture,
   onSelectTexture,
 }) {
-  const [showChairrunners, setChairrunners] = useState(false);
+  const [showTextures, setTextures] = useState(false);
 
   // Use useCallback to memoize the toggle function to prevent unnecessary re-renders
-  const toggleChairrunners = useCallback(() => {
-    setChairrunners((prevState) => !prevState);
+  const toggleTextures = useCallback(() => {
+    setTextures((prevState) => !prevState);
   }, []);
 
   return (
@@ -23,7 +23,7 @@ function TextureSelector({
         <h2>{selector}</h2>
         <RiArrowDropDownLine
           className='s-down-arrow'
-          onClick={toggleChairrunners}
+          onClick={toggleTextures}
           aria-label='Toggle chairrunners'
           style={{
             border:
@@ -35,7 +35,7 @@ function TextureSelector({
         />
       </div>
 
-      {showChairrunners && (
+      {showTextures && (
         <div className='s-slider-wrapper'>
           <BsArrowLeftCircleFill
             className='s-arrow'
