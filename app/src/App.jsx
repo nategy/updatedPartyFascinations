@@ -13,6 +13,7 @@ import TextureSelector from "./components/common/texturehandler/TextureSelector"
 function Model({ ...props }) {
   const group = useRef();
   const { nodes, materials } = useGLTF("TableScene.gltf");
+  // const { nodes, materials } = useGLTF("PartyFascinationScene.gltf");
 
   const tableClothTexture = useTexture(
     props.tableClothTexture.selectedTableClothTexture
