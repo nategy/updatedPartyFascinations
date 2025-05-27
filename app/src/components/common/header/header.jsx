@@ -3,15 +3,18 @@ import {HiLocationMarker} from "react-icons/hi"
 import {FaPhoneAlt} from "react-icons/fa"
 import {FaFacebookF} from "react-icons/fa"
 import {BsInstagram} from "react-icons/bs"
+import Logo from "../images/pf-logo-white.png"
+
 import "./header.css"
 
 function Header() {
     return (
         <section className="header">
         <div className="left-group">
+          <img src={Logo} alt='Party Fascinations Logo' className='main-icon'/>
           <p className="location">
-            <HiLocationMarker className="icon" />
-            <span className="icon-text">9941 Old Lockhart Rd, Austin, TX 78747</span>
+            <HiLocationMarker className="location-icon" />
+            <span className="location-icon icon-text">9941 Old Lockhart Rd, Austin, TX 78747</span>
           </p>
         </div>
   

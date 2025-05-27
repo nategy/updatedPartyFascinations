@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Dropdown from "./Dropdown";
-import Logo from "./pf-logo.png";
+import Logo from "./images/pf-logo.png";
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -41,9 +41,7 @@ function Navbar() {
           className='navbar-logo'
           onClick={closeMobileMenu}
           aria-label='Home'
-        >
-          <img src={Logo} alt='Party Fascinations Logo' className='main-icon' />
-        </Link>
+        ></Link>
         <button
           className='menu-icon'
           onClick={handleClick}

@@ -2,19 +2,17 @@ import "./index.css";
 import Navbar from "./components/common/Navbar";
 import Header from "./components/common/header/header";
 import Footer from "./components/common/footer/Footer";
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import TextureSelector from "./components/common/texturehandler/TextureSelector";
 import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 
 function Model({ ...props }) {
   const group = useRef();
-  const { nodes, materials } = useGLTF("TableScene.gltf");
-  // const { nodes, materials } = useGLTF("PartyFascinationScene.gltf");
+  const { nodes } = useGLTF("TableScene.gltf");
 
   const tableClothTexture = useTexture(
     props.tableClothTexture.selectedTableClothTexture
@@ -30,17 +28,13 @@ function Model({ ...props }) {
   );
 
   return (
-    <group ref={group} {...props} dispose={null} scale={1.5}>
-      {/* Root rotation for GLTF import alignment */}
+    <group ref={group} {...props} dispose={null} scale={2}>
       <group rotation={[0, 0, 0]} scale={0.01}>
-        {/* Tablecloth */}
         <group name='Tablecloth' position={[0, 0, 0]} scale={[200, 200, 200]}>
           <mesh geometry={nodes.TableCloth.geometry}>
             <meshStandardMaterial map={tableClothTexture} />
           </mesh>
         </group>
-
-        {/* Table Runner */}
         <group
           name='TableRunner'
           position={[0, 5.5, 0]}
@@ -51,92 +45,37 @@ function Model({ ...props }) {
             <meshStandardMaterial map={tableRunnerTexture} />
           </mesh>
         </group>
-
-        {/* Chairs */}
-        <group
-          name='Chair1'
-          position={[0, 0, -300]}
-          rotation={[0, Math.PI, 0]} // 300 deg ≈ 5.24 rad ≈ 1.66π
-          scale={[80, 80, 80]}
-        >
-          <mesh geometry={nodes.Chair.geometry}>
-            <meshStandardMaterial map={chairClothTexture} />
-          </mesh>
-        </group>
-
-        {/* Chair 2*/}
-        <group
-          name='Chair2'
-          position={[-250, 0, -170]}
-          rotation={[0, (8 * Math.PI) / 6, 0]} // 300 deg ≈ 5.24 rad ≈ 1.66π
-          scale={[80, 80, 80]}
-        >
-          <mesh geometry={nodes.Chair.geometry}>
-            <meshStandardMaterial map={chairClothTexture} />
-          </mesh>
-        </group>
-
-        {/* Chair 3*/}
-        <group
-          name='Chair3'
-          position={[250, 0, -170]}
-          rotation={[0, (4 * Math.PI) / 6, 0]} // 300 deg ≈ 5.24 rad ≈ 1.66π
-          scale={[80, 80, 80]}
-        >
-          <mesh geometry={nodes.Chair.geometry}>
-            <meshStandardMaterial map={chairClothTexture} />
-          </mesh>
-        </group>
-
-        {/* Chair 4*/}
-        <group
-          name='Chair4'
-          position={[0, 0, 300]}
-          rotation={[0, 0, 0]} // 300 deg ≈ 5.24 rad ≈ 1.66π
-          scale={[80, 80, 80]}
-        >
-          <mesh geometry={nodes.Chair.geometry}>
-            <meshStandardMaterial map={chairClothTexture} />
-          </mesh>
-        </group>
-
-        {/* Chair 5*/}
-        <group
-          name='Chair5'
-          position={[-250, 0, 150]}
-          rotation={[0, (10 * Math.PI) / 6, 0]} // 300 deg ≈ 5.24 rad ≈ 1.66π
-          scale={[80, 80, 80]}
-        >
-          <mesh geometry={nodes.Chair.geometry}>
-            <meshStandardMaterial map={chairClothTexture} />
-          </mesh>
-        </group>
-
-        {/* Chair 6*/}
-        <group
-          name='Chair6'
-          position={[250, 0, 150]}
-          rotation={[0, Math.PI / 3, 0]} // 300 deg ≈ 5.24 rad ≈ 1.66π
-          scale={[80, 80, 80]}
-        >
-          <mesh geometry={nodes.Chair.geometry}>
-            <meshStandardMaterial map={chairClothTexture} />
-          </mesh>
-        </group>
-
-        {/* Chair Runners */}
-        {/*   gonna need to make 6 total one for each chair.
-        <group
-          name='ChairRunner'
-          position={[0, 5.5, 0]}
-          rotation={[0, 0, Math.PI]}
-          scale={[100, 2, 25]}
-        >
-          <mesh geometry={nodes.ChairRunner.geometry}>
-            <meshStandardMaterial map={chairRunnerTexture} />
-          </mesh>
-        </group>
-*/}
+        {[...Array(6)].map((_, i) => {
+          const positions = [
+            [0, 0, -300],
+            [-250, 0, -170],
+            [250, 0, -170],
+            [0, 0, 300],
+            [-250, 0, 150],
+            [250, 0, 150],
+          ];
+          const rotations = [
+            [0, Math.PI, 0],
+            [0, (8 * Math.PI) / 6, 0],
+            [0, (4 * Math.PI) / 6, 0],
+            [0, 0, 0],
+            [0, (10 * Math.PI) / 6, 0],
+            [0, Math.PI / 3, 0],
+          ];
+          return (
+            <group
+              key={`Chair${i}`}
+              name={`Chair${i}`}
+              position={positions[i]}
+              rotation={rotations[i]}
+              scale={[80, 80, 80]}
+            >
+              <mesh geometry={nodes.Chair.geometry}>
+                <meshStandardMaterial map={chairClothTexture} />
+              </mesh>
+            </group>
+          );
+        })}
       </group>
     </group>
   );
@@ -145,36 +84,34 @@ function Model({ ...props }) {
 function App() {
   const [selectedTableClothTexture, setSelectedTableClothTexture] = useState(
     "/pexels-maryann-kariuki-4303015.jpg"
-  ); // Initial texture
-  const handleTableClothTextureSelect = (tableClothTexturePath) => {
-    setSelectedTableClothTexture(tableClothTexturePath);
-  };
-
+  );
   const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] = useState(
     "/pexels-maryann-kariuki-4303015.jpg"
-  ); // Initial texture
-  const handleTableRunnerTextureSelect = (tablerunnertexturePath) => {
-    setSelectedTableRunnerTexture(tablerunnertexturePath);
-  };
-
+  );
   const [selectedChairCoverTexture, setSelectedChairCoverTexture] =
-    useState("/testtexture.jpg"); // Initial texture
-  const handleChairCoverTextureSelect = (chairCoverTexturePath) => {
-    setSelectedChairCoverTexture(chairCoverTexturePath);
-  };
-
+    useState("/testtexture.jpg");
   const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] =
-    useState("/testtexture.jpg"); // Initial texture
-  const handleChairRunnerTextureSelect = (chairRunnerTexturePath) => {
-    setSelectedChairRunnerTexture(chairRunnerTexturePath);
-  };
+    useState("/testtexture.jpg");
 
   const texturePaths = [
     "/tablecloths/pexels-anni-roenkae-4175070.jpg",
     "/tablecloths/pexels-laura-james-6101966.jpg",
     "/tablecloths/pexels-maryann-kariuki-4303015.jpg",
-    // Add more texture paths as needed
   ];
+
+  const [cameraPosition, setCameraPosition] = useState([0, 5, 15]); // default (mobile)
+
+  useEffect(() => {
+    const updateCamera = () => {
+      const isMobile = window.innerWidth <= 768;
+      setCameraPosition(isMobile ? [0, 5, 15] : [0, 12, 25]); // top-down angled view for desktop
+    };
+
+    updateCamera(); // run once on mount
+    window.addEventListener("resize", updateCamera); // update on resize
+
+    return () => window.removeEventListener("resize", updateCamera); // cleanup
+  }, []);
 
   return (
     <div className='App'>
@@ -185,7 +122,7 @@ function App() {
       <div className='wrapper'>
         <div className='card'>
           <div className='product-canvas'>
-            <Canvas camera={{ position: [0, 5, 15], fov: 35 }}>
+            <Canvas camera={{ position: cameraPosition, fov: 35 }}>
               <Suspense fallback={null}>
                 <ambientLight intensity={0.5} />
                 <spotLight
@@ -197,16 +134,16 @@ function App() {
                 />
                 <Model
                   tableClothTexture={{
-                    selectedTableClothTexture: selectedTableClothTexture,
+                    selectedTableClothTexture,
                   }}
                   tableRunnerTexture={{
-                    selectedTableRunnerTexture: selectedTableRunnerTexture,
+                    selectedTableRunnerTexture,
                   }}
                   chairCoverTexture={{
-                    selectedChairCoverTexture: selectedChairCoverTexture,
+                    selectedChairCoverTexture,
                   }}
                   chairRunnerTexture={{
-                    selectedChairRunnerTexture: selectedChairRunnerTexture,
+                    selectedChairRunnerTexture,
                   }}
                 />
                 <OrbitControls
@@ -220,62 +157,32 @@ function App() {
               </Suspense>
             </Canvas>
           </div>
-          <TabbedTexturePanel
-            textureConfig={{
-              tableCloth: {
-                textures: texturePaths,
-                selectedTexture: selectedTableClothTexture,
-                onSelectTexture: handleTableClothTextureSelect,
-              },
-              tableRunner: {
-                textures: texturePaths,
-                selectedTexture: selectedTableRunnerTexture,
-                onSelectTexture: handleTableRunnerTextureSelect,
-              },
-              chairCover: {
-                textures: texturePaths,
-                selectedTexture: selectedChairCoverTexture,
-                onSelectTexture: handleChairCoverTextureSelect,
-              },
-              chairRunner: {
-                textures: texturePaths,
-                selectedTexture: selectedChairRunnerTexture,
-                onSelectTexture: handleChairRunnerTextureSelect,
-              },
-            }}
-          />
-          {/* <div className='tcselector-wrapper'>
-            <TextureSelector
-              selector='Table Cloths'
-              textures={texturePaths}
-              selectedTableClothTexture={selectedTableClothTexture}
-              onSelectTexture={handleTableClothTextureSelect}
+          <div className='texture-scroll-area'>
+            <TabbedTexturePanel
+              textureConfig={{
+                tableCloth: {
+                  textures: texturePaths,
+                  selectedTexture: selectedTableClothTexture,
+                  onSelectTexture: setSelectedTableClothTexture,
+                },
+                tableRunner: {
+                  textures: texturePaths,
+                  selectedTexture: selectedTableRunnerTexture,
+                  onSelectTexture: setSelectedTableRunnerTexture,
+                },
+                chairCover: {
+                  textures: texturePaths,
+                  selectedTexture: selectedChairCoverTexture,
+                  onSelectTexture: setSelectedChairCoverTexture,
+                },
+                chairRunner: {
+                  textures: texturePaths,
+                  selectedTexture: selectedChairRunnerTexture,
+                  onSelectTexture: setSelectedChairRunnerTexture,
+                },
+              }}
             />
           </div>
-          <div className='trselector-wrapper'>
-            <TextureSelector
-              selector='Table Runners'
-              textures={texturePaths}
-              selectedTableRunnerTexture={selectedTableRunnerTexture}
-              onSelectTexture={handleTableRunnerTextureSelect}
-            />
-          </div>
-          <div className='ccselector-wrapper'>
-            <TextureSelector
-              selector='Chair Covers'
-              textures={texturePaths}
-              selectedTexture={selectedChairCoverTexture}
-              onSelectTexture={handleChairCoverTextureSelect}
-            />
-          </div>
-          <div className='crselector-wrapper'>
-            <TextureSelector
-              selector='Chair Runners'
-              textures={texturePaths}
-              selectedTexture={selectedChairRunnerTexture}
-              onSelectTexture={handleChairRunnerTextureSelect}
-            />
-          </div> */}
         </div>
       </div>
       <Footer />
