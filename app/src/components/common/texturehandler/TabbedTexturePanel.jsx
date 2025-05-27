@@ -1,6 +1,8 @@
 import { useState } from "react";
 import TextureSelector from "./TextureSelector";
 
+import "./tabtexture.css"
+
 const tabs = [
   { label: "Table Cloths", key: "tableCloth" },
   { label: "Table Runners", key: "tableRunner" },

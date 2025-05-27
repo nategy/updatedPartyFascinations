@@ -9,6 +9,7 @@ import { useTexture } from "@react-three/drei";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import TextureSelector from "./components/common/texturehandler/TextureSelector";
+import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 
 function Model({ ...props }) {
   const group = useRef();
@@ -219,7 +220,31 @@ function App() {
               </Suspense>
             </Canvas>
           </div>
-          <div className='tcselector-wrapper'>
+          <TabbedTexturePanel
+            textureConfig={{
+              tableCloth: {
+                textures: texturePaths,
+                selectedTexture: selectedTableClothTexture,
+                onSelectTexture: handleTableClothTextureSelect,
+              },
+              tableRunner: {
+                textures: texturePaths,
+                selectedTexture: selectedTableRunnerTexture,
+                onSelectTexture: handleTableRunnerTextureSelect,
+              },
+              chairCover: {
+                textures: texturePaths,
+                selectedTexture: selectedChairCoverTexture,
+                onSelectTexture: handleChairCoverTextureSelect,
+              },
+              chairRunner: {
+                textures: texturePaths,
+                selectedTexture: selectedChairRunnerTexture,
+                onSelectTexture: handleChairRunnerTextureSelect,
+              },
+            }}
+          />
+          {/* <div className='tcselector-wrapper'>
             <TextureSelector
               selector='Table Cloths'
               textures={texturePaths}
@@ -250,7 +275,7 @@ function App() {
               selectedTexture={selectedChairRunnerTexture}
               onSelectTexture={handleChairRunnerTextureSelect}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />
