@@ -1,10 +1,11 @@
 .tabbed-panel {
-  background-color: #e1d9f1;
+  background-color: #e8dff5; /* Soft lavender background */
   padding: 16px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin: 10px 0;
   overflow: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .tab-buttons {
@@ -22,7 +23,8 @@
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background-color 0.2s ease;
+  color: #3b3b3b;
 }
 
 .tab-btn:hover {
@@ -30,10 +32,43 @@
 }
 
 .tab-btn.active {
-  background-color: #4a90e2;
+  background-color: #a35bb7;
   color: white;
 }
 
+/* Make label and dropdowns more visible */
+.tabbed-panel label {
+  color: #52106a;
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: inline-block;
+  font-size: 0.95rem;
+}
+
+.tabbed-panel select {
+  background-color: #a774cb;
+  color: #2a2a2a;
+  border: 1px solid #c3aee3;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+}
+
+.tabbed-panel select:focus {
+  border-color: #a35bb7;
+  box-shadow: 0 0 0 2px rgba(163, 91, 183, 0.3);
+}
+
+.tab-content {
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Hide the panel when mobile nav is open */
 @media screen and (max-width: 960px) {
   .hide-panel {
     display: none !important;

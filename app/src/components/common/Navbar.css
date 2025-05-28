@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #000000;
 }
 
 .navbar-container {
@@ -79,6 +79,7 @@
     font-size: 1.8rem;
     display: block;
     cursor: pointer;
+    color: #b677c5; /* make hamburger icon white for contrast */
   }
 
   .nav-menu {
@@ -88,9 +89,10 @@
     position: absolute;
     top: 80px;
     left: -100%;
-    background-color: #a03ba0;
+    background-color: rgba(63, 63, 63, 0.95);
     transition: 0.5s ease;
-    z-index: 1;
+    z-index: 999; /* increased */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* subtle shadow */
   }
 
   .nav-menu.active {

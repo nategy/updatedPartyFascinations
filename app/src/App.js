@@ -132,11 +132,9 @@ function App() {
   return (
     <div className='App'>
       <Header />
-      {isLoggedIn && (
-        <Router>
-          <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
-        </Router>
-      )}
+      <Router>
+        <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
+      </Router>
       {!isLoggedIn ? (
         <div className='login-page'>
           <div className='login-container'>
