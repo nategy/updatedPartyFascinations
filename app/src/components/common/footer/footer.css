@@ -86,10 +86,25 @@
   .row {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0rem; /* <-- smaller gap for mobile */
+  }
+
+  .col,
+  .col2 {
+    flex: 1 1 150px;
+  }
+
+  .social-icons {
+    display: flex;
+    width: 100%;
+    gap: 1rem; /* space between icons */
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* keep some spacing above */
   }
 
   .facebook-icon,
   .instagram-icon {
-    margin-top: 1rem;
+    margin: 0; /* remove the previous margin-top */
   }
 }

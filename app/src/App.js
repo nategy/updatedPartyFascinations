@@ -82,6 +82,22 @@ function Model({ ...props }) {
 }
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = () => {
+    if (username.toLowerCase() === "admin" && password === "1234") {
+      setIsLoggedIn(true);
+      setError("");
+    } else {
+      setError("Invalid username or password.");
+    }
+  };
+
+  const [navOpen, setNavOpen] = useState(false);
+
   const [selectedTableClothTexture, setSelectedTableClothTexture] = useState(
     "/pexels-maryann-kariuki-4303015.jpg"
   );
@@ -116,75 +132,102 @@ function App() {
   return (
     <div className='App'>
       <Header />
-      <Router>
-        <Navbar />
-      </Router>
-      <div className='wrapper'>
-        <div className='card'>
-          <div className='product-canvas'>
-            <Canvas camera={{ position: cameraPosition, fov: 35 }}>
-              <Suspense fallback={null}>
-                <ambientLight intensity={0.5} />
-                <spotLight
-                  intensity={0.9}
-                  angle={0.15}
-                  penumbra={1}
-                  position={[10, 15, 10]}
-                  castShadow
-                />
-                <Model
-                  tableClothTexture={{
-                    selectedTableClothTexture,
-                  }}
-                  tableRunnerTexture={{
-                    selectedTableRunnerTexture,
-                  }}
-                  chairCoverTexture={{
-                    selectedChairCoverTexture,
-                  }}
-                  chairRunnerTexture={{
-                    selectedChairRunnerTexture,
-                  }}
-                />
-                <OrbitControls
-                  enablePan={true}
-                  enableZoom={true}
-                  enableRotate={true}
-                  maxPolarAngle={Math.PI / 2.2}
-                  minDistance={5}
-                  maxDistance={25}
-                />
-              </Suspense>
-            </Canvas>
-          </div>
-          <div className='texture-scroll-area'>
-            <TabbedTexturePanel
-              textureConfig={{
-                tableCloth: {
-                  textures: texturePaths,
-                  selectedTexture: selectedTableClothTexture,
-                  onSelectTexture: setSelectedTableClothTexture,
-                },
-                tableRunner: {
-                  textures: texturePaths,
-                  selectedTexture: selectedTableRunnerTexture,
-                  onSelectTexture: setSelectedTableRunnerTexture,
-                },
-                chairCover: {
-                  textures: texturePaths,
-                  selectedTexture: selectedChairCoverTexture,
-                  onSelectTexture: setSelectedChairCoverTexture,
-                },
-                chairRunner: {
-                  textures: texturePaths,
-                  selectedTexture: selectedChairRunnerTexture,
-                  onSelectTexture: setSelectedChairRunnerTexture,
-                },
-              }}
-            />
+      {isLoggedIn && (
+        <Router>
+          <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
+        </Router>
+      )}
+      {!isLoggedIn ? (
+        <div className='login-page'>
+          <div className='login-container'>
+            <div className='login-box'>
+              <h2>Login</h2>
+              <input
+                type='text'
+                placeholder='Username'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <input
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button onClick={handleLogin}>Log In</button>
+              {error && <p className='error'>{error}</p>}
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className='wrapper'>
+          <div className='card'>
+            <div className='product-canvas'>
+              <Canvas camera={{ position: cameraPosition, fov: 35 }}>
+                <Suspense fallback={null}>
+                  <ambientLight intensity={0.5} />
+                  <spotLight
+                    intensity={0.9}
+                    angle={0.15}
+                    penumbra={1}
+                    position={[10, 15, 10]}
+                    castShadow
+                  />
+                  <Model
+                    tableClothTexture={{
+                      selectedTableClothTexture,
+                    }}
+                    tableRunnerTexture={{
+                      selectedTableRunnerTexture,
+                    }}
+                    chairCoverTexture={{
+                      selectedChairCoverTexture,
+                    }}
+                    chairRunnerTexture={{
+                      selectedChairRunnerTexture,
+                    }}
+                  />
+                  <OrbitControls
+                    enablePan={true}
+                    enableZoom={true}
+                    enableRotate={true}
+                    maxPolarAngle={Math.PI / 2.2}
+                    minDistance={5}
+                    maxDistance={25}
+                  />
+                </Suspense>
+              </Canvas>
+            </div>
+            <div className='texture-scroll-area'>
+              <TabbedTexturePanel
+                navOpen={navOpen}
+                textureConfig={{
+                  tableCloth: {
+                    textures: texturePaths,
+                    selectedTexture: selectedTableClothTexture,
+                    onSelectTexture: setSelectedTableClothTexture,
+                  },
+                  tableRunner: {
+                    textures: texturePaths,
+                    selectedTexture: selectedTableRunnerTexture,
+                    onSelectTexture: setSelectedTableRunnerTexture,
+                  },
+                  chairCover: {
+                    textures: texturePaths,
+                    selectedTexture: selectedChairCoverTexture,
+                    onSelectTexture: setSelectedChairCoverTexture,
+                  },
+                  chairRunner: {
+                    textures: texturePaths,
+                    selectedTexture: selectedChairRunnerTexture,
+                    onSelectTexture: setSelectedChairRunnerTexture,
+                  },
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       <Footer />
     </div>
   );

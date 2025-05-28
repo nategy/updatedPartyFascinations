@@ -58,16 +58,27 @@
 @media screen and (max-width: 600px) {
   .header {
     flex-direction: column;
-    text-align: center;
-  }
-
-  .location-icon {
-    visibility: hidden;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0;
+    position: relative;
   }
 
   .left-group,
   .right-group {
+    display: none;
+  }
+
+  .logo-container {
+    display: flex;
     justify-content: center;
-    margin-top: 8px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo-container img {
+    max-width: 140px;
+    height: auto;
+    display: block;
   }
 }

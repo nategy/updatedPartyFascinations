@@ -33,3 +33,9 @@
   background-color: #4a90e2;
   color: white;
 }
+
+@media screen and (max-width: 960px) {
+  .hide-panel {
+    display: none !important;
+  }
+}

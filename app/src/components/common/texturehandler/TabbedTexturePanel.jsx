@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TextureSelector from "./TextureSelector";
 
-import "./tabtexture.css"
+import "./tabtexture.css";
 
 const tabs = [
   { label: "Table Cloths", key: "tableCloth" },
@@ -11,13 +11,14 @@ const tabs = [
 ];
 
 export default function TabbedTexturePanel({
-  textureConfig // object with texture props for each category
+  textureConfig,
+  navOpen, // object with texture props for each category
 }) {
   const [activeTab, setActiveTab] = useState("tableCloth");
 
   return (
-    <div className="tabbed-panel">
-      <div className="tab-buttons">
+    <div className={`tabbed-panel ${navOpen ? "hide-panel" : ""}`}>
+      <div className='tab-buttons'>
         {tabs.map(({ label, key }) => (
           <button
             key={key}
@@ -29,9 +30,9 @@ export default function TabbedTexturePanel({
         ))}
       </div>
 
-      <div className="tab-content">
+      <div className='tab-content'>
         <TextureSelector
-          selector={tabs.find(t => t.key === activeTab).label}
+          selector={tabs.find((t) => t.key === activeTab).label}
           {...textureConfig[activeTab]}
         />
       </div>

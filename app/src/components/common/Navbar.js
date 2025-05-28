@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Dropdown from "./Dropdown";
 import Logo from "./images/pf-logo.png";
 
-function Navbar() {
-  const [click, setClick] = useState(false);
+function Navbar({ navOpen, setNavOpen }) {
   const [dropdown, setDropdown] = useState(false);
 
-  const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
+  const handleClick = () => setNavOpen(!navOpen);
+  const closeMobileMenu = () => setNavOpen(false);
 
   const onMouseEnter = () => {
     if (window.innerWidth >= 960) {
@@ -28,10 +27,16 @@ function Navbar() {
       if (window.innerWidth < 960) {
         setDropdown(false);
       }
+
+      // Close mobile menu when resizing to desktop
+      if (window.innerWidth >= 960 && navOpen) {
+        setNavOpen(false);
+      }
     };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [navOpen, setNavOpen]);
 
   return (
     <nav className='navbar' role='navigation' aria-label='Main navigation'>
@@ -41,16 +46,18 @@ function Navbar() {
           className='navbar-logo'
           onClick={closeMobileMenu}
           aria-label='Home'
-        ></Link>
+        >
+          <img src={Logo} alt='Party Fascinations Logo' className='main-icon' />
+        </Link>
         <button
           className='menu-icon'
           onClick={handleClick}
           aria-label='Toggle menu'
-          aria-expanded={click}
+          aria-expanded={navOpen}
         >
-          <i className={click ? "fas fa-times" : "fas fa-bars"} />
+          <i className={navOpen ? "fas fa-times" : "fas fa-bars"} />
         </button>
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
+        <ul className={navOpen ? "nav-menu active" : "nav-menu"}>
           <li className='nav-item'>
             <a
               id='nav-home-link'
