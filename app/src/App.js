@@ -10,6 +10,18 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 
+useGLTF.preload("/TableScene.gltf");
+
+function Chair({ position, rotation, texture, geometry }) {
+  return (
+    <group position={position} rotation={rotation} scale={[80, 80, 80]}>
+      <mesh geometry={geometry}>
+        <meshStandardMaterial map={texture} />
+      </mesh>
+    </group>
+  );
+}
+
 function Model({ ...props }) {
   const group = useRef();
   const { nodes } = useGLTF("TableScene.gltf");
@@ -26,6 +38,23 @@ function Model({ ...props }) {
   const chairRunnerTexture = useTexture(
     props.chairRunnerTexture.selectedChairRunnerTexture
   );
+
+  const positions = [
+    [0, 0, -300],
+    [-250, 0, -170],
+    [250, 0, -170],
+    [0, 0, 300],
+    [-250, 0, 150],
+    [250, 0, 150],
+  ];
+  const rotations = [
+    [0, Math.PI, 0],
+    [0, (8 * Math.PI) / 6, 0],
+    [0, (4 * Math.PI) / 6, 0],
+    [0, 0, 0],
+    [0, (10 * Math.PI) / 6, 0],
+    [0, Math.PI / 3, 0],
+  ];
 
   return (
     <group ref={group} {...props} dispose={null} scale={2}>
@@ -45,37 +74,15 @@ function Model({ ...props }) {
             <meshStandardMaterial map={tableRunnerTexture} />
           </mesh>
         </group>
-        {[...Array(6)].map((_, i) => {
-          const positions = [
-            [0, 0, -300],
-            [-250, 0, -170],
-            [250, 0, -170],
-            [0, 0, 300],
-            [-250, 0, 150],
-            [250, 0, 150],
-          ];
-          const rotations = [
-            [0, Math.PI, 0],
-            [0, (8 * Math.PI) / 6, 0],
-            [0, (4 * Math.PI) / 6, 0],
-            [0, 0, 0],
-            [0, (10 * Math.PI) / 6, 0],
-            [0, Math.PI / 3, 0],
-          ];
-          return (
-            <group
-              key={`Chair${i}`}
-              name={`Chair${i}`}
-              position={positions[i]}
-              rotation={rotations[i]}
-              scale={[80, 80, 80]}
-            >
-              <mesh geometry={nodes.Chair.geometry}>
-                <meshStandardMaterial map={chairClothTexture} />
-              </mesh>
-            </group>
-          );
-        })}
+        {positions.map((pos, i) => (
+          <Chair
+            key={`Chair${i}`}
+            position={pos}
+            rotation={rotations[i]}
+            texture={chairClothTexture}
+            geometry={nodes.Chair.geometry}
+          />
+        ))}
       </group>
     </group>
   );
@@ -161,7 +168,10 @@ function App() {
         <div className='wrapper'>
           <div className='card'>
             <div className='product-canvas'>
-              <Canvas camera={{ position: cameraPosition, fov: 35 }}>
+              <Canvas
+                camera={{ position: cameraPosition, fov: 35 }}
+                frameloop='demand'
+              >
                 <Suspense fallback={null}>
                   <ambientLight intensity={0.5} />
                   <spotLight
@@ -169,7 +179,7 @@ function App() {
                     angle={0.15}
                     penumbra={1}
                     position={[10, 15, 10]}
-                    castShadow
+                    castShadow={false}
                   />
                   <Model
                     tableClothTexture={{
