@@ -10,7 +10,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 
-useGLTF.preload("/TableScene.gltf");
+useGLTF.preload("/tableTest2.gltf");
 
 function Chair({ position, rotation, texture, geometry }) {
   return (
@@ -24,7 +24,7 @@ function Chair({ position, rotation, texture, geometry }) {
 
 function Model({ ...props }) {
   const group = useRef();
-  const { nodes } = useGLTF("TableScene.gltf");
+  const { nodes } = useGLTF("tableTest2.gltf");
 
   const tableClothTexture = useTexture(
     props.tableClothTexture.selectedTableClothTexture
@@ -40,12 +40,12 @@ function Model({ ...props }) {
   );
 
   const positions = [
-    [0, 0, -300],
-    [-250, 0, -170],
-    [250, 0, -170],
-    [0, 0, 300],
-    [-250, 0, 150],
-    [250, 0, 150],
+    [0, 0, -450],
+    [-375, 0, -250],
+    [375, 0, -250],
+    [0, 0, 450],
+    [-400, 0, 150],
+    [400, 0, 250],
   ];
   const rotations = [
     [0, Math.PI, 0],
@@ -59,16 +59,16 @@ function Model({ ...props }) {
   return (
     <group ref={group} {...props} dispose={null} scale={2}>
       <group rotation={[0, 0, 0]} scale={0.01}>
-        <group name='Tablecloth' position={[0, 0, 0]} scale={[200, 200, 200]}>
+        <group name='Tablecloth' position={[0, 0, 0]} scale={[70, 70, 70]}>
           <mesh geometry={nodes.TableCloth.geometry}>
             <meshStandardMaterial map={tableClothTexture} />
           </mesh>
         </group>
         <group
           name='TableRunner'
-          position={[0, 5.5, 0]}
+          position={[15, 235, 10]}
           rotation={[0, 0, Math.PI]}
-          scale={[100, 2, 25]}
+          scale={[300, 2, 25]}
         >
           <mesh geometry={nodes.TableRunner.geometry}>
             <meshStandardMaterial map={tableRunnerTexture} />
