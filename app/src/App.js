@@ -10,7 +10,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 
-useGLTF.preload("/tableTest2.gltf");
+useGLTF.preload("/tableTest8.gltf");
 
 function Chair({ position, rotation, texture, geometry }) {
   return (
@@ -24,7 +24,7 @@ function Chair({ position, rotation, texture, geometry }) {
 
 function Model({ ...props }) {
   const group = useRef();
-  const { nodes } = useGLTF("tableTest2.gltf");
+  const { nodes } = useGLTF("tableTest8.gltf");
 
   const tableClothTexture = useTexture(
     props.tableClothTexture.selectedTableClothTexture
@@ -39,14 +39,11 @@ function Model({ ...props }) {
     props.chairRunnerTexture.selectedChairRunnerTexture
   );
 
-  const positions = [
-    [0, 0, -450],
-    [-375, 0, -250],
-    [375, 0, -250],
-    [0, 0, 450],
-    [-400, 0, 150],
-    [400, 0, 250],
-  ];
+  const chairRadius = 1.2; // meters
+  const positions = Array.from({ length: 6 }, (_, i) => {
+    const angle = (i * Math.PI * 2) / 6;
+    return [chairRadius * Math.cos(angle), 0, chairRadius * Math.sin(angle)];
+  });
   const rotations = [
     [0, Math.PI, 0],
     [0, (8 * Math.PI) / 6, 0],
@@ -55,23 +52,29 @@ function Model({ ...props }) {
     [0, (10 * Math.PI) / 6, 0],
     [0, Math.PI / 3, 0],
   ];
-
+  console.log("Loaded GLTF nodes:", nodes);
   return (
-    <group ref={group} {...props} dispose={null} scale={2}>
+    <group
+      ref={group}
+      {...props}
+      dispose={null}
+      position={[0, -0.2, 0]}
+      scale={(0.015, 0.015, 0.015)}
+    >
       <group rotation={[0, 0, 0]} scale={0.01}>
-        <group name='Tablecloth' position={[0, 0, 0]} scale={[70, 70, 70]}>
+        <group name='Tablecloth' position={[0, 0, 0]} scale={[100, 100, 100]}>
           <mesh geometry={nodes.TableCloth.geometry}>
             <meshStandardMaterial map={tableClothTexture} />
           </mesh>
         </group>
         <group
           name='TableRunner'
-          position={[15, 235, 10]}
-          rotation={[0, 0, Math.PI]}
-          scale={[300, 2, 25]}
+          position={[-100, 2000, 0]}
+          rotation={[0, 0, 0]}
+          scale={[400, 50, 25]}
         >
           <mesh geometry={nodes.TableRunner.geometry}>
-            <meshStandardMaterial map={tableRunnerTexture} />
+            <meshStandardMaterial color='red' />
           </mesh>
         </group>
         {positions.map((pos, i) => (
@@ -80,7 +83,7 @@ function Model({ ...props }) {
             position={pos}
             rotation={rotations[i]}
             texture={chairClothTexture}
-            geometry={nodes.Chair.geometry}
+            geometry={nodes["Chair001"].geometry}
           />
         ))}
       </group>
@@ -169,7 +172,7 @@ function App() {
           <div className='card'>
             <div className='product-canvas'>
               <Canvas
-                camera={{ position: cameraPosition, fov: 35 }}
+                camera={{ position: [0, 5, 5], fov: 35 }}
                 frameloop='demand'
               >
                 <Suspense fallback={null}>
