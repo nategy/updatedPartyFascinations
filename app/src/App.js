@@ -12,12 +12,30 @@ import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexture
 
 useGLTF.preload("/tableTest8.gltf");
 
-function Chair({ position, rotation, texture, geometry }) {
+function Chair({
+  position,
+  rotation,
+  coverTexture,
+  runnerTexture,
+  coverGeometry,
+  runnerGeometry,
+}) {
   return (
     <group position={position} rotation={rotation} scale={[80, 80, 80]}>
-      <mesh geometry={geometry}>
-        <meshStandardMaterial map={texture} />
+      {/* Chair Cover */}
+      <mesh geometry={coverGeometry}>
+        <meshStandardMaterial map={coverTexture} />
       </mesh>
+
+      {/* Chair Runner */}
+      {runnerGeometry && (
+        <group scale={[1, 1, 1]} position={[0, -1, 0]}>
+          {/* Adjust this scale as needed */}
+          <mesh geometry={runnerGeometry}>
+            <meshStandardMaterial map={runnerTexture} side={2} />
+          </mesh>
+        </group>
+      )}
     </group>
   );
 }
@@ -69,12 +87,12 @@ function Model({ ...props }) {
         </group>
         <group
           name='TableRunner'
-          position={[-100, 2000, 0]}
+          position={[-200, 2000, 0]}
           rotation={[0, 0, 0]}
-          scale={[400, 50, 25]}
+          scale={[350, 50, 25]}
         >
           <mesh geometry={nodes.TableRunner.geometry}>
-            <meshStandardMaterial color='red' />
+            <meshStandardMaterial map={tableRunnerTexture} />
           </mesh>
         </group>
         {positions.map((pos, i) => (
@@ -82,8 +100,10 @@ function Model({ ...props }) {
             key={`Chair${i}`}
             position={pos}
             rotation={rotations[i]}
-            texture={chairClothTexture}
-            geometry={nodes["Chair001"].geometry}
+            coverTexture={chairClothTexture}
+            runnerTexture={chairRunnerTexture}
+            coverGeometry={nodes["Chair001"].geometry}
+            runnerGeometry={nodes["ChairRunner"].geometry}
           />
         ))}
       </group>
