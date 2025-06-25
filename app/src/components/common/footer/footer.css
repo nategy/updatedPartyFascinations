@@ -1,9 +1,11 @@
 .main-footer {
-  background-color: #2a2727;
+  background: linear-gradient(135deg, #52106a, #2a2727);
   color: #ffffff;
-  padding: 3rem 1rem 1rem;
+  /* #2a2727 */
+  padding: 4rem 1rem 2rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   width: 100%;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .container {
@@ -27,84 +29,83 @@
 
 .col p {
   font-size: 1rem;
-  color: #ccc;
-  line-height: 1.6;
-  margin: 0.3rem 0;
+  color: #ddd;
+  line-height: 1.7;
+  margin: 0.5rem 0;
 }
 
 .col2 h3 {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.4rem;
   color: #fff;
-  border-left: 4px solid #52106a;
-  padding-left: 0.5rem;
+  border-left: 5px solid #e4b5ff;
+  padding-left: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .col2 p {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  color: #ccc;
-  margin: 0.5rem 0;
+  gap: 0.6rem;
+  font-size: 1rem;
+  color: #ddd;
+  margin: 0.6rem 0;
 }
 
 .icons svg {
-  color: rgb(101, 21, 141);
-  font-size: 1.1rem;
+  color: #e4b5ff;
+  font-size: 1.2rem;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
 }
 
 .facebook-icon,
 .instagram-icon {
-  margin: 0 0.5rem;
   color: #ffffff;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.facebook-icon:hover {
-  color: rgb(120, 50, 155);
-  transform: scale(1.1);
-}
-
+.facebook-icon:hover,
 .instagram-icon:hover {
-  color: rgb(120, 50, 155);
-  transform: scale(1.1);
+  color: #e4b5ff;
+  transform: scale(1.15);
 }
 
 .copyright {
   text-align: center;
-  padding-top: 1rem;
+  padding-top: 1.5rem;
 }
 
 .copyright p {
-  font-size: 0.8rem;
-  color: #888;
+  font-size: 0.85rem;
+  color: #bbb;
+  line-height: 1.4;
+  margin: 0;
 }
 
 /* Responsive styles */
 @media screen and (max-width: 768px) {
   .row {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0rem; /* <-- smaller gap for mobile */
+    align-items: center;
+    gap: 1.5rem;
   }
 
   .col,
   .col2 {
-    flex: 1 1 150px;
+    flex: 1 1 100%;
   }
 
   .social-icons {
-    display: flex;
     width: 100%;
-    gap: 1rem; /* space between icons */
     justify-content: center;
-    align-items: center;
-    margin-top: 20px; /* keep some spacing above */
-  }
-
-  .facebook-icon,
-  .instagram-icon {
-    margin: 0; /* remove the previous margin-top */
+    margin-top: 2rem;
   }
 }
