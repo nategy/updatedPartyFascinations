@@ -1,11 +1,10 @@
 import "./index.css";
-import * as THREE from "three";
 import Navbar from "./components/common/navbar/Navbar";
 import Header from "./components/common/header/Header";
 import Footer from "./components/common/footer/Footer";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -194,35 +193,18 @@ function App() {
           <div className='card'>
             <div className='product-canvas'>
               <Canvas
-                shadows={!isMobile}
                 camera={{ position: [0, 5, 5], fov: 35 }}
                 frameloop='demand'
-                gl={
-                  !isMobile
-                    ? {
-                        toneMapping: THREE.ACESFilmicToneMapping,
-                        outputEncoding: THREE.sRGBEncoding,
-                      }
-                    : undefined
-                }
               >
                 <color attach='background' args={["#f0f0f0"]} />
                 <Suspense fallback={null}>
                   <ambientLight intensity={0.2} />
                   <spotLight
-                    castShadow={!isMobile}
                     intensity={0.8}
                     angle={0.25}
                     penumbra={1}
                     position={[10, 20, 10]}
-                    shadow-mapSize-width={1024}
-                    shadow-mapSize-height={1024}
                   />
-
-                  {/* HDR Env for Desktop */}
-                  {/* {!isMobile && (
-                    <Environment preset='warehouse' background={false} />
-                  )} */}
 
                   {/* Plane */}
                   {!isMobile && (
@@ -232,7 +214,7 @@ function App() {
                       receiveShadow
                     >
                       <planeGeometry args={[30, 30]} />
-                      <shadowMaterial opacity={0.25} />
+                      <shadowMaterial opacity={0.5} />
                     </mesh>
                   )}
 
