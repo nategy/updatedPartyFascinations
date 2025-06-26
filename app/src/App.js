@@ -1,16 +1,17 @@
 import "./index.css";
+import * as THREE from "three";
 import Navbar from "./components/common/navbar/Navbar";
 import Header from "./components/common/header/Header";
 import Footer from "./components/common/footer/Footer";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 
-useGLTF.preload("/tableTest8.gltf");
+useGLTF.preload("/PfScene.gltf");
 
 function Chair({
   position,
@@ -42,7 +43,7 @@ function Chair({
 
 function Model({ ...props }) {
   const group = useRef();
-  const { nodes } = useGLTF("tableTest8.gltf");
+  const { nodes } = useGLTF("PfScene.gltf");
 
   const tableClothTexture = useTexture(
     props.tableClothTexture.selectedTableClothTexture
@@ -70,7 +71,6 @@ function Model({ ...props }) {
     [0, (10 * Math.PI) / 6, 0],
     [0, Math.PI / 3, 0],
   ];
-  console.log("Loaded GLTF nodes:", nodes);
   return (
     <group
       ref={group}
@@ -146,17 +146,19 @@ function App() {
   ];
 
   const [cameraPosition, setCameraPosition] = useState([0, 5, 15]); // default (mobile)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
-    const updateCamera = () => {
-      const isMobile = window.innerWidth <= 768;
-      setCameraPosition(isMobile ? [0, 5, 15] : [0, 12, 25]); // top-down angled view for desktop
+    const updateView = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      setCameraPosition(mobile ? [0, 5, 15] : [0, 12, 25]); // top-down angled view for desktop
     };
 
-    updateCamera(); // run once on mount
-    window.addEventListener("resize", updateCamera); // update on resize
+    updateView(); // run once on mount
+    window.addEventListener("resize", updateView); // update on resize
 
-    return () => window.removeEventListener("resize", updateCamera); // cleanup
+    return () => window.removeEventListener("resize", updateView); // cleanup
   }, []);
 
   return (
@@ -192,18 +194,49 @@ function App() {
           <div className='card'>
             <div className='product-canvas'>
               <Canvas
+                shadows={!isMobile}
                 camera={{ position: [0, 5, 5], fov: 35 }}
                 frameloop='demand'
+                gl={
+                  !isMobile
+                    ? {
+                        toneMapping: THREE.ACESFilmicToneMapping,
+                        outputEncoding: THREE.sRGBEncoding,
+                      }
+                    : undefined
+                }
               >
+                <color attach='background' args={["#f0f0f0"]} />
                 <Suspense fallback={null}>
-                  <ambientLight intensity={0.5} />
+                  <ambientLight intensity={0.2} />
                   <spotLight
-                    intensity={0.9}
-                    angle={0.15}
+                    castShadow={!isMobile}
+                    intensity={0.8}
+                    angle={0.25}
                     penumbra={1}
-                    position={[10, 15, 10]}
-                    castShadow={false}
+                    position={[10, 20, 10]}
+                    shadow-mapSize-width={1024}
+                    shadow-mapSize-height={1024}
                   />
+
+                  {/* HDR Env for Desktop */}
+                  {/* {!isMobile && (
+                    <Environment preset='warehouse' background={false} />
+                  )} */}
+
+                  {/* Plane */}
+                  {!isMobile && (
+                    <mesh
+                      rotation={[-Math.PI / 2, 0, 0]}
+                      position={[0, -0.5, 0]}
+                      receiveShadow
+                    >
+                      <planeGeometry args={[30, 30]} />
+                      <shadowMaterial opacity={0.25} />
+                    </mesh>
+                  )}
+
+                  {/* Model */}
                   <Model
                     tableClothTexture={{
                       selectedTableClothTexture,
@@ -218,10 +251,13 @@ function App() {
                       selectedChairRunnerTexture,
                     }}
                   />
+
+                  {/* Controls */}
                   <OrbitControls
                     enablePan={true}
                     enableZoom={true}
                     enableRotate={true}
+                    enableDamping={true}
                     maxPolarAngle={Math.PI / 2.2}
                     minDistance={5}
                     maxDistance={25}
