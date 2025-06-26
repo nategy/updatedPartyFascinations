@@ -1,6 +1,6 @@
 import "./index.css";
-import Navbar from "./components/common/Navbar";
-import Header from "./components/common/header/header";
+import Navbar from "./components/common/navbar/Navbar";
+import Header from "./components/common/header/Header";
 import Footer from "./components/common/footer/Footer";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
