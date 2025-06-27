@@ -21,7 +21,7 @@ function Chair({
   runnerGeometry,
 }) {
   return (
-    <group position={position} rotation={rotation} scale={[80, 80, 80]}>
+    <group position={position} rotation={rotation} scale={[1, 1, 1]}>
       {/* Chair Cover */}
       <mesh geometry={coverGeometry}>
         <meshStandardMaterial map={coverTexture} />
@@ -50,6 +50,7 @@ function Model({ ...props }) {
   const tableRunnerTexture = useTexture(
     props.tableRunnerTexture.selectedTableRunnerTexture
   );
+  const plateTexture = useTexture(props.plateTexture.selectedPlateTexture);
   const chairClothTexture = useTexture(
     props.chairCoverTexture.selectedChairCoverTexture
   );
@@ -76,36 +77,46 @@ function Model({ ...props }) {
       {...props}
       dispose={null}
       position={[0, -0.2, 0]}
-      scale={(0.015, 0.015, 0.015)}
+      scale={[0.01, 0.01, 0.01]}
     >
-      <group rotation={[0, 0, 0]} scale={0.01}>
-        <group name='Tablecloth' position={[0, 0, 0]} scale={[100, 100, 100]}>
-          <mesh geometry={nodes.TableCloth.geometry}>
-            <meshStandardMaterial map={tableClothTexture} />
-          </mesh>
-        </group>
-        <group
-          name='TableRunner'
-          position={[-200, 2000, 0]}
-          rotation={[0, 0, 0]}
-          scale={[350, 50, 25]}
-        >
-          <mesh geometry={nodes.TableRunner.geometry}>
-            <meshStandardMaterial map={tableRunnerTexture} />
-          </mesh>
-        </group>
-        {positions.map((pos, i) => (
-          <Chair
-            key={`Chair${i}`}
-            position={pos}
-            rotation={rotations[i]}
-            coverTexture={chairClothTexture}
-            runnerTexture={chairRunnerTexture}
-            coverGeometry={nodes["Chair001"].geometry}
-            runnerGeometry={nodes["ChairRunner"].geometry}
-          />
-        ))}
+      {/* Tablecloth */}
+      <group name='Tablecloth' position={[0, 0, 0]} scale={[1, 1, 1]}>
+        <mesh geometry={nodes.TableCloth.geometry}>
+          <meshStandardMaterial map={tableClothTexture} />
+        </mesh>
       </group>
+
+      {/* TableRunner */}
+      <group
+        name='TableRunner'
+        position={[0, 0.05, 0]}
+        rotation={[0, 0, 0]}
+        scale={[1, 1, 1]}
+      >
+        <mesh geometry={nodes.TableRunner.geometry}>
+          <meshStandardMaterial map={tableRunnerTexture} />
+        </mesh>
+      </group>
+
+      {/* Plates */}
+      <group name='Plate' position={[0, 40, 0]} scale={[0.1, 0.02, 0.1]}>
+        <mesh geometry={nodes.Plate.geometry}>
+          <meshStandardMaterial map={plateTexture} side={2} />
+        </mesh>
+      </group>
+
+      {/* Chairs + Chair Runners */}
+      {positions.map((pos, i) => (
+        <Chair
+          key={`Chair${i}`}
+          position={pos}
+          rotation={rotations[i]}
+          coverTexture={chairClothTexture}
+          runnerTexture={chairRunnerTexture}
+          coverGeometry={nodes["Chair001"].geometry}
+          runnerGeometry={nodes["ChairRunner"].geometry}
+        />
+      ))}
     </group>
   );
 }
@@ -133,6 +144,7 @@ function App() {
   const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] = useState(
     "/pexels-maryann-kariuki-4303015.jpg"
   );
+  const [selectedPlateTexture, setPlateTexture] = useState("/testtexture.jpg");
   const [selectedChairCoverTexture, setSelectedChairCoverTexture] =
     useState("/testtexture.jpg");
   const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] =
@@ -151,7 +163,7 @@ function App() {
     const updateView = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      setCameraPosition(mobile ? [0, 5, 15] : [0, 12, 25]); // top-down angled view for desktop
+      setCameraPosition(mobile ? [0, 5, 5] : [0, 5, 5]); // top-down angled view for desktop
     };
 
     updateView(); // run once on mount
@@ -193,7 +205,7 @@ function App() {
           <div className='card'>
             <div className='product-canvas'>
               <Canvas
-                camera={{ position: [0, 5, 5], fov: 35 }}
+                camera={{ position: cameraPosition, fov: 35 }}
                 frameloop='demand'
               >
                 <color attach='background' args={["#f0f0f0"]} />
@@ -225,6 +237,9 @@ function App() {
                     }}
                     tableRunnerTexture={{
                       selectedTableRunnerTexture,
+                    }}
+                    plateTexture={{
+                      selectedPlateTexture,
                     }}
                     chairCoverTexture={{
                       selectedChairCoverTexture,
@@ -260,6 +275,11 @@ function App() {
                     textures: texturePaths,
                     selectedTexture: selectedTableRunnerTexture,
                     onSelectTexture: setSelectedTableRunnerTexture,
+                  },
+                  plate: {
+                    textures: texturePaths,
+                    selectedTexture: selectedPlateTexture,
+                    onSelectTexture: setPlateTexture,
                   },
                   chairCover: {
                     textures: texturePaths,
