@@ -67,7 +67,7 @@ function Model({ ...props }) {
     [-35, -5.5, 35],
   ];
 
-  const chairRadius = 1.2; // meters
+  const chairRadius = 1.3; // meters
   const positions = Array.from({ length: 6 }, (_, i) => {
     const angle = (i * Math.PI * 2) / 6;
     return [chairRadius * Math.cos(angle), 0, chairRadius * Math.sin(angle)];
@@ -91,7 +91,7 @@ function Model({ ...props }) {
       rotation={[0, -0.5, 0]}
     >
       {/* Tablecloth */}
-      <group name='Tablecloth' position={[0, 0, 0]} scale={[1.35, 1.35, 1.35]}>
+      <group name='Tablecloth' position={[0, 0, 0]} scale={[1.25, 1.25, 1.25]}>
         <mesh geometry={nodes.TableCloth.geometry}>
           <meshStandardMaterial map={tableClothTexture} />
         </mesh>
@@ -172,8 +172,10 @@ function App() {
     }
   };
 
+  // Navbar
   const [navOpen, setNavOpen] = useState(false);
 
+  // Textures
   const [selectedTableClothTexture, setSelectedTableClothTexture] = useState(
     "/pexels-maryann-kariuki-4303015.jpg"
   );
@@ -186,10 +188,18 @@ function App() {
   const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] =
     useState("/testtexture.jpg");
 
+  // Pricing
+  const [tableClothPrice, setTableClothPrice] = useState(0);
+  const [tableRunnerPrice, setTableRunnerPrice] = useState(0);
+  const [platePrice, setPlatePrice] = useState(0);
+  const [chairCoverPrice, setChairCoverPrice] = useState(0);
+  const [chairRunnerPrice, setChairRunnerPrice] = useState(0);
+
+  // Textures and Prices
   const texturePaths = [
-    "/tablecloths/pexels-anni-roenkae-4175070.jpg",
-    "/tablecloths/pexels-laura-james-6101966.jpg",
-    "/tablecloths/pexels-maryann-kariuki-4303015.jpg",
+    { src: "/tablecloths/pexels-anni-roenkae-4175070.jpg", price: 5 },
+    { src: "/tablecloths/pexels-maryann-kariuki-4303015.jpg", price: 10 },
+    { src: "/tablecloths/pexels-laura-james-6101966.jpg", price: 8 },
   ];
 
   const isInitiallyMobile = window.innerWidth <= 768;
