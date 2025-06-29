@@ -8,6 +8,7 @@ const tabs = [
   { label: "Table Runners", key: "tableRunner" },
   { label: "Chair Covers", key: "chairCover" },
   { label: "Chair Runners", key: "chairRunner" },
+  { label: "Plates", key: "plate" },
 ];
 
 export default function TabbedTexturePanel({

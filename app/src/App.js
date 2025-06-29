@@ -10,7 +10,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 
-useGLTF.preload("/PfScene.gltf");
+useGLTF.preload("/PFScene5.gltf");
 
 function Chair({
   position,
@@ -24,7 +24,7 @@ function Chair({
     <group position={position} rotation={rotation} scale={[1, 1, 1]}>
       {/* Chair Cover */}
       <mesh geometry={coverGeometry}>
-        <meshStandardMaterial map={coverTexture} />
+        <meshStandardMaterial map={coverTexture} side={2} />
       </mesh>
 
       {/* Chair Runner */}
@@ -42,7 +42,7 @@ function Chair({
 
 function Model({ ...props }) {
   const group = useRef();
-  const { nodes } = useGLTF("PfScene.gltf");
+  const { nodes } = useGLTF("PFScene5.gltf");
 
   const tableClothTexture = useTexture(
     props.tableClothTexture.selectedTableClothTexture
@@ -58,6 +58,15 @@ function Model({ ...props }) {
     props.chairRunnerTexture.selectedChairRunnerTexture
   );
 
+  const platePositions = [
+    [2, -5.5, 15],
+    [0, -5.5, -15.5],
+    [-24, -5.5, -32],
+    [-62, -5.5, -12],
+    [-57, -5.5, 15.5],
+    [-35, -5.5, 35],
+  ];
+
   const chairRadius = 1.2; // meters
   const positions = Array.from({ length: 6 }, (_, i) => {
     const angle = (i * Math.PI * 2) / 6;
@@ -71,27 +80,28 @@ function Model({ ...props }) {
     [0, (10 * Math.PI) / 6, 0],
     [0, Math.PI / 3, 0],
   ];
+
   return (
     <group
       ref={group}
       {...props}
       dispose={null}
-      position={[0, -0.2, 0]}
+      position={[0, 0, 0]}
       scale={[0.01, 0.01, 0.01]}
+      rotation={[0, -0.5, 0]}
     >
       {/* Tablecloth */}
-      <group name='Tablecloth' position={[0, 0, 0]} scale={[1, 1, 1]}>
+      <group name='Tablecloth' position={[0, 0, 0]} scale={[1.35, 1.35, 1.35]}>
         <mesh geometry={nodes.TableCloth.geometry}>
           <meshStandardMaterial map={tableClothTexture} />
         </mesh>
       </group>
-
       {/* TableRunner */}
       <group
         name='TableRunner'
-        position={[0, 0.05, 0]}
-        rotation={[0, 0, 0]}
-        scale={[1, 1, 1]}
+        position={[0, -0.5, 1]}
+        rotation={[0, 0.525, 0]}
+        scale={[1, 1.35, 1.35]}
       >
         <mesh geometry={nodes.TableRunner.geometry}>
           <meshStandardMaterial map={tableRunnerTexture} />
@@ -99,12 +109,38 @@ function Model({ ...props }) {
       </group>
 
       {/* Plates */}
-      <group name='Plate' position={[0, 40, 0]} scale={[0.1, 0.02, 0.1]}>
+      {platePositions.map((pos, i) => (
+        <group key={`Plate${i}`} position={pos} scale={[1.5, 1.5, 1.5]}>
+          <mesh geometry={nodes.Plate.geometry}>
+            <meshStandardMaterial map={plateTexture} side={2} />
+          </mesh>
+        </group>
+      ))}
+      {/* <group name='Plate2' position={[0, -5.5, -15.5]} scale={[1.5, 1.5, 1.5]}>
         <mesh geometry={nodes.Plate.geometry}>
           <meshStandardMaterial map={plateTexture} side={2} />
         </mesh>
       </group>
-
+      <group name='Plate3' position={[-24, -5.5, -32]} scale={[1.5, 1.5, 1.5]}>
+        <mesh geometry={nodes["Plate"].geometry}>
+          <meshStandardMaterial map={plateTexture} side={2} />
+        </mesh>
+      </group>
+      <group name='Plate4' position={[-3, 50, 18]} scale={[1.5, 1.5, 1.5]}>
+        <mesh geometry={nodes["Plate"].geometry}>
+          <meshStandardMaterial map={plateTexture} side={2} />
+        </mesh>
+      </group>
+      <group name='Plate5' position={[-35, 50, -11]} scale={[1.5, 1.5, 1.5]}>
+        <mesh geometry={nodes["Plate"].geometry}>
+          <meshStandardMaterial map={plateTexture} side={2} />
+        </mesh>
+      </group>
+      <group name='Plate6' position={[-9, 50, 35]} scale={[1.5, 1.5, 1.5]}>
+        <mesh geometry={nodes["Plate"].geometry}>
+          <meshStandardMaterial map={plateTexture} side={2} />
+        </mesh>
+      </group> */}
       {/* Chairs + Chair Runners */}
       {positions.map((pos, i) => (
         <Chair
@@ -156,14 +192,17 @@ function App() {
     "/tablecloths/pexels-maryann-kariuki-4303015.jpg",
   ];
 
-  const [cameraPosition, setCameraPosition] = useState([0, 5, 15]); // default (mobile)
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const isInitiallyMobile = window.innerWidth <= 768;
+  const initialCameraPos = isInitiallyMobile ? [0, 2, 5] : [0, 3, 5];
+
+  const [cameraPosition, setCameraPosition] = useState(initialCameraPos); // default (mobile)
+  const [isMobile, setIsMobile] = useState(isInitiallyMobile);
 
   useEffect(() => {
     const updateView = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      setCameraPosition(mobile ? [0, 5, 5] : [0, 5, 5]); // top-down angled view for desktop
+      setCameraPosition(mobile ? [0, 5, 5] : [0, 2, 5]); // top-down angled view for desktop
     };
 
     updateView(); // run once on mount
@@ -205,7 +244,7 @@ function App() {
           <div className='card'>
             <div className='product-canvas'>
               <Canvas
-                camera={{ position: cameraPosition, fov: 35 }}
+                camera={{ position: cameraPosition, fov: 24 }}
                 frameloop='demand'
               >
                 <color attach='background' args={["#f0f0f0"]} />
@@ -256,8 +295,8 @@ function App() {
                     enableRotate={true}
                     enableDamping={true}
                     maxPolarAngle={Math.PI / 2.2}
-                    minDistance={5}
-                    maxDistance={25}
+                    minDistance={2}
+                    maxDistance={7}
                   />
                 </Suspense>
               </Canvas>
