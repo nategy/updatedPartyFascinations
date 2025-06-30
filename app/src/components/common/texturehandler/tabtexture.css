@@ -1,11 +1,29 @@
 .tabbed-panel {
-  background-color: #e8dff5; /* Soft lavender background */
+  background-color: #e8dff5;
   padding: 16px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin: 10px 0;
   overflow: hidden;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.package-selector {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.package-selector label {
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.package-selector select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #c3aee3;
+  background-color: #f9f5fc;
 }
 
 .tab-buttons {
@@ -36,67 +54,13 @@
   color: white;
 }
 
-/* Make label and dropdowns more visible */
-.tabbed-panel label {
-  color: #52106a;
-  font-weight: bold;
-  margin-bottom: 6px;
-  display: inline-block;
-  font-size: 0.95rem;
-}
-
-.tabbed-panel select {
-  background-color: #a774cb;
-  color: #2a2a2a;
-  border: 1px solid #c3aee3;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.2s ease;
-  width: 100%;
-  max-width: 300px;
-}
-
-.package-selector {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.package-selector label {
-  font-weight: bold;
-  color: #52106a;
-}
-
-.package-selector select {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #c3aee3;
-  background-color: #f9f5fc;
-  color: #2a2a2a;
-  font-size: 0.95rem;
-  transition: border-color 0.2s ease;
-}
-
-.package-selector select:focus {
-  border-color: #a35bb7;
-  box-shadow: 0 0 0 2px rgba(163, 91, 183, 0.3);
-}
-
-.tabbed-panel select:focus {
-  border-color: #a35bb7;
-  box-shadow: 0 0 0 2px rgba(163, 91, 183, 0.3);
-}
-
 .tab-content {
-  max-height: 300px; /* Adjust as needed */
-  min-height: 100px;
+  text-align: center;
+  margin-top: 12px;
+  max-height: 500px; /* Smooth scroll area */
   overflow-y: auto;
   scroll-behavior: smooth;
-  padding-right: 6px; /* optional: space for scrollbar */
+  padding-right: 6px;
   transition: all 0.3s ease;
 }
 
@@ -111,18 +75,6 @@
 
 .tab-content::-webkit-scrollbar-track {
   background: transparent;
-}
-
-.texture-option {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.texture-price {
-  margin-top: 4px;
-  font-size: 0.85rem;
-  color: #444;
 }
 
 /* Hide the panel when mobile nav is open */
