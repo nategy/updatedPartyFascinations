@@ -43,14 +43,16 @@ function TextureSelector({
           />
           <div className='s-selector'>
             {textures.map((texture, index) => (
-              <button
-                className='s-btn'
-                key={index}
-                onClick={() => onSelectTexture(texture)}
-                aria-label={`Select texture ${index + 1}`}
-              >
-                <img src={texture} alt={`Texture ${index + 1}`} />
-              </button>
+              <div key={index} className='texture-option'>
+                <button
+                  className='s-btn'
+                  onClick={() => onSelectTexture(texture)}
+                  aria-label={`Select texture ${index + 1}`}
+                >
+                  <img src={texture.src} alt={`Texture ${index + 1}`} />
+                </button>
+                <p className='texture-price'>${texture.price}</p>
+              </div>
             ))}
           </div>
           <BsArrowRightCircleFill

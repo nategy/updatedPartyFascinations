@@ -140,7 +140,7 @@ function Model({ ...props }) {
         <mesh geometry={nodes["Plate"].geometry}>
           <meshStandardMaterial map={plateTexture} side={2} />
         </mesh>
-      </group> */}
+        </group> */}
       {/* Chairs + Chair Runners */}
       {positions.map((pos, i) => (
         <Chair
@@ -158,6 +158,7 @@ function Model({ ...props }) {
 }
 
 function App() {
+  // Login
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -172,36 +173,7 @@ function App() {
     }
   };
 
-  // Navbar
-  const [navOpen, setNavOpen] = useState(false);
-
-  // Textures
-  const [selectedTableClothTexture, setSelectedTableClothTexture] = useState(
-    "/pexels-maryann-kariuki-4303015.jpg"
-  );
-  const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] = useState(
-    "/pexels-maryann-kariuki-4303015.jpg"
-  );
-  const [selectedPlateTexture, setPlateTexture] = useState("/testtexture.jpg");
-  const [selectedChairCoverTexture, setSelectedChairCoverTexture] =
-    useState("/testtexture.jpg");
-  const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] =
-    useState("/testtexture.jpg");
-
-  // Pricing
-  const [tableClothPrice, setTableClothPrice] = useState(0);
-  const [tableRunnerPrice, setTableRunnerPrice] = useState(0);
-  const [platePrice, setPlatePrice] = useState(0);
-  const [chairCoverPrice, setChairCoverPrice] = useState(0);
-  const [chairRunnerPrice, setChairRunnerPrice] = useState(0);
-
-  // Textures and Prices
-  const texturePaths = [
-    { src: "/tablecloths/pexels-anni-roenkae-4175070.jpg", price: 5 },
-    { src: "/tablecloths/pexels-maryann-kariuki-4303015.jpg", price: 10 },
-    { src: "/tablecloths/pexels-laura-james-6101966.jpg", price: 8 },
-  ];
-
+  // Camera Positioning
   const isInitiallyMobile = window.innerWidth <= 768;
   const initialCameraPos = isInitiallyMobile ? [0, 2, 5] : [0, 3, 5];
 
@@ -220,6 +192,77 @@ function App() {
 
     return () => window.removeEventListener("resize", updateView); // cleanup
   }, []);
+
+  // Navbar
+  const [navOpen, setNavOpen] = useState(false);
+
+  // Textures
+  const [selectedTableClothTexture, setSelectedTableClothTexture] = useState(
+    "/pexels-maryann-kariuki-4303015.jpg"
+  );
+  const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] = useState(
+    "/pexels-maryann-kariuki-4303015.jpg"
+  );
+  const [selectedPlateTexture, setSelectedPlateTexture] =
+    useState("/testtexture.jpg");
+  const [selectedChairCoverTexture, setSelectedChairCoverTexture] =
+    useState("/testtexture.jpg");
+  const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] =
+    useState("/testtexture.jpg");
+
+  // Pricing
+  const [tableClothPrice, setTableClothPrice] = useState(100);
+  const [tableRunnerPrice, setTableRunnerPrice] = useState(35);
+  const [platePrice, setPlatePrice] = useState(60);
+  const [chairCoverPrice, setChairCoverPrice] = useState(300);
+  const [chairRunnerPrice, setChairRunnerPrice] = useState(150);
+
+  // Textures and Prices
+  const texturePaths = [
+    { src: "/tablecloths/pexels-anni-roenkae-4175070.jpg", price: 5 },
+    { src: "/tablecloths/pexels-maryann-kariuki-4303015.jpg", price: 10 },
+    { src: "/tablecloths/pexels-laura-james-6101966.jpg", price: 8 },
+  ];
+
+  // Packages
+  const packages = {
+    silver: ["tableCloth", "chairCover", "chairRunner"],
+    bronze: ["tableCloth", "tableRunner", "plate"],
+    gold: ["tableCloth", "tableRunner", "plate", "chairCover", "chairRunner"],
+  };
+
+  // Pricing Handler
+  const handleSelectTableCloth = (textureObj) => {
+    setSelectedTableClothTexture(textureObj.src);
+    setTableClothPrice(textureObj.price);
+  };
+
+  const handleSelectTableRunner = (textureObj) => {
+    setSelectedTableRunnerTexture(textureObj.src);
+    setTableRunnerPrice(textureObj.price);
+  };
+
+  const handleSelectPlate = (textureObj) => {
+    setSelectedPlateTexture(textureObj.src);
+    setPlatePrice(textureObj.price);
+  };
+
+  const handleSelectChairCover = (textureObj) => {
+    setSelectedChairCoverTexture(textureObj.src);
+    setChairCoverPrice(textureObj.price);
+  };
+
+  const handleSelectChairRunner = (textureObj) => {
+    setSelectedChairRunnerTexture(textureObj.src);
+    setChairRunnerPrice(textureObj.price);
+  };
+
+  const subtotal =
+    tableClothPrice +
+    tableRunnerPrice +
+    platePrice +
+    chairCoverPrice +
+    chairRunnerPrice;
 
   return (
     <div className='App'>
@@ -318,31 +361,34 @@ function App() {
                   tableCloth: {
                     textures: texturePaths,
                     selectedTexture: selectedTableClothTexture,
-                    onSelectTexture: setSelectedTableClothTexture,
+                    onSelectTexture: handleSelectTableCloth,
                   },
                   tableRunner: {
                     textures: texturePaths,
                     selectedTexture: selectedTableRunnerTexture,
-                    onSelectTexture: setSelectedTableRunnerTexture,
+                    onSelectTexture: handleSelectTableRunner,
                   },
                   plate: {
                     textures: texturePaths,
                     selectedTexture: selectedPlateTexture,
-                    onSelectTexture: setPlateTexture,
+                    onSelectTexture: handleSelectPlate,
                   },
                   chairCover: {
                     textures: texturePaths,
                     selectedTexture: selectedChairCoverTexture,
-                    onSelectTexture: setSelectedChairCoverTexture,
+                    onSelectTexture: handleSelectChairCover,
                   },
                   chairRunner: {
                     textures: texturePaths,
                     selectedTexture: selectedChairRunnerTexture,
-                    onSelectTexture: setSelectedChairRunnerTexture,
+                    onSelectTexture: handleSelectChairRunner,
                   },
                 }}
               />
             </div>
+          </div>
+          <div className='subtotal'>
+            <h3>Subtotal: ${subtotal}</h3>
           </div>
         </div>
       )}

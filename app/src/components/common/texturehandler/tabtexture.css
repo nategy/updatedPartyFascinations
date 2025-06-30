@@ -58,14 +58,71 @@
   max-width: 300px;
 }
 
+.package-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.package-selector label {
+  font-weight: bold;
+  color: #52106a;
+}
+
+.package-selector select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #c3aee3;
+  background-color: #f9f5fc;
+  color: #2a2a2a;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+.package-selector select:focus {
+  border-color: #a35bb7;
+  box-shadow: 0 0 0 2px rgba(163, 91, 183, 0.3);
+}
+
 .tabbed-panel select:focus {
   border-color: #a35bb7;
   box-shadow: 0 0 0 2px rgba(163, 91, 183, 0.3);
 }
 
 .tab-content {
-  text-align: center;
-  margin-top: 12px;
+  max-height: 300px; /* Adjust as needed */
+  min-height: 100px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding-right: 6px; /* optional: space for scrollbar */
+  transition: all 0.3s ease;
+}
+
+.tab-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+  background-color: rgba(163, 91, 183, 0.6);
+  border-radius: 4px;
+}
+
+.tab-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.texture-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.texture-price {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #444;
 }
 
 /* Hide the panel when mobile nav is open */
