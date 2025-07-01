@@ -1,14 +1,16 @@
 import "./index.css";
+
 import Navbar from "./components/common/navbar/Navbar";
 import Header from "./components/common/header/Header";
 import Footer from "./components/common/footer/Footer";
+import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
+import SubtotalPanel from "./components/common/subtotal/SubtotalPanel";
+
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { BrowserRouter as Router } from "react-router-dom";
-
-import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 
 useGLTF.preload("/PFScene5.gltf");
 
@@ -116,31 +118,7 @@ function Model({ ...props }) {
           </mesh>
         </group>
       ))}
-      {/* <group name='Plate2' position={[0, -5.5, -15.5]} scale={[1.5, 1.5, 1.5]}>
-        <mesh geometry={nodes.Plate.geometry}>
-          <meshStandardMaterial map={plateTexture} side={2} />
-        </mesh>
-      </group>
-      <group name='Plate3' position={[-24, -5.5, -32]} scale={[1.5, 1.5, 1.5]}>
-        <mesh geometry={nodes["Plate"].geometry}>
-          <meshStandardMaterial map={plateTexture} side={2} />
-        </mesh>
-      </group>
-      <group name='Plate4' position={[-3, 50, 18]} scale={[1.5, 1.5, 1.5]}>
-        <mesh geometry={nodes["Plate"].geometry}>
-          <meshStandardMaterial map={plateTexture} side={2} />
-        </mesh>
-      </group>
-      <group name='Plate5' position={[-35, 50, -11]} scale={[1.5, 1.5, 1.5]}>
-        <mesh geometry={nodes["Plate"].geometry}>
-          <meshStandardMaterial map={plateTexture} side={2} />
-        </mesh>
-      </group>
-      <group name='Plate6' position={[-9, 50, 35]} scale={[1.5, 1.5, 1.5]}>
-        <mesh geometry={nodes["Plate"].geometry}>
-          <meshStandardMaterial map={plateTexture} side={2} />
-        </mesh>
-        </group> */}
+
       {/* Chairs + Chair Runners */}
       {positions.map((pos, i) => (
         <Chair
@@ -224,11 +202,10 @@ function App() {
     { src: "/tablecloths/pexels-laura-james-6101966.jpg", price: 8 },
   ];
 
-  // Packages
-  const packages = {
-    silver: ["tableCloth", "chairCover", "chairRunner"],
-    bronze: ["tableCloth", "tableRunner", "plate"],
-    gold: ["tableCloth", "tableRunner", "plate", "chairCover", "chairRunner"],
+  const getTextureName = (texturePath) => {
+    if (!texturePath) return "None";
+    const parts = texturePath.split("/");
+    return parts[parts.length - 1];
   };
 
   // Pricing Handler
@@ -256,6 +233,35 @@ function App() {
     setSelectedChairRunnerTexture(textureObj.src);
     setChairRunnerPrice(textureObj.price);
   };
+
+  // Items Array
+  const selectedItems = [
+    {
+      name: "Table Cloth",
+      textureName: getTextureName(selectedTableClothTexture),
+      price: tableClothPrice,
+    },
+    {
+      name: "Table Runner",
+      textureName: getTextureName(selectedTableRunnerTexture),
+      price: tableRunnerPrice,
+    },
+    {
+      name: "Plate",
+      textureName: getTextureName(selectedPlateTexture),
+      price: platePrice,
+    },
+    {
+      name: "Chair Cover",
+      textureName: getTextureName(selectedChairCoverTexture),
+      price: chairCoverPrice,
+    },
+    {
+      name: "Chair Runner",
+      textureName: getTextureName(selectedChairRunnerTexture),
+      price: chairRunnerPrice,
+    },
+  ];
 
   const subtotal =
     tableClothPrice +
@@ -387,9 +393,7 @@ function App() {
               />
             </div>
           </div>
-          <div className='subtotal'>
-            <h3>Subtotal: ${subtotal}</h3>
-          </div>
+          <SubtotalPanel items={selectedItems} subtotal={subtotal} />
         </div>
       )}
       <Footer />

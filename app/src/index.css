@@ -8,9 +8,16 @@
 html,
 body {
   height: 100%;
-  font-family: "Poppins", sans-serif;
-  background-color: #f0f0f0;
-  color: #000;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  background-color: #f5f5f5;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* login Page */
@@ -110,8 +117,26 @@ body {
 
 /* Scroll area to ensure selector is visible */
 .texture-scroll-area {
-  max-height: 45vh;
-  overflow-y: auto;
+  /* display: flex;
+  overflow-x: auto; */
+  gap: 10px;
+  padding: 10px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #a35bb7 #f0f0f0;
+}
+
+.texture-scroll-area::-webkit-scrollbar {
+  height: 8px;
+}
+
+.texture-scroll-area::-webkit-scrollbar-thumb {
+  background-color: #a35bb7;
+  border-radius: 8px;
+}
+
+.texture-scroll-area::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
 }
 
 /* Texture Picker Wrappers */
@@ -125,23 +150,35 @@ body {
 }
 
 /* Texture Selectors Grid */
-.cloth-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-  gap: 0.75rem;
+.cloth-item {
+  flex: 0 0 auto;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.cloth-item {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 2px solid #333;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+.cloth-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .cloth-item:hover {
   transform: scale(1.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.subtotal {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.subtotal h3 {
+  font-size: 1.2rem;
+  color: #52106a;
 }
 
 .arrow {
@@ -155,4 +192,13 @@ body {
 .arrow:hover {
   transform: scale(1.1);
   opacity: 0.6;
+}
+
+@media screen and (min-width: 768px) {
+  .subtotal-panel {
+    position: sticky;
+    top: 20px;
+    max-width: 320px;
+    margin-left: 20px;
+  }
 }
