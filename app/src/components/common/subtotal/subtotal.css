@@ -1,6 +1,6 @@
 .subtotal-panel {
   position: absolute;
-  top: 30vh;
+  top: 5vh;
   right: 10px;
   width: 85%;
   max-width: 320px;
@@ -75,7 +75,7 @@
 @media screen and (min-width: 768px) {
   .subtotal-panel {
     position: absolute;
-    top: 35vh;
+    top: 10vh;
     right: 15px;
     width: 300px;
     max-width: 320px;
