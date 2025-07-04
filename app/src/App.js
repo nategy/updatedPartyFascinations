@@ -204,9 +204,9 @@ function App() {
 
   // Packages
   const packages = {
-    silver: ["tableCloth", "chairCover", "chairRunner"],
-    bronze: ["tableCloth", "tableRunner", "plate"],
-    gold: ["tableCloth", "tableRunner", "plate", "chairCover", "chairRunner"],
+    silver: ["tableCloth", "chairCover", "plate"],
+    bronze: ["tableCloth", "tableRunner", "chairCover", "plate"],
+    gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
   };
 
   // Pricing

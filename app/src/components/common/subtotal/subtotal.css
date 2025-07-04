@@ -1,6 +1,6 @@
 .subtotal-panel {
-  position: fixed;
-  top: 25%;
+  position: absolute;
+  top: 30vh;
   right: 10px;
   width: 85%;
   max-width: 320px;
@@ -10,7 +10,7 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   overflow: hidden;
   transition: transform 0.3s ease;
-  z-index: 99999;
+  z-index: 9999;
 }
 
 .subtotal-bar {
@@ -74,8 +74,8 @@
 /* === DESKTOP VIEW === */
 @media screen and (min-width: 768px) {
   .subtotal-panel {
-    position: fixed;
-    top: 30%;
+    position: absolute;
+    top: 35vh;
     right: 15px;
     width: 300px;
     max-width: 320px;
