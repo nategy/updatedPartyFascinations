@@ -83,6 +83,10 @@ function Model({ ...props }) {
     [0, Math.PI / 3, 0],
   ];
 
+  const packages = props.packages;
+  const selectedPackage = props.selectedPackage;
+  const allowedKeys = packages[selectedPackage] || [];
+
   return (
     <group
       ref={group}
@@ -93,44 +97,55 @@ function Model({ ...props }) {
       rotation={[0, -0.5, 0]}
     >
       {/* Tablecloth */}
-      <group name='Tablecloth' position={[0, 0, 0]} scale={[1.25, 1.25, 1.25]}>
-        <mesh geometry={nodes.TableCloth.geometry}>
-          <meshStandardMaterial map={tableClothTexture} />
-        </mesh>
-      </group>
-      {/* TableRunner */}
-      <group
-        name='TableRunner'
-        position={[0, -0.5, 1]}
-        rotation={[0, 0.525, 0]}
-        scale={[1, 1.35, 1.35]}
-      >
-        <mesh geometry={nodes.TableRunner.geometry}>
-          <meshStandardMaterial map={tableRunnerTexture} />
-        </mesh>
-      </group>
-
-      {/* Plates */}
-      {platePositions.map((pos, i) => (
-        <group key={`Plate${i}`} position={pos} scale={[1.5, 1.5, 1.5]}>
-          <mesh geometry={nodes.Plate.geometry}>
-            <meshStandardMaterial map={plateTexture} side={2} />
+      {allowedKeys.includes("tableCloth") && (
+        <group
+          name='Tablecloth'
+          position={[0, 0, 0]}
+          scale={[1.25, 1.25, 1.25]}
+        >
+          <mesh geometry={nodes.TableCloth.geometry}>
+            <meshStandardMaterial map={tableClothTexture} />
           </mesh>
         </group>
-      ))}
+      )}
+
+      {/* TableRunner */}
+      {allowedKeys.includes("tableRunner") && (
+        <group
+          name='TableRunner'
+          position={[0, -0.5, 1]}
+          rotation={[0, 0.525, 0]}
+          scale={[1, 1.35, 1.35]}
+        >
+          <mesh geometry={nodes.TableRunner.geometry}>
+            <meshStandardMaterial map={tableRunnerTexture} />
+          </mesh>
+        </group>
+      )}
+
+      {/* Plates */}
+      {allowedKeys.includes("plate") &&
+        platePositions.map((pos, i) => (
+          <group key={`Plate${i}`} position={pos} scale={[1.5, 1.5, 1.5]}>
+            <mesh geometry={nodes.Plate.geometry}>
+              <meshStandardMaterial map={plateTexture} side={2} />
+            </mesh>
+          </group>
+        ))}
 
       {/* Chairs + Chair Runners */}
-      {positions.map((pos, i) => (
-        <Chair
-          key={`Chair${i}`}
-          position={pos}
-          rotation={rotations[i]}
-          coverTexture={chairClothTexture}
-          runnerTexture={chairRunnerTexture}
-          coverGeometry={nodes["Chair001"].geometry}
-          runnerGeometry={nodes["ChairRunner"].geometry}
-        />
-      ))}
+      {allowedKeys.includes("chairCover") &&
+        positions.map((pos, i) => (
+          <Chair
+            key={`Chair${i}`}
+            position={pos}
+            rotation={rotations[i]}
+            coverTexture={chairClothTexture}
+            runnerTexture={chairRunnerTexture}
+            coverGeometry={nodes["Chair001"].geometry}
+            runnerGeometry={nodes["ChairRunner"].geometry}
+          />
+        ))}
     </group>
   );
 }
@@ -174,22 +189,18 @@ function App() {
   // Navbar
   const [navOpen, setNavOpen] = useState(false);
 
-  // Textures
-  const [selectedTableClothTexture, setSelectedTableClothTexture] = useState(
-    "/pexels-maryann-kariuki-4303015.jpg"
-  );
-  const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] = useState(
-    "/pexels-maryann-kariuki-4303015.jpg"
-  );
+  // States + Textures
+  const [selectedPackage, setSelectedPackage] = useState("silver");
+  const [selectedTableClothTexture, setSelectedTableClothTexture] =
+    useState("/testtexture.jpg");
+  const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] =
+    useState("/testtexture.jpg");
   const [selectedPlateTexture, setSelectedPlateTexture] =
     useState("/testtexture.jpg");
   const [selectedChairCoverTexture, setSelectedChairCoverTexture] =
     useState("/testtexture.jpg");
   const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] =
     useState("/testtexture.jpg");
-
-  // Initial state
-  const [selectedPackage, setSelectedPackage] = useState("silver");
 
   // Packages
   const packages = {
@@ -205,19 +216,15 @@ function App() {
   const [chairCoverPrice, setChairCoverPrice] = useState(300);
   const [chairRunnerPrice, setChairRunnerPrice] = useState(150);
 
-  // Textures and Prices
+  // Textures and Prices ***** Convert to seperate JSON FILE WITH ALL The Textures
   const texturePaths = [
     { src: "/tablecloths/pexels-anni-roenkae-4175070.jpg", price: 5 },
     { src: "/tablecloths/pexels-maryann-kariuki-4303015.jpg", price: 10 },
     { src: "/tablecloths/pexels-laura-james-6101966.jpg", price: 8 },
   ];
 
-  const getTextureName = (texturePath) => {
-    if (!texturePath) return "None";
-    const parts = texturePath.split("/");
-    return parts[parts.length - 1];
-  };
-
+  const getTextureName = (texturePath) =>
+    texturePath.split("/").pop() || "None";
   // Pricing Handler
   const handleSelectTableCloth = (textureObj) => {
     setSelectedTableClothTexture(textureObj.src);
@@ -245,73 +252,44 @@ function App() {
   };
 
   // Items Array
-  const selectedItems = [
+  const itemizedItems = [
     {
       name: "Table Cloth",
+      key: "tableCloth",
       textureName: getTextureName(selectedTableClothTexture),
       price: tableClothPrice,
     },
     {
       name: "Table Runner",
+      key: "tableRunner",
       textureName: getTextureName(selectedTableRunnerTexture),
       price: tableRunnerPrice,
     },
     {
       name: "Plate",
+      key: "plate",
       textureName: getTextureName(selectedPlateTexture),
       price: platePrice,
     },
     {
       name: "Chair Cover",
+      key: "chairCover",
       textureName: getTextureName(selectedChairCoverTexture),
       price: chairCoverPrice,
     },
     {
       name: "Chair Runner",
+      key: "chairRunner",
       textureName: getTextureName(selectedChairRunnerTexture),
       price: chairRunnerPrice,
     },
   ];
 
-  const itemizedItems = [
-    {
-      name: "Table Cloth",
-      key: "tableCloth",
-      textureName: selectedTableClothTexture.split("/").pop(),
-      price: tableClothPrice,
-    },
-    {
-      name: "Table Runner",
-      key: "tableRunner",
-      textureName: selectedTableRunnerTexture.split("/").pop(),
-      price: tableRunnerPrice,
-    },
-    {
-      name: "Plate",
-      key: "plate",
-      textureName: selectedPlateTexture.split("/").pop(),
-      price: platePrice,
-    },
-    {
-      name: "Chair Cover",
-      key: "chairCover",
-      textureName: selectedChairCoverTexture.split("/").pop(),
-      price: chairCoverPrice,
-    },
-    {
-      name: "Chair Runner",
-      key: "chairRunner",
-      textureName: selectedChairRunnerTexture.split("/").pop(),
-      price: chairRunnerPrice,
-    },
-  ];
-
-  const subtotal =
-    tableClothPrice +
-    tableRunnerPrice +
-    platePrice +
-    chairCoverPrice +
-    chairRunnerPrice;
+  const allowedKeys = packages[[selectedPackage] || []];
+  const filteredItems = itemizedItems.filter((item) =>
+    allowedKeys.includes(item.key)
+  );
+  const subtotal = filteredItems.reduce((sum, item) => sum + item.price, 0);
 
   return (
     <div className='App'>
@@ -388,6 +366,8 @@ function App() {
                     chairRunnerTexture={{
                       selectedChairRunnerTexture,
                     }}
+                    packages={packages}
+                    selectedPackage={selectedPackage}
                   />
 
                   {/* Controls */}
@@ -439,10 +419,9 @@ function App() {
             </div>
           </div>
           <SubtotalPanel
-            items={itemizedItems}
+            items={filteredItems}
             subtotal={subtotal}
             selectedPackage={selectedPackage}
-            packages={packages}
           />
         </div>
       )}

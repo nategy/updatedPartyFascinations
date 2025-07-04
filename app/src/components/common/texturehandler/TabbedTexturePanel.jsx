@@ -37,6 +37,7 @@ export default function TabbedTexturePanel({
   const handlePackageChange = (e) => {
     setSelectedPackage(e.target.value);
   };
+
   return (
     <div className={`tabbed-panel ${navOpen ? "hide-panel" : ""}`}>
       <div
