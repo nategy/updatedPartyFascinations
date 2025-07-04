@@ -61,12 +61,12 @@ function Model({ ...props }) {
   );
 
   const platePositions = [
-    [2, -5.5, 15],
-    [0, -5.5, -15.5],
-    [-24, -5.5, -32],
-    [-62, -5.5, -12],
-    [-57, -5.5, 15.5],
-    [-35, -5.5, 35],
+    [2, -8, 15],
+    [0, -8, -15.5],
+    [-24, -8, -32],
+    [-62, -8, -12],
+    [-57, -8, 15.5],
+    [-35, -8, 35],
   ];
 
   const chairRadius = 1.3; // meters
@@ -113,7 +113,7 @@ function Model({ ...props }) {
       {allowedKeys.includes("tableRunner") && (
         <group
           name='TableRunner'
-          position={[0, -0.5, 1]}
+          position={[0, -5, 1]}
           rotation={[0, 0.525, 0]}
           scale={[1, 1.35, 1.35]}
         >
@@ -204,8 +204,8 @@ function App() {
 
   // Packages
   const packages = {
-    silver: ["tableCloth", "chairCover", "plate"],
-    bronze: ["tableCloth", "tableRunner", "chairCover", "plate"],
+    silver: ["tableCloth", "tableRunner"],
+    bronze: ["tableCloth", "chairCover", "chairRunner"],
     gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
   };
 
@@ -336,6 +336,11 @@ function App() {
                     penumbra={1}
                     position={[10, 20, 10]}
                   />
+
+                  {/* <mesh position={[0, 0, -5]} scale={[20, 10, 1]}>
+                    <planeGeometry args={[30, 20]} />
+                    <meshBasicMaterial map={useTexture("")} />
+                  </mesh> */}
 
                   {/* Plane */}
                   {!isMobile && (

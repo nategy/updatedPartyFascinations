@@ -3,11 +3,9 @@ import "./footer.css";
 import { FaFacebookF } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 import { HiLocationMarker } from "react-icons/hi";
-import { FaPhoneAlt } from "react-icons/fa";
 import { GoGlobe } from "react-icons/go";
 import { BiEnvelope } from "react-icons/bi";
 import { ImPhone } from "react-icons/im";
-import { Logo } from "../footer/pf-logo.png";
 
 function Footer() {
   return (
@@ -67,7 +65,7 @@ function Footer() {
         <div className='copyright'>
           <p className='col-sm'>
             &copy; 2020 Party Fascinations. Site created by CS Web Design. Model
-            Feature created by NG Web Creations.
+            Feature created by GrayWebCreations.
           </p>
         </div>
       </div>

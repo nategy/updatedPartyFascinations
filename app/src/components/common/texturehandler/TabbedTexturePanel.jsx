@@ -12,9 +12,9 @@ const allTabs = [
 ];
 
 const packages = {
-  silver: ["tableCloth", "chairCover", "chairRunner"],
-  bronze: ["tableCloth", "tableRunner", "plate"],
-  gold: ["tableCloth", "tableRunner", "plate", "chairCover", "chairRunner"],
+  silver: ["tableCloth", "tableRunner"],
+  bronze: ["tableCloth", "chairCover", "chairRunner"],
+  gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
 };
 
 export default function TabbedTexturePanel({
