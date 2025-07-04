@@ -1,17 +1,21 @@
 .subtotal-panel {
+  position: fixed;
+  top: 25%;
+  right: 10px;
+  width: 85%;
+  max-width: 320px;
   background: #ffffff;
   border: 1px solid #c3aee3;
-  border-radius: 10px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  margin-top: 16px;
-  transition: all 0.3s ease;
+  border-radius: 10px 0 0 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   overflow: hidden;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: transform 0.3s ease;
+  z-index: 99999;
 }
 
 .subtotal-bar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background: #a35bb7;
   color: white;
@@ -23,6 +27,7 @@
 }
 
 .subtotal-bar span {
+  flex: 1;
   padding-left: 10px;
 }
 
@@ -37,6 +42,8 @@
 .subtotal-content {
   background: #f9f5fc;
   padding: 16px;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 .subtotal-content ul {
@@ -56,12 +63,31 @@
   color: #52106a;
 }
 
-/* Spacing and layout improvements for desktop */
+.subtotal-panel.closed {
+  transform: translateX(50%);
+}
+
+.subtotal-panel.open {
+  transform: translateX(0);
+}
+
+/* === DESKTOP VIEW === */
 @media screen and (min-width: 768px) {
   .subtotal-panel {
-    position: sticky;
-    top: 20px;
+    position: fixed;
+    top: 30%;
+    right: 15px;
+    width: 300px;
     max-width: 320px;
-    margin-left: 20px;
+    border-radius: 10px 0 0 10px;
+    transform: translateX(0);
+  }
+
+  .subtotal-panel.closed {
+    transform: translateX(50%);
+  }
+
+  .subtotal-panel.open {
+    transform: translateX(0);
   }
 }

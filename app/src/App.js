@@ -188,6 +188,16 @@ function App() {
   const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] =
     useState("/testtexture.jpg");
 
+  // Initial state
+  const [selectedPackage, setSelectedPackage] = useState("silver");
+
+  // Packages
+  const packages = {
+    silver: ["tableCloth", "chairCover", "chairRunner"],
+    bronze: ["tableCloth", "tableRunner", "plate"],
+    gold: ["tableCloth", "tableRunner", "plate", "chairCover", "chairRunner"],
+  };
+
   // Pricing
   const [tableClothPrice, setTableClothPrice] = useState(100);
   const [tableRunnerPrice, setTableRunnerPrice] = useState(35);
@@ -259,6 +269,39 @@ function App() {
     {
       name: "Chair Runner",
       textureName: getTextureName(selectedChairRunnerTexture),
+      price: chairRunnerPrice,
+    },
+  ];
+
+  const itemizedItems = [
+    {
+      name: "Table Cloth",
+      key: "tableCloth",
+      textureName: selectedTableClothTexture.split("/").pop(),
+      price: tableClothPrice,
+    },
+    {
+      name: "Table Runner",
+      key: "tableRunner",
+      textureName: selectedTableRunnerTexture.split("/").pop(),
+      price: tableRunnerPrice,
+    },
+    {
+      name: "Plate",
+      key: "plate",
+      textureName: selectedPlateTexture.split("/").pop(),
+      price: platePrice,
+    },
+    {
+      name: "Chair Cover",
+      key: "chairCover",
+      textureName: selectedChairCoverTexture.split("/").pop(),
+      price: chairCoverPrice,
+    },
+    {
+      name: "Chair Runner",
+      key: "chairRunner",
+      textureName: selectedChairRunnerTexture.split("/").pop(),
       price: chairRunnerPrice,
     },
   ];
@@ -363,6 +406,8 @@ function App() {
             <div className='texture-scroll-area'>
               <TabbedTexturePanel
                 navOpen={navOpen}
+                selectedPackage={selectedPackage}
+                setSelectedPackage={setSelectedPackage}
                 textureConfig={{
                   tableCloth: {
                     textures: texturePaths,
@@ -393,7 +438,12 @@ function App() {
               />
             </div>
           </div>
-          <SubtotalPanel items={selectedItems} subtotal={subtotal} />
+          <SubtotalPanel
+            items={itemizedItems}
+            subtotal={subtotal}
+            selectedPackage={selectedPackage}
+            packages={packages}
+          />
         </div>
       )}
       <Footer />

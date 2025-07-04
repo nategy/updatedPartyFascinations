@@ -20,8 +20,9 @@ const packages = {
 export default function TabbedTexturePanel({
   textureConfig,
   navOpen, // object with texture props for each category
+  selectedPackage,
+  setSelectedPackage,
 }) {
-  const [selectedPackage, setSelectedPackage] = useState("silver");
   const [activeTab, setActiveTab] = useState("tableCloth");
 
   const allowedTabs = packages[selectedPackage];

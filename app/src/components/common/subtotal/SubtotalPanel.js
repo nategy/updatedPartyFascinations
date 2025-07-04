@@ -3,12 +3,23 @@ import "./subtotal.css";
 import React, { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-export default function SubtotalPanel({ items, subtotal }) {
+export default function SubtotalPanel({
+  items,
+  subtotal,
+  selectedPackage,
+  packages,
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const togglePanel = () => {
     setIsOpen((prev) => !prev);
   };
+
+  // Get alloweed keys
+  const allowedKeys = packages[[selectedPackage] || []];
+
+  // Filter through items
+  const filteredItems = items.filter((item) => allowedKeys.includes(item.key));
 
   return (
     <div className={`subtotal-panel ${isOpen ? "open" : "closed"}`}>
@@ -21,7 +32,7 @@ export default function SubtotalPanel({ items, subtotal }) {
         <div className='subtotal-content'>
           <h3>Selected Items</h3>
           <ul>
-            {items.map((item, index) => (
+            {filteredItems.map((item, index) => (
               <li key={index}>
                 {item.name}: {item.textureName} - ${item.price}
               </li>
