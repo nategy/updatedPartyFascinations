@@ -12,7 +12,17 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { BrowserRouter as Router } from "react-router-dom";
 
-useGLTF.preload("/PFScene5.gltf");
+useGLTF.preload("/PFScene7.gltf");
+
+function BasicChair({ position, rotation, geometry }) {
+  return (
+    <group position={position} rotation={rotation} scale={[1, 1, 1]}>
+      <mesh geometry={geometry}>
+        <meshStandardMaterial color='#2b2b2b' />
+      </mesh>
+    </group>
+  );
+}
 
 function Chair({
   position,
@@ -44,7 +54,7 @@ function Chair({
 
 function Model({ ...props }) {
   const group = useRef();
-  const { nodes } = useGLTF("PFScene5.gltf");
+  const { nodes } = useGLTF("PFScene7.gltf");
 
   const tableClothTexture = useTexture(
     props.tableClothTexture.selectedTableClothTexture
@@ -134,18 +144,34 @@ function Model({ ...props }) {
         ))}
 
       {/* Chairs + Chair Runners */}
-      {allowedKeys.includes("chairCover") &&
-        positions.map((pos, i) => (
-          <Chair
-            key={`Chair${i}`}
-            position={pos}
-            rotation={rotations[i]}
-            coverTexture={chairClothTexture}
-            runnerTexture={chairRunnerTexture}
-            coverGeometry={nodes["Chair001"].geometry}
-            runnerGeometry={nodes["ChairRunner"].geometry}
-          />
-        ))}
+      {(selectedPackage === "silver" || allowedKeys.includes("chairCover")) &&
+        positions.map((pos, i) => {
+          if (selectedPackage === "silver") {
+            return (
+              <BasicChair
+                key={`BasicChair${i}`}
+                position={pos}
+                rotation={rotations[i]}
+                coverTexture={chairClothTexture}
+                geometry={nodes["BasicChair"].geometry}
+              />
+            );
+          } else if (allowedKeys.includes("chairCover")) {
+            return (
+              <Chair
+                key={`Chair${i}`}
+                position={pos}
+                rotation={rotations[i]}
+                coverTexture={chairClothTexture}
+                runnerTexture={chairRunnerTexture}
+                coverGeometry={nodes["Chair001"].geometry}
+                runnerGeometry={nodes["ChairRunner"].geometry}
+              />
+            );
+          } else {
+            return null;
+          }
+        })}
     </group>
   );
 }
@@ -329,18 +355,32 @@ function App() {
               >
                 <color attach='background' args={["#f0f0f0"]} />
                 <Suspense fallback={null}>
-                  <ambientLight intensity={0.2} />
+                  <color attatch='background args={["f8f8f8"]}' />
+
+                  <ambientLight intensity={0.3} />
                   <spotLight
                     intensity={0.8}
                     angle={0.25}
                     penumbra={1}
-                    position={[10, 20, 10]}
+                    position={[0, 20, 10]}
+                    castShadow
                   />
 
-                  {/* <mesh position={[0, 0, -5]} scale={[20, 10, 1]}>
+                  {/* Floor Plane */}
+                  <mesh
+                    rotation={[-Math.PI / 2, 0, 0]}
+                    position={[0, -0.5, 0]}
+                    receiveShadow
+                  >
+                    <planeGeometry args={[30, 30]} />
+                    <meshStandardMaterial color='#eeeeee' />
+                  </mesh>
+
+                  {/* Back Wall */}
+                  <mesh position={[0, 5, -7.5]} receiveShadow>
                     <planeGeometry args={[30, 20]} />
-                    <meshBasicMaterial map={useTexture("")} />
-                  </mesh> */}
+                    <meshStandardMaterial color='#fafafa' />
+                  </mesh>
 
                   {/* Plane */}
                   {!isMobile && (

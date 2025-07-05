@@ -27,6 +27,7 @@ export default function SubtotalPanel({ items, subtotal, selectedPackage }) {
               </li>
             ))}
           </ul>
+          <div className='subtotal-divider'></div>
           <h3>Total: ${subtotal}</h3>
         </div>
       )}
