@@ -1,5 +1,5 @@
 import "./texture.css";
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";

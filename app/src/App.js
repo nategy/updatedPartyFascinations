@@ -6,6 +6,7 @@ import Footer from "./components/common/footer/Footer";
 import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 import SubtotalPanel from "./components/common/subtotal/SubtotalPanel";
 
+import * as THREE from "three";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
@@ -59,16 +60,27 @@ function Model({ ...props }) {
   const tableClothTexture = useTexture(
     props.tableClothTexture.selectedTableClothTexture
   );
-  const tableRunnerTexture = useTexture(
+
+  const rawTableRunnerTexture = useTexture(
     props.tableRunnerTexture.selectedTableRunnerTexture
   );
+
+  const tableRunnerTexture = rawTableRunnerTexture.clone();
+
+  tableRunnerTexture.wrapS = tableRunnerTexture.wrapT = THREE.RepeatWrapping;
+  tableRunnerTexture.repeat.set(1, 6); // tweak numbers to your liking
+  tableRunnerTexture.anisotropy = 16;
   const plateTexture = useTexture(props.plateTexture.selectedPlateTexture);
   const chairClothTexture = useTexture(
     props.chairCoverTexture.selectedChairCoverTexture
   );
-  const chairRunnerTexture = useTexture(
+
+  const rawChairRunnerTexture = useTexture(
     props.chairRunnerTexture.selectedChairRunnerTexture
   );
+  const chairRunnerTexture = rawChairRunnerTexture.clone();
+
+  // tableRunnerTexture.rotation = Math.PI;
 
   const platePositions = [
     [2, -8, 15],
@@ -217,16 +229,21 @@ function App() {
 
   // States + Textures
   const [selectedPackage, setSelectedPackage] = useState("silver");
-  const [selectedTableClothTexture, setSelectedTableClothTexture] =
-    useState("/testtexture.jpg");
-  const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] =
-    useState("/testtexture.jpg");
-  const [selectedPlateTexture, setSelectedPlateTexture] =
-    useState("/testtexture.jpg");
-  const [selectedChairCoverTexture, setSelectedChairCoverTexture] =
-    useState("/testtexture.jpg");
-  const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] =
-    useState("/testtexture.jpg");
+  const [selectedTableClothTexture, setSelectedTableClothTexture] = useState(
+    "/tablecloths/soft-white.jpg"
+  );
+  const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] = useState(
+    "/tablecloths/brown-flowers.jpg"
+  );
+  const [selectedPlateTexture, setSelectedPlateTexture] = useState(
+    "/tablecloths/soft-white.jpg"
+  );
+  const [selectedChairCoverTexture, setSelectedChairCoverTexture] = useState(
+    "/tablecloths/green-flannel.jpg"
+  );
+  const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] = useState(
+    "/tablecloths/brown-striped.jpg"
+  );
 
   // Packages
   const packages = {
@@ -244,9 +261,10 @@ function App() {
 
   // Textures and Prices ***** Convert to seperate JSON FILE WITH ALL The Textures
   const texturePaths = [
-    { src: "/tablecloths/pexels-anni-roenkae-4175070.jpg", price: 5 },
-    { src: "/tablecloths/pexels-maryann-kariuki-4303015.jpg", price: 10 },
-    { src: "/tablecloths/pexels-laura-james-6101966.jpg", price: 8 },
+    { src: "/tablecloths/brown-flowers.jpg", price: 5 },
+    { src: "/tablecloths/soft-white.jpg", price: 10 },
+    { src: "/tablecloths/green-flannel.jpg", price: 8 },
+    { src: "/tablecloths/brown-striped.jpg", price: 15 },
   ];
 
   const getTextureName = (texturePath) =>
