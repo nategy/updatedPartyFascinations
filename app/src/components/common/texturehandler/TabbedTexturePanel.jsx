@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TextureSelector from "./TextureSelector";
+import FilterHandler from "../filter/FilterHandler";
 
 import "./tabtexture.css";
 
@@ -18,10 +19,10 @@ const packages = {
 };
 
 export default function TabbedTexturePanel({
-  textureConfig,
-  navOpen, // object with texture props for each category
+  navOpen,
   selectedPackage,
   setSelectedPackage,
+  textureConfig,
 }) {
   const [activeTab, setActiveTab] = useState("tableCloth");
 
@@ -40,32 +41,27 @@ export default function TabbedTexturePanel({
 
   return (
     <div className={`tabbed-panel ${navOpen ? "hide-panel" : ""}`}>
-      <div
-        className='package-selector'
-        style={{ marginBottom: "12px", textAlign: "center" }}
-      >
-        <label
-          htmlFor='package'
-          style={{ marginRight: "8px", fontWeight: "bold" }}
-        >
-          Select Package:
-        </label>
+      <div className='package-selector'>
+        <label htmlFor='package'>Select Package:</label>
         <select
           id='package'
           value={selectedPackage}
           onChange={handlePackageChange}
-          style={{
-            padding: "6px 10px",
-            borderRadius: "6px",
-            border: "1px solid #c3aee3",
-            backgroundColor: "#f9f5fc",
-          }}
         >
           <option value='silver'>Silver Package</option>
           <option value='bronze'>Bronze Package</option>
           <option value='gold'>Gold Package</option>
         </select>
       </div>
+
+      {textureConfig[activeTab] && (
+        <div className='filter-wrapper'>
+          <FilterHandler
+            selectedTags={textureConfig[activeTab].selectedTags}
+            setSelectedTags={textureConfig[activeTab].setSelectedTags}
+          />
+        </div>
+      )}
 
       <div className='tab-buttons'>
         {filteredTabs.map(({ label, key }) => (

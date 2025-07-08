@@ -5,6 +5,7 @@ import Header from "./components/common/header/Header";
 import Footer from "./components/common/footer/Footer";
 import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
 import SubtotalPanel from "./components/common/subtotal/SubtotalPanel";
+import textureMetadata from "./components/common/textures/textureMetaData.json";
 
 import * as THREE from "three";
 import { Suspense, useRef, useState, useEffect } from "react";
@@ -57,30 +58,23 @@ function Model({ ...props }) {
   const group = useRef();
   const { nodes } = useGLTF("PFScene7.gltf");
 
-  const tableClothTexture = useTexture(
+  const tableClothMap = useTexture(
     props.tableClothTexture.selectedTableClothTexture
   );
-
-  const rawTableRunnerTexture = useTexture(
+  const rawTableRunner = useTexture(
     props.tableRunnerTexture.selectedTableRunnerTexture
   );
-
-  const tableRunnerTexture = rawTableRunnerTexture.clone();
-
-  tableRunnerTexture.wrapS = tableRunnerTexture.wrapT = THREE.RepeatWrapping;
-  tableRunnerTexture.repeat.set(1, 6); // tweak numbers to your liking
-  tableRunnerTexture.anisotropy = 16;
-  const plateTexture = useTexture(props.plateTexture.selectedPlateTexture);
-  const chairClothTexture = useTexture(
+  const tableRunnerMap = rawTableRunner.clone();
+  tableRunnerMap.wrapS = tableRunnerMap.wrapT = THREE.RepeatWrapping;
+  tableRunnerMap.repeat.set(1, 6);
+  const plateMap = useTexture(props.plateTexture.selectedPlateTexture);
+  const chairCoverMap = useTexture(
     props.chairCoverTexture.selectedChairCoverTexture
   );
-
-  const rawChairRunnerTexture = useTexture(
+  const rawChairRunner = useTexture(
     props.chairRunnerTexture.selectedChairRunnerTexture
   );
-  const chairRunnerTexture = rawChairRunnerTexture.clone();
-
-  // tableRunnerTexture.rotation = Math.PI;
+  const chairRunnerMap = rawChairRunner.clone();
 
   const platePositions = [
     [2, -8, 15],
@@ -110,80 +104,54 @@ function Model({ ...props }) {
   const allowedKeys = packages[selectedPackage] || [];
 
   return (
-    <group
-      ref={group}
-      {...props}
-      dispose={null}
-      position={[0, 0, 0]}
-      scale={[0.01, 0.01, 0.01]}
-      rotation={[0, -0.5, 0]}
-    >
-      {/* Tablecloth */}
+    <group ref={group} scale={[0.01, 0.01, 0.01]} rotation={[0, -0.5, 0]}>
       {allowedKeys.includes("tableCloth") && (
-        <group
-          name='Tablecloth'
-          position={[0, 0, 0]}
-          scale={[1.25, 1.25, 1.25]}
-        >
-          <mesh geometry={nodes.TableCloth.geometry}>
-            <meshStandardMaterial map={tableClothTexture} />
-          </mesh>
-        </group>
+        <mesh geometry={nodes.TableCloth.geometry} scale={[1.25, 1.25, 1.25]}>
+          <meshStandardMaterial map={tableClothMap} />
+        </mesh>
       )}
-
-      {/* TableRunner */}
       {allowedKeys.includes("tableRunner") && (
-        <group
-          name='TableRunner'
+        <mesh
+          geometry={nodes.TableRunner.geometry}
           position={[0, -5, 1]}
           rotation={[0, 0.525, 0]}
           scale={[1, 1.35, 1.35]}
         >
-          <mesh geometry={nodes.TableRunner.geometry}>
-            <meshStandardMaterial map={tableRunnerTexture} />
-          </mesh>
-        </group>
+          <meshStandardMaterial map={tableRunnerMap} />
+        </mesh>
       )}
-
-      {/* Plates */}
       {allowedKeys.includes("plate") &&
         platePositions.map((pos, i) => (
-          <group key={`Plate${i}`} position={pos} scale={[1.5, 1.5, 1.5]}>
-            <mesh geometry={nodes.Plate.geometry}>
-              <meshStandardMaterial map={plateTexture} side={2} />
-            </mesh>
-          </group>
+          <mesh
+            key={i}
+            geometry={nodes.Plate.geometry}
+            position={pos}
+            scale={[1.5, 1.5, 1.5]}
+          >
+            <meshStandardMaterial map={plateMap} side={2} />
+          </mesh>
         ))}
-
-      {/* Chairs + Chair Runners */}
       {(selectedPackage === "silver" || allowedKeys.includes("chairCover")) &&
-        positions.map((pos, i) => {
-          if (selectedPackage === "silver") {
-            return (
-              <BasicChair
-                key={`BasicChair${i}`}
-                position={pos}
-                rotation={rotations[i]}
-                coverTexture={chairClothTexture}
-                geometry={nodes["BasicChair"].geometry}
-              />
-            );
-          } else if (allowedKeys.includes("chairCover")) {
-            return (
-              <Chair
-                key={`Chair${i}`}
-                position={pos}
-                rotation={rotations[i]}
-                coverTexture={chairClothTexture}
-                runnerTexture={chairRunnerTexture}
-                coverGeometry={nodes["Chair001"].geometry}
-                runnerGeometry={nodes["ChairRunner"].geometry}
-              />
-            );
-          } else {
-            return null;
-          }
-        })}
+        positions.map((pos, i) =>
+          selectedPackage === "silver" ? (
+            <BasicChair
+              key={i}
+              position={pos}
+              rotation={rotations[i]}
+              geometry={nodes["BasicChair"].geometry}
+            />
+          ) : (
+            <Chair
+              key={i}
+              position={pos}
+              rotation={rotations[i]}
+              coverTexture={chairCoverMap}
+              runnerTexture={chairRunnerMap}
+              coverGeometry={nodes["Chair001"].geometry}
+              runnerGeometry={nodes["ChairRunner"].geometry}
+            />
+          )
+        )}
     </group>
   );
 }
@@ -259,14 +227,76 @@ function App() {
   const [chairCoverPrice, setChairCoverPrice] = useState(300);
   const [chairRunnerPrice, setChairRunnerPrice] = useState(150);
 
-  // Textures and Prices ***** Convert to seperate JSON FILE WITH ALL The Textures
-  const texturePaths = [
-    { src: "/tablecloths/brown-flowers.jpg", price: 5 },
-    { src: "/tablecloths/soft-white.jpg", price: 10 },
-    { src: "/tablecloths/green-flannel.jpg", price: 8 },
-    { src: "/tablecloths/brown-striped.jpg", price: 15 },
-  ];
+  // Texture Types
+  const textureTypes = {
+    tableCloth: textureMetadata.filter((tex) => tex.type === "tableCloth"),
+    tableRunner: textureMetadata.filter((tex) => tex.type === "tableRunner"),
+    plate: textureMetadata.filter((tex) => tex.type === "plate"),
+    chairCover: textureMetadata.filter((tex) => tex.type === "chairCover"),
+    chairRunner: textureMetadata.filter((tex) => tex.type === "chairRunner"),
+  };
 
+  // Filter Handler
+  const tableClothTextures = textureMetadata.filter(
+    (tex) => tex.type === "tableCloth"
+  );
+  const tableRunnerTextures = textureMetadata.filter(
+    (tex) => tex.type === "tableRunner"
+  );
+  const plateTextures = textureMetadata.filter((tex) => tex.type === "plate");
+  const chairCoverTextures = textureMetadata.filter(
+    (tex) => tex.type === "chairCover"
+  );
+  const chairRunnerTextures = textureMetadata.filter(
+    (tex) => tex.type === "chairRunner"
+  );
+
+  // Filter Handler
+  const [tableClothTags, setTableClothTags] = useState([]);
+  const [tableRunnerTags, setTableRunnerTags] = useState([]);
+  const [plateTags, setPlateTags] = useState([]);
+  const [chairCoverTags, setChairCoverTags] = useState([]);
+  const [chairRunnerTags, setChairRunnerTags] = useState([]);
+
+  const textureConfig = {
+    tableCloth: {
+      textures: textureTypes.tableCloth,
+      selectedTexture: selectedTableClothTexture,
+      onSelectTexture: setSelectedTableClothTexture,
+      selectedTags: tableClothTags,
+      setSelectedTags: setTableClothTags,
+    },
+    tableRunner: {
+      textures: textureTypes.tableRunner,
+      selectedTexture: selectedTableRunnerTexture,
+      onSelectTexture: setSelectedTableRunnerTexture,
+      selectedTags: tableRunnerTags,
+      setSelectedTags: setTableRunnerTags,
+    },
+    plate: {
+      textures: textureTypes.plate,
+      selectedTexture: selectedPlateTexture,
+      onSelectTexture: setSelectedPlateTexture,
+      selectedTags: plateTags,
+      setSelectedTags: setPlateTags,
+    },
+    chairCover: {
+      textures: textureTypes.chairCover,
+      selectedTexture: selectedChairCoverTexture,
+      onSelectTexture: setSelectedChairCoverTexture,
+      selectedTags: chairCoverTags,
+      setSelectedTags: setChairCoverTags,
+    },
+    chairRunner: {
+      textures: textureTypes.chairRunner,
+      selectedTexture: selectedChairRunnerTexture,
+      onSelectTexture: setSelectedChairRunnerTexture,
+      selectedTags: chairRunnerTags,
+      setSelectedTags: setChairRunnerTags,
+    },
+  };
+
+  // Texture Name Handler
   const getTextureName = (texturePath) =>
     texturePath.split("/").pop() || "None";
   // Pricing Handler
@@ -274,22 +304,18 @@ function App() {
     setSelectedTableClothTexture(textureObj.src);
     setTableClothPrice(textureObj.price);
   };
-
   const handleSelectTableRunner = (textureObj) => {
     setSelectedTableRunnerTexture(textureObj.src);
     setTableRunnerPrice(textureObj.price);
   };
-
   const handleSelectPlate = (textureObj) => {
     setSelectedPlateTexture(textureObj.src);
     setPlatePrice(textureObj.price);
   };
-
   const handleSelectChairCover = (textureObj) => {
     setSelectedChairCoverTexture(textureObj.src);
     setChairCoverPrice(textureObj.price);
   };
-
   const handleSelectChairRunner = (textureObj) => {
     setSelectedChairRunnerTexture(textureObj.src);
     setChairRunnerPrice(textureObj.price);
@@ -373,7 +399,7 @@ function App() {
               >
                 <color attach='background' args={["#f0f0f0"]} />
                 <Suspense fallback={null}>
-                  <color attatch='background args={["f8f8f8"]}' />
+                  <color attatch='background args={["#f8f8f8"]}' />
 
                   <ambientLight intensity={0.3} />
                   <spotLight
@@ -451,33 +477,7 @@ function App() {
                 navOpen={navOpen}
                 selectedPackage={selectedPackage}
                 setSelectedPackage={setSelectedPackage}
-                textureConfig={{
-                  tableCloth: {
-                    textures: texturePaths,
-                    selectedTexture: selectedTableClothTexture,
-                    onSelectTexture: handleSelectTableCloth,
-                  },
-                  tableRunner: {
-                    textures: texturePaths,
-                    selectedTexture: selectedTableRunnerTexture,
-                    onSelectTexture: handleSelectTableRunner,
-                  },
-                  plate: {
-                    textures: texturePaths,
-                    selectedTexture: selectedPlateTexture,
-                    onSelectTexture: handleSelectPlate,
-                  },
-                  chairCover: {
-                    textures: texturePaths,
-                    selectedTexture: selectedChairCoverTexture,
-                    onSelectTexture: handleSelectChairCover,
-                  },
-                  chairRunner: {
-                    textures: texturePaths,
-                    selectedTexture: selectedChairRunnerTexture,
-                    onSelectTexture: handleSelectChairRunner,
-                  },
-                }}
+                textureConfig={textureConfig}
               />
             </div>
           </div>

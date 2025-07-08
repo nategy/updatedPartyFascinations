@@ -1,0 +1,26 @@
+[
+  {
+    "src": "/tablecloths/brown-flowers.jpg",
+    "tags": ["brown", "flowers"],
+    "type": "tableCloth",
+    "price": 12
+  },
+  {
+    "src": "/tablecloths/brown-striped.jpg",
+    "tags": ["brown", "stripes"],
+    "type": "tableCloth",
+    "price": 15
+  },
+  {
+    "src": "/tablecloths/soft-white.jpg",
+    "tags": ["white"],
+    "type": "tableCloth",
+    "price": 10
+  },
+    {
+    "src": "/tablecloths/green-flannel.jpg",
+    "tags": ["green"],
+    "type": "chairCover",
+    "price": 10
+  }
+]
