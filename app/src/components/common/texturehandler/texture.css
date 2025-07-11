@@ -23,6 +23,7 @@ h2 {
   position: relative;
   display: flex;
   flex-direction: column;
+
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 10;
@@ -107,9 +108,37 @@ h2 {
 .s-selector {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 8px;
   padding: 10px;
   width: 100%;
+  scroll-behavior: smooth;
+}
+
+.s-selector > * {
+  flex: 0 0 auto;
+}
+
+.s-selector::-webkit-scrollbar {
+  height: 8px;
+}
+
+.s-selector::-webkit-scrollbar-thumb {
+  background-color: #c3aee3;
+  border-radius: 4px;
+}
+
+.s-selector::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.texture-option {
+  flex: 0 0 auto; /* Prevent shrinking, allow fixed width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .s-btn {
@@ -137,6 +166,13 @@ h2 {
 
 .s-btn img:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.s-arrow.disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+  transform: none;
 }
 
 /* Accessibility Improvements */

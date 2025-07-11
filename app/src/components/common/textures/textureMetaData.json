@@ -2,25 +2,87 @@
   {
     "src": "/tablecloths/brown-flowers.jpg",
     "tags": ["brown", "flowers"],
-    "type": "tableCloth",
+    "type": ["tableCloth","tableRunner"],
     "price": 12
   },
   {
     "src": "/tablecloths/brown-striped.jpg",
-    "tags": ["brown", "stripes"],
-    "type": "tableCloth",
+    "tags": ["brown", "stripes", "modern"],
+    "type": ["tableCloth","tableRunner", "chairRunner"],
     "price": 15
   },
   {
     "src": "/tablecloths/soft-white.jpg",
-    "tags": ["white"],
+    "tags": ["white", "elegant"],
+    "type": ["tableCloth","tableRunner", "chairCover", "chairRunner", "plates"],
+    "price": 10
+  },
+  
+  {
+    "src": "/tablecloths/green-flannel.jpg",
+    "tags": ["green", "rustic"],
+    "type": "chairCover",
+    "price": 10
+  },
+
+  {
+    "src": "/tablecloths/black-fireworks.jpg",
+    "tags":  ["bold", "solid", "black", "modern"],
     "type": "tableCloth",
     "price": 10
   },
+  {
+    "src": "/tablecloths/blue-confetti.jpg",
+    "tags": ["blue", "modern"],
+    "type": ["tableCloth","chairCover"],
+    "price": 10
+  },  
+  {
+    "src": "/tablecloths/purple-wave.jpg",
+    "tags": ["luxury", "solid", "purple"],
+    "type": ["tableCloth","tableRunner", "plates"],
+    "price": 10
+  },  
+  {
+    "src": "/tablecloths/white-ornaments.jpg",
+    "tags": ["bold", "white", "elegant"],
+    "type": ["tableCloth","tableRunner", "chairRunner"],
+    "price": 10
+  },
+  {
+    "src": "/tablecloths/orange-solid.jpg",
+    "tags": ["bold", "solid", "rustic"],
+    "type": "tableCloth",
+    "price": 10
+  },
+  {
+    "src": "/tablecloths/blue-solid.jpg",
+    "tags": ["blue", "solid", "modern"],
+    "type": ["tableCloth","chairCover"],
+    "price": 10
+  },  
     {
-    "src": "/tablecloths/green-flannel.jpg",
-    "tags": ["green"],
-    "type": "chairCover",
+    "src": "/tablecloths/blue-solid.jpg",
+    "tags": ["blue", "solid", "elegant"],
+    "type": "plates",
+    "price": 90
+  },  
+  {
+    "src": "/tablecloths/pink-solid.jpg",
+    "tags": ["bold", "solid", "luxury", "pink"],
+    "type": ["tableCloth","tableRunner", "plates"],
+    "price": 10
+  },  
+  {
+    "src": "/tablecloths/yellow-solid.jpg",
+    "tags": ["bold", "solid", "yellow"],
+    "type": ["tableCloth","tableRunner", "chairRunner"],
+    "price": 10
+  },
+    {
+    "src": "/tablecloths/teal-solid.jpg",
+    "tags": ["teal", "solid", "elegant"],
+    "type": ["tableCloth","tableRunner", "chairRunner"],
     "price": 10
   }
 ]

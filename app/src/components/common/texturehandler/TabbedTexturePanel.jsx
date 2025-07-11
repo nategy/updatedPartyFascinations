@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import TextureSelector from "./TextureSelector";
-import FilterHandler from "../filter/FilterHandler";
-
 import "./tabtexture.css";
 
 const allTabs = [
@@ -9,13 +7,15 @@ const allTabs = [
   { label: "Table Runners", key: "tableRunner" },
   { label: "Chair Covers", key: "chairCover" },
   { label: "Chair Runners", key: "chairRunner" },
-  { label: "Plates", key: "plate" },
+  { label: "Plates", key: "plates" },
 ];
+
+const availableTags = ["modern", "elegant", "rustic", "luxury", "bold"];
 
 const packages = {
   silver: ["tableCloth", "tableRunner"],
   bronze: ["tableCloth", "chairCover", "chairRunner"],
-  gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+  gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plates"],
 };
 
 export default function TabbedTexturePanel({
@@ -25,6 +25,7 @@ export default function TabbedTexturePanel({
   textureConfig,
 }) {
   const [activeTab, setActiveTab] = useState("tableCloth");
+  const [selectedTag, setSelectedTag] = useState("");
 
   const allowedTabs = packages[selectedPackage];
   const filteredTabs = allTabs.filter((tab) => allowedTabs.includes(tab.key));
@@ -39,29 +40,43 @@ export default function TabbedTexturePanel({
     setSelectedPackage(e.target.value);
   };
 
+  const handleTagChange = (e) => {
+    setSelectedTag(e.target.value);
+  };
+
+  // Filter textures based on selectedTag
+  const filteredTextures = textureConfig[activeTab].textures.filter((tex) =>
+    selectedTag === "" ? true : tex.tags.includes(selectedTag)
+  );
+
   return (
     <div className={`tabbed-panel ${navOpen ? "hide-panel" : ""}`}>
-      <div className='package-selector'>
-        <label htmlFor='package'>Select Package:</label>
-        <select
-          id='package'
-          value={selectedPackage}
-          onChange={handlePackageChange}
-        >
-          <option value='silver'>Silver Package</option>
-          <option value='bronze'>Bronze Package</option>
-          <option value='gold'>Gold Package</option>
-        </select>
-      </div>
-
-      {textureConfig[activeTab] && (
-        <div className='filter-wrapper'>
-          <FilterHandler
-            selectedTags={textureConfig[activeTab].selectedTags}
-            setSelectedTags={textureConfig[activeTab].setSelectedTags}
-          />
+      <div className='selectors-row'>
+        <div className='package-selector'>
+          <label htmlFor='package'>Select Package:</label>
+          <select
+            id='package'
+            value={selectedPackage}
+            onChange={handlePackageChange}
+          >
+            <option value='silver'>Silver Package</option>
+            <option value='bronze'>Bronze Package</option>
+            <option value='gold'>Gold Package</option>
+          </select>
         </div>
-      )}
+
+        <div className='tag-selector'>
+          <label htmlFor='tags'>Filter Style:</label>
+          <select id='tags' value={selectedTag} onChange={handleTagChange}>
+            <option value=''>All</option>
+            {availableTags.map((tag) => (
+              <option key={tag} value={tag}>
+                {tag}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       <div className='tab-buttons'>
         {filteredTabs.map(({ label, key }) => (
@@ -79,7 +94,9 @@ export default function TabbedTexturePanel({
         {textureConfig[activeTab] && (
           <TextureSelector
             selector={filteredTabs.find((t) => t.key === activeTab).label}
-            {...textureConfig[activeTab]}
+            textures={filteredTextures}
+            selectedTexture={textureConfig[activeTab].selectedTexture}
+            onSelectTexture={textureConfig[activeTab].onSelectTexture}
           />
         )}
       </div>

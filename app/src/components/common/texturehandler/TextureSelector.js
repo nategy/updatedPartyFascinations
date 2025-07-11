@@ -1,5 +1,5 @@
 import "./texture.css";
-import { useState, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -12,9 +12,44 @@ function TextureSelector({
 }) {
   const [showTextures, setTextures] = useState(false);
 
+  const scrollRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
   // Use useCallback to memoize the toggle function to prevent unnecessary re-renders
   const toggleTextures = useCallback(() => {
     setTextures((prevState) => !prevState);
+  }, []);
+
+  const updateScrollButtons = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
+  };
+
+  useEffect(() => {
+    updateScrollButtons();
+  }, [textures]); // run when textures are shown
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -100, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 100, behavior: "smooth" });
+    }
+  };
+
+  // Listen for scroll events to update button states
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateScrollButtons);
+    return () => el.removeEventListener("scroll", updateScrollButtons);
   }, []);
 
   return (
@@ -38,15 +73,16 @@ function TextureSelector({
       {showTextures && (
         <div className='s-slider-wrapper'>
           <BsArrowLeftCircleFill
-            className='s-arrow'
-            aria-label='Previous texture'
+            className={`s-arrow ${!canScrollLeft ? "disabled" : ""}`}
+            aria-label='Previous textures'
+            onClick={canScrollLeft ? scrollLeft : undefined}
           />
-          <div className='s-selector'>
+          <div className='s-selector' ref={scrollRef}>
             {textures.map((texture, index) => (
               <div key={index} className='texture-option'>
                 <button
                   className='s-btn'
-                  onClick={() => onSelectTexture(texture)}
+                  onClick={() => onSelectTexture(texture.src)}
                   aria-label={`Select texture ${index + 1}`}
                 >
                   <img src={texture.src} alt={`Texture ${index + 1}`} />
@@ -56,8 +92,9 @@ function TextureSelector({
             ))}
           </div>
           <BsArrowRightCircleFill
-            className='s-arrow'
-            aria-label='Next texture'
+            className={`s-arrow ${!canScrollRight ? "disabled" : ""}`}
+            aria-label='Next textures'
+            onClick={canScrollRight ? scrollRight : undefined}
           />
         </div>
       )}

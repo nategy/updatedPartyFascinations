@@ -14,7 +14,7 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useTexture } from "@react-three/drei";
 import { BrowserRouter as Router } from "react-router-dom";
 
-useGLTF.preload("/PFScene7.gltf");
+useGLTF.preload("/PFScene10.gltf");
 
 function BasicChair({ position, rotation, geometry }) {
   return (
@@ -56,7 +56,7 @@ function Chair({
 
 function Model({ ...props }) {
   const group = useRef();
-  const { nodes } = useGLTF("PFScene7.gltf");
+  const { nodes } = useGLTF("PFScene10.gltf");
 
   const tableClothMap = useTexture(
     props.tableClothTexture.selectedTableClothTexture
@@ -113,9 +113,9 @@ function Model({ ...props }) {
       {allowedKeys.includes("tableRunner") && (
         <mesh
           geometry={nodes.TableRunner.geometry}
-          position={[0, -5, 1]}
+          position={[0, 0, 0]}
           rotation={[0, 0.525, 0]}
-          scale={[1, 1.35, 1.35]}
+          scale={[1, 1.4, 1.23]}
         >
           <meshStandardMaterial map={tableRunnerMap} />
         </mesh>
@@ -217,7 +217,7 @@ function App() {
   const packages = {
     silver: ["tableCloth", "tableRunner"],
     bronze: ["tableCloth", "chairCover", "chairRunner"],
-    gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plates"],
   };
 
   // Pricing
@@ -228,13 +228,23 @@ function App() {
   const [chairRunnerPrice, setChairRunnerPrice] = useState(150);
 
   // Texture Types
-  const textureTypes = {
-    tableCloth: textureMetadata.filter((tex) => tex.type === "tableCloth"),
-    tableRunner: textureMetadata.filter((tex) => tex.type === "tableRunner"),
-    plate: textureMetadata.filter((tex) => tex.type === "plate"),
-    chairCover: textureMetadata.filter((tex) => tex.type === "chairCover"),
-    chairRunner: textureMetadata.filter((tex) => tex.type === "chairRunner"),
-  };
+  const typesList = [
+    "tableCloth",
+    "tableRunner",
+    "plates",
+    "chairCover",
+    "chairRunner",
+  ];
+
+  const textureTypes = {};
+
+  typesList.forEach((type) => {
+    textureTypes[type] = textureMetadata.filter(
+      (tex) =>
+        (Array.isArray(tex.type) && tex.type.includes(type)) ||
+        tex.type === type
+    );
+  });
 
   // Filter Handler
   const tableClothTextures = textureMetadata.filter(
@@ -243,7 +253,7 @@ function App() {
   const tableRunnerTextures = textureMetadata.filter(
     (tex) => tex.type === "tableRunner"
   );
-  const plateTextures = textureMetadata.filter((tex) => tex.type === "plate");
+  const plateTextures = textureMetadata.filter((tex) => tex.type === "plates");
   const chairCoverTextures = textureMetadata.filter(
     (tex) => tex.type === "chairCover"
   );
@@ -273,8 +283,8 @@ function App() {
       selectedTags: tableRunnerTags,
       setSelectedTags: setTableRunnerTags,
     },
-    plate: {
-      textures: textureTypes.plate,
+    plates: {
+      textures: textureTypes.plates,
       selectedTexture: selectedPlateTexture,
       onSelectTexture: setSelectedPlateTexture,
       selectedTags: plateTags,
@@ -337,7 +347,7 @@ function App() {
     },
     {
       name: "Plate",
-      key: "plate",
+      key: "plates",
       textureName: getTextureName(selectedPlateTexture),
       price: platePrice,
     },
