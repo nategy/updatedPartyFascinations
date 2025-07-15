@@ -20,16 +20,16 @@ body {
   min-height: 100vh;
 }
 
-/* login Page */
 .login-container {
-  height: 80vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 80vh;
+  position: relative;
   background-image: url("../public/login-bg.png");
   background-size: cover;
   background-position: center;
-  position: relative;
 }
 
 .login-container::before {
@@ -84,10 +84,48 @@ body {
   background-color: rgb(120, 50, 155);
 }
 
+.new-user-wrapper {
+  display: flex;
+  align-self: center;
+  gap: 5px;
+}
+
+.link {
+  color: #4a90e2;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.link:hover {
+  opacity: 0.8;
+}
+
 .error {
   color: rgb(89, 25, 121);
   font-size: 0.9rem;
   text-align: center;
+}
+
+.pfpage-link {
+  position: relative;
+  z-index: 3;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  text-align: center;
+  margin-top: 16px;
+  font-size: 1rem;
+}
+
+/* Make sure link inside is white and underlined on hover */
+.pfpage-link a {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.pfpage-link a:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* Layout Wrapper */

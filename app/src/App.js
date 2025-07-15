@@ -120,7 +120,7 @@ function Model({ ...props }) {
           <meshStandardMaterial map={tableRunnerMap} />
         </mesh>
       )}
-      {allowedKeys.includes("plate") &&
+      {allowedKeys.includes("plates") &&
         platePositions.map((pos, i) => (
           <mesh
             key={i}
@@ -161,6 +161,9 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isNewUser, setIsNewUser] = useState(false);
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleLogin = () => {
@@ -169,6 +172,17 @@ function App() {
       setError("");
     } else {
       setError("Invalid username or password.");
+    }
+  };
+
+  const handleRegister = () => {
+    // You can store users in localStorage or backend later
+    if (newUsername && newPassword) {
+      // For now, just "log them in"
+      setIsLoggedIn(true);
+      setError("");
+    } else {
+      setError("Please enter a username and password.");
     }
   };
 
@@ -221,11 +235,11 @@ function App() {
   };
 
   // Pricing
-  const [tableClothPrice, setTableClothPrice] = useState(100);
-  const [tableRunnerPrice, setTableRunnerPrice] = useState(35);
-  const [platePrice, setPlatePrice] = useState(60);
-  const [chairCoverPrice, setChairCoverPrice] = useState(300);
-  const [chairRunnerPrice, setChairRunnerPrice] = useState(150);
+  const [tableClothPrice, setTableClothPrice] = useState(350);
+  const [tableRunnerPrice, setTableRunnerPrice] = useState(200);
+  const [platePrice, setPlatePrice] = useState(200);
+  const [chairCoverPrice, setChairCoverPrice] = useState(600);
+  const [chairRunnerPrice, setChairRunnerPrice] = useState(300);
 
   // Texture Types
   const typesList = [
@@ -381,21 +395,77 @@ function App() {
         <div className='login-page'>
           <div className='login-container'>
             <div className='login-box'>
-              <h2>Login</h2>
-              <input
-                type='text'
-                placeholder='Username'
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <input
-                type='password'
-                placeholder='Password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button onClick={handleLogin}>Log In</button>
+              <h2>{isNewUser ? "Create Account" : "Login"}</h2>
+
+              {isNewUser ? (
+                <>
+                  <input
+                    type='text'
+                    placeholder='New Username'
+                    value={newUsername}
+                    onChange={(e) => setNewUsername(e.target.value)}
+                  />
+                  <input
+                    type='password'
+                    placeholder='New Password'
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                  <button onClick={handleRegister}>Register & Enter</button>
+                  <p>
+                    Already have an account?{" "}
+                    <span
+                      className='link'
+                      onClick={() => {
+                        setIsNewUser(false);
+                        setError("");
+                      }}
+                    >
+                      Log In
+                    </span>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <input
+                    type='text'
+                    placeholder='Username'
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <input
+                    type='password'
+                    placeholder='Password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button onClick={handleLogin}>Log In</button>
+                  <p className='new-user-wrapper'>
+                    New user?{" "}
+                    <span
+                      className='link'
+                      onClick={() => {
+                        setIsNewUser(true);
+                        setError("");
+                      }}
+                    >
+                      Create an account
+                    </span>
+                  </p>
+                </>
+              )}
+
               {error && <p className='error'>{error}</p>}
+            </div>
+            <div className='pfpage-link'>
+              Official website at{" "}
+              <a
+                href='https://www.partyfascinations.com'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                www.partyfascinations.com
+              </a>
             </div>
           </div>
         </div>

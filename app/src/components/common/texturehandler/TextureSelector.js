@@ -25,7 +25,7 @@ function TextureSelector({
     const el = scrollRef.current;
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 0);
-    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
   };
 
   useEffect(() => {
@@ -51,6 +51,20 @@ function TextureSelector({
     el.addEventListener("scroll", updateScrollButtons);
     return () => el.removeEventListener("scroll", updateScrollButtons);
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => updateScrollButtons();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (showTextures) {
+      setTimeout(() => {
+        updateScrollButtons();
+      }, 100);
+    }
+  }, [showTextures]);
 
   return (
     <div className='s-wrapper'>

@@ -34,7 +34,10 @@ function Navbar({ navOpen, setNavOpen }) {
           onClick={closeMobileMenu}
           aria-label='Home'
         > */}
-        <img src={Logo} alt='Party Fascinations Logo' className='main-icon' />
+        {/* <img src={Logo} alt='Party Fascinations Logo' className='main-icon' /> */}
+        <p className='nav-header' aria-label='PF Event Modeler header'>
+          PF Event Modeler
+        </p>
         {/* </Link> */}
         <button
           className='menu-icon'

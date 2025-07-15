@@ -3,19 +3,19 @@
     "src": "/tablecloths/brown-flowers.jpg",
     "tags": ["brown", "flowers"],
     "type": ["tableCloth","tableRunner"],
-    "price": 12
+    "price": 250
   },
   {
     "src": "/tablecloths/brown-striped.jpg",
     "tags": ["brown", "stripes", "modern"],
     "type": ["tableCloth","tableRunner", "chairRunner"],
-    "price": 15
+    "price": 250
   },
   {
     "src": "/tablecloths/soft-white.jpg",
     "tags": ["white", "elegant"],
     "type": ["tableCloth","tableRunner", "chairCover", "chairRunner", "plates"],
-    "price": 10
+    "price": 250
   },
   
   {

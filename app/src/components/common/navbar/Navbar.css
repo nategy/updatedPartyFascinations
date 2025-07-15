@@ -15,9 +15,31 @@
   width: 100%;
   max-width: 1300px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   padding: 0 24px;
+}
+
+.nav-header {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 1.2px;
+  user-select: none;
+  margin-right: auto;
+  cursor: default;
+  text-shadow: 0 0 2.5px rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-header:hover {
+  color: #b677c5;
+}
+
+.navbar-container {
+  justify-content: space-between; /* instead of center */
 }
 
 .navbar-logo {
@@ -60,6 +82,17 @@
 
 .nav-links:hover {
   color: #c992d6;
+}
+
+/* Desktop Styles */
+@media screen and (min-width: 961px) {
+  .nav-header {
+    display: none;
+  }
+
+  .navbar-container {
+    justify-content: center;
+  }
 }
 
 /* Mobile Styles */
