@@ -23,8 +23,27 @@ function TextureSelector({
   const updateScrollButtons = () => {
     const el = scrollRef.current;
     if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 0);
-    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+
+    const scrollLeft = el.scrollLeft;
+    const maxScrollLeft = el.scrollWidth - el.clientWidth;
+
+    // Allow margin of ~5px
+    setCanScrollLeft(scrollLeft > 5);
+    setCanScrollRight(scrollLeft < maxScrollLeft - 5);
+  };
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -100, behavior: "smooth" });
+      setTimeout(updateScrollButtons, 300);
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 100, behavior: "smooth" });
+      setTimeout(updateScrollButtons, 300);
+    }
   };
 
   const checkCenter = () => {
@@ -60,18 +79,6 @@ function TextureSelector({
     }
   }, [showTextures]);
 
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -100, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 100, behavior: "smooth" });
-    }
-  };
-
   return (
     <div className='s-wrapper'>
       <div className='header'>
@@ -96,7 +103,7 @@ function TextureSelector({
                 <div key={index} className='texture-option'>
                   <button
                     className='s-btn'
-                    onClick={() => onSelectTexture(texture.src)}
+                    onClick={() => onSelectTexture(texture)}
                     aria-label={`Select texture ${index + 1}`}
                   >
                     <img src={texture.src} alt={`Texture ${index + 1}`} />

@@ -251,6 +251,32 @@ function App() {
   const [chairCoverTags, setChairCoverTags] = useState([]);
   const [chairRunnerTags, setChairRunnerTags] = useState([]);
 
+  // Helper to get texture filename for display
+  const getTextureName = (texturePath) =>
+    texturePath.split("/").pop() || "None";
+
+  // Pricing update handlers for texture selection
+  const handleSelectTableCloth = (textureObj) => {
+    setSelectedTableClothTexture(textureObj.src);
+    setTableClothPrice(textureObj.price);
+  };
+  const handleSelectTableRunner = (textureObj) => {
+    setSelectedTableRunnerTexture(textureObj.src);
+    setTableRunnerPrice(textureObj.price);
+  };
+  const handleSelectPlate = (textureObj) => {
+    setSelectedPlateTexture(textureObj.src);
+    setPlatePrice(textureObj.price);
+  };
+  const handleSelectChairCover = (textureObj) => {
+    setSelectedChairCoverTexture(textureObj.src);
+    setChairCoverPrice(textureObj.price);
+  };
+  const handleSelectChairRunner = (textureObj) => {
+    setSelectedChairRunnerTexture(textureObj.src);
+    setChairRunnerPrice(textureObj.price);
+  };
+
   // Texture config passed to child components for managing selection and tags
   const textureConfig = {
     tableCloth: {
@@ -288,32 +314,6 @@ function App() {
       selectedTags: chairRunnerTags,
       setSelectedTags: setChairRunnerTags,
     },
-  };
-
-  // Helper to get texture filename for display
-  const getTextureName = (texturePath) =>
-    texturePath.split("/").pop() || "None";
-
-  // Pricing update handlers for texture selection
-  const handleSelectTableCloth = (textureObj) => {
-    setSelectedTableClothTexture(textureObj.src);
-    setTableClothPrice(textureObj.price);
-  };
-  const handleSelectTableRunner = (textureObj) => {
-    setSelectedTableRunnerTexture(textureObj.src);
-    setTableRunnerPrice(textureObj.price);
-  };
-  const handleSelectPlate = (textureObj) => {
-    setSelectedPlateTexture(textureObj.src);
-    setPlatePrice(textureObj.price);
-  };
-  const handleSelectChairCover = (textureObj) => {
-    setSelectedChairCoverTexture(textureObj.src);
-    setChairCoverPrice(textureObj.price);
-  };
-  const handleSelectChairRunner = (textureObj) => {
-    setSelectedChairRunnerTexture(textureObj.src);
-    setChairRunnerPrice(textureObj.price);
   };
 
   // Compose items for subtotal panel
@@ -360,7 +360,7 @@ function App() {
   const subtotal = filteredItems.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <div className='App'>
+    <div className='app'>
       <Header />
       <Router>
         <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
@@ -376,10 +376,9 @@ function App() {
                 camera={{ position: cameraPosition, fov: 24 }}
                 frameloop='demand'
               >
-                <color attach='background' args={["#f0f0f0"]} />
+                <color attach='background' args={["#fcfcfc"]} />
                 <Suspense fallback={null}>
-                  {/* Note: fixed typo 'attatch' -> 'attach' and corrected syntax */}
-                  <color attach='background' args={["#f8f8f8"]} />
+                  <color />
 
                   <ambientLight intensity={0.3} />
                   <spotLight

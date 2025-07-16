@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import TextureSelector from "./TextureSelector";
 import "./tabtexture.css";
 
@@ -27,18 +27,32 @@ export default function TabbedTexturePanel({
   const [activeTab, setActiveTab] = useState("tableCloth");
   const [selectedTag, setSelectedTag] = useState("");
 
-  const allowedTabs = packages[selectedPackage];
-  const filteredTabs = allTabs.filter((tab) => allowedTabs.includes(tab.key));
-
-  useEffect(() => {
-    if (!allowedTabs.includes(activeTab) && filteredTabs.length > 0) {
-      setActiveTab(filteredTabs[0].key);
-    }
-  }, [allowedTabs, activeTab, filteredTabs]);
-
-  const filteredTextures = textureConfig[activeTab].textures.filter((tex) =>
-    selectedTag === "" ? true : tex.tags.includes(selectedTag)
+  const allowedTabs = useMemo(
+    () => packages[selectedPackage],
+    [selectedPackage]
   );
+
+  const filteredTabs = useMemo(
+    () => allTabs.filter((tab) => allowedTabs.includes(tab.key)),
+    [allowedTabs]
+  );
+
+  // Reset active tab if it becomes invalid when package changes
+  useEffect(() => {
+    const newAllowedTabs = packages[selectedPackage];
+    const newFilteredTabs = allTabs.filter((tab) =>
+      newAllowedTabs.includes(tab.key)
+    );
+
+    if (!newAllowedTabs.includes(activeTab) && newFilteredTabs.length > 0) {
+      setActiveTab(newFilteredTabs[0].key);
+    }
+  }, [selectedPackage, activeTab]);
+
+  const filteredTextures =
+    textureConfig[activeTab]?.textures?.filter((tex) =>
+      selectedTag === "" ? true : tex.tags.includes(selectedTag)
+    ) || [];
 
   return (
     <div className={`tabbed-panel ${navOpen ? "hide-panel" : ""}`}>
@@ -88,7 +102,7 @@ export default function TabbedTexturePanel({
       <div className='tab-content'>
         {textureConfig[activeTab] && (
           <TextureSelector
-            selector={filteredTabs.find((t) => t.key === activeTab).label}
+            selector={filteredTabs.find((t) => t.key === activeTab)?.label}
             textures={filteredTextures}
             selectedTexture={textureConfig[activeTab].selectedTexture}
             onSelectTexture={textureConfig[activeTab].onSelectTexture}
