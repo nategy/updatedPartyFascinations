@@ -1,6 +1,6 @@
 .tabbed-panel {
   padding: 12px;
-  background-color: #ffffff;
+  background-color: #f4f4f4;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
@@ -10,8 +10,8 @@
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 12px;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .package-selector,
@@ -45,9 +45,8 @@
 .tab-buttons {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
   gap: 8px;
+  justify-content: center;
   margin-bottom: 12px;
 }
 

@@ -12,15 +12,12 @@ function Footer() {
     <div className='main-footer'>
       <div className='container'>
         <div className='row'>
-          {/*column1*/}
           <div className='col'>
-            {/*<h3 className="footer-name">Party Fascinations</h3>*/}
-            <p>Party Fascinations goes that extra step </p>
-            <p> to make sure your Wedding Day, Birthday,</p>
-            <p> Corporate event or even Family Reunion </p>
-            <p> is fun and truly unforgettable.</p>
+            <p>Party Fascinations goes that extra step</p>
+            <p>to make sure your Wedding Day, Birthday,</p>
+            <p>Corporate event or even Family Reunion</p>
+            <p>is fun and truly unforgettable.</p>
           </div>
-          {/* column 2 */}
           <div className='col2'>
             <h3 className='contact'>Contact Info</h3>
             <div className='icons'>
@@ -29,11 +26,11 @@ function Footer() {
                 (512) 402-2141
               </p>
               <p>
-                <GoGlobe className='globe-icon' />
+                <BiEnvelope className='mail-icon' />
                 info@partyfascinations.com
               </p>
               <p>
-                <BiEnvelope className='mail-icon' />
+                <GoGlobe className='globe-icon' />
                 partyfascinations.com
               </p>
               <p>
@@ -42,7 +39,6 @@ function Footer() {
               </p>
             </div>
           </div>
-          {/*column3*/}
           <div className='social-icons'>
             <a
               className='facebook-icon'
@@ -72,28 +68,5 @@ function Footer() {
     </div>
   );
 }
-export default Footer;
-/*
-                        <div className="col3">
-                            <h3>Party Fascinations</h3>
-                            <ul className="list">
-                                <li>logo</li>
-                                <li>paragraph</li>
-                                <li>icons</li>
-                            </ul>
-                        </div>
 
-<section className="footer">
-<p> Party Fascinations goes that extra step to make sure your Wedding Day, Birthday,
-    Corporate event or even Family Reunion is fun and truly unforgettable.
-</p>
-<a className="facebook-icon" target="_blank" rel="nofollow noopener noreferrer"
-        href="https://www.facebook.com/PartyFascinations/" >
-        <FaFacebookF size="21px" />
-    </a>
-    <a className="instagram-icon" target="_blank" rel="nofollow noopener noreferrer"
-        href="https://www.instagram.com/partyfascinations/" >
-        <BsInstagram size="20px" />
-    </a>
-</section>
-*/
+export default Footer;

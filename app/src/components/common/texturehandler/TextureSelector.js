@@ -1,8 +1,7 @@
-import "./texture.css";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { BsArrowLeftCircleFill } from "react-icons/bs";
-import { BsArrowRightCircleFill } from "react-icons/bs";
+import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import "./texture.css";
 
 function TextureSelector({
   selector,
@@ -10,15 +9,15 @@ function TextureSelector({
   selectedTexture,
   onSelectTexture,
 }) {
-  const [showTextures, setTextures] = useState(false);
+  const [showTextures, setShowTextures] = useState(false);
+  const [isCentered, setIsCentered] = useState(false);
 
   const scrollRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
-  // Use useCallback to memoize the toggle function to prevent unnecessary re-renders
   const toggleTextures = useCallback(() => {
-    setTextures((prevState) => !prevState);
+    setShowTextures((prev) => !prev);
   }, []);
 
   const updateScrollButtons = () => {
@@ -28,9 +27,38 @@ function TextureSelector({
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
   };
 
+  const checkCenter = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setIsCentered(el.scrollWidth <= el.clientWidth);
+  };
+
   useEffect(() => {
     updateScrollButtons();
-  }, [textures]); // run when textures are shown
+    checkCenter();
+  }, [textures]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    el.addEventListener("scroll", updateScrollButtons);
+    window.addEventListener("resize", checkCenter);
+
+    return () => {
+      el.removeEventListener("scroll", updateScrollButtons);
+      window.removeEventListener("resize", checkCenter);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (showTextures) {
+      setTimeout(() => {
+        updateScrollButtons();
+        checkCenter();
+      }, 100);
+    }
+  }, [showTextures]);
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -44,28 +72,6 @@ function TextureSelector({
     }
   };
 
-  // Listen for scroll events to update button states
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.addEventListener("scroll", updateScrollButtons);
-    return () => el.removeEventListener("scroll", updateScrollButtons);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => updateScrollButtons();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (showTextures) {
-      setTimeout(() => {
-        updateScrollButtons();
-      }, 100);
-    }
-  }, [showTextures]);
-
   return (
     <div className='s-wrapper'>
       <div className='header'>
@@ -73,14 +79,7 @@ function TextureSelector({
         <RiArrowDropDownLine
           className='s-down-arrow'
           onClick={toggleTextures}
-          aria-label='Toggle chairrunners'
-          style={{
-            border:
-              textures === selectedTexture
-                ? "2px solid #4a90e2"
-                : "2px solid transparent",
-            cursor: "pointer",
-          }}
+          aria-label='Toggle textures'
         />
       </div>
 
@@ -92,18 +91,20 @@ function TextureSelector({
             onClick={canScrollLeft ? scrollLeft : undefined}
           />
           <div className='s-selector' ref={scrollRef}>
-            {textures.map((texture, index) => (
-              <div key={index} className='texture-option'>
-                <button
-                  className='s-btn'
-                  onClick={() => onSelectTexture(texture.src)}
-                  aria-label={`Select texture ${index + 1}`}
-                >
-                  <img src={texture.src} alt={`Texture ${index + 1}`} />
-                </button>
-                <p className='texture-price'>${texture.price}</p>
-              </div>
-            ))}
+            <div className={`s-inner ${isCentered ? "centered" : ""}`}>
+              {textures.map((texture, index) => (
+                <div key={index} className='texture-option'>
+                  <button
+                    className='s-btn'
+                    onClick={() => onSelectTexture(texture.src)}
+                    aria-label={`Select texture ${index + 1}`}
+                  >
+                    <img src={texture.src} alt={`Texture ${index + 1}`} />
+                  </button>
+                  <p className='texture-price'>${texture.price}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <BsArrowRightCircleFill
             className={`s-arrow ${!canScrollRight ? "disabled" : ""}`}

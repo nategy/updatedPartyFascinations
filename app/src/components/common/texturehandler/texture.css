@@ -1,32 +1,9 @@
-body {
-  font-family: "Arial", sans-serif;
-  background-color: #f5f5f5;
-  margin: 0;
-  padding: 0;
-}
-
-h2 {
-  color: #dfdddd;
-  font-size: 24px;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 0;
-  padding-right: 10px;
-  display: inline-block;
-  z-index: 10;
-}
-
 .s-wrapper {
   width: 100%;
   padding: 20px;
   background-color: #e1d9f1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 10;
 }
 
 .header {
@@ -35,58 +12,28 @@ h2 {
   align-items: center;
 }
 
+.header h2 {
+  color: #dfdddd;
+  font-size: 24px;
+  margin: 0;
+}
+
 .s-down-arrow {
   font-size: 24px;
   color: #d1cfcf;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .s-down-arrow:hover {
   color: #4a90e2;
 }
 
-.tag-filter-container {
-  margin-top: 10px;
-  background-color: #f7f4fc;
-  padding: 10px;
-  border-radius: 6px;
-  text-align: center;
-}
-
-.tag-checkboxes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 5px;
-}
-
-.tag-checkbox-label {
-  font-size: 0.9rem;
-  background-color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.tag-checkbox-label:hover {
-  background-color: #e6ddf3;
-}
-
-.tag-checkbox-label input {
-  margin-right: 4px;
-}
-
 .s-slider-wrapper {
-  padding: 10px;
-  margin-top: 10px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  position: relative;
+  margin-top: 10px;
+  padding: 10px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -96,8 +43,7 @@ h2 {
   width: 40px;
   height: 40px;
   cursor: pointer;
-  transition: 0.3s ease;
-  filter: invert(0); /* Ensures it's black */
+  transition: transform 0.3s ease;
 }
 
 .s-arrow:hover {
@@ -105,23 +51,27 @@ h2 {
   opacity: 0.6;
 }
 
+.s-arrow.disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
 .s-selector {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 8px;
+  gap: 7px;
+  margin-top: 2px;
   padding: 0 20px;
   width: 100%;
-}
 
-.s-selector > * {
-  flex: 0 0 auto;
+  scrollbar-gutter: stable;
 }
 
 .s-selector::-webkit-scrollbar {
-  height: 8px;
+  height: 2px;
 }
 
 .s-selector::-webkit-scrollbar-thumb {
@@ -133,52 +83,45 @@ h2 {
   background: transparent;
 }
 
+.s-inner {
+  display: flex;
+  gap: 7px;
+  width: fit-content;
+}
+
+.s-inner.centered {
+  margin: 0 auto;
+}
+
 .texture-option {
   flex: 0 0 auto;
-  scroll-snap-align: start;
+  width: 80px;
+  text-align: center;
 }
 
 .texture-price {
-  margin: 4px 0 0;
   font-size: 0.85rem;
-  text-align: center; /* Center the price text */
+  text-align: center;
 }
 
 .s-btn {
   border: none;
-  background-color: transparent;
+  background: transparent;
   cursor: pointer;
-  transition: transform 0.2s ease, border 0.3s ease;
-  border-radius: 5px;
 }
 
 .s-btn:hover {
-  transform: scale(1.1);
-}
-
-.s-btn:active {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .s-btn img {
   height: 60px;
   width: 60px;
+  object-fit: cover;
   border-radius: 5px;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
 
 .s-btn img:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.s-arrow.disabled {
-  opacity: 0.3;
-  cursor: default;
-  pointer-events: none;
-  transform: none;
-}
-
-/* Accessibility Improvements */
-img {
-  border-radius: 8px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./login.css"; // New separate CSS for login
+import "./login.css";
 
 function LoginPage({ onLogin }) {
   const [isNewUser, setIsNewUser] = useState(false);

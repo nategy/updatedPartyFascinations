@@ -36,15 +36,6 @@ export default function TabbedTexturePanel({
     }
   }, [allowedTabs, activeTab, filteredTabs]);
 
-  const handlePackageChange = (e) => {
-    setSelectedPackage(e.target.value);
-  };
-
-  const handleTagChange = (e) => {
-    setSelectedTag(e.target.value);
-  };
-
-  // Filter textures based on selectedTag
   const filteredTextures = textureConfig[activeTab].textures.filter((tex) =>
     selectedTag === "" ? true : tex.tags.includes(selectedTag)
   );
@@ -57,7 +48,7 @@ export default function TabbedTexturePanel({
           <select
             id='package'
             value={selectedPackage}
-            onChange={handlePackageChange}
+            onChange={(e) => setSelectedPackage(e.target.value)}
           >
             <option value='silver'>Silver Package</option>
             <option value='bronze'>Bronze Package</option>
@@ -67,7 +58,11 @@ export default function TabbedTexturePanel({
 
         <div className='tag-selector'>
           <label htmlFor='tags'>Filter Style:</label>
-          <select id='tags' value={selectedTag} onChange={handleTagChange}>
+          <select
+            id='tags'
+            value={selectedTag}
+            onChange={(e) => setSelectedTag(e.target.value)}
+          >
             <option value=''>All</option>
             {availableTags.map((tag) => (
               <option key={tag} value={tag}>

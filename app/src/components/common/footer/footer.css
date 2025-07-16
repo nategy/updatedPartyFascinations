@@ -1,11 +1,14 @@
 .main-footer {
-  background: linear-gradient(135deg, #52106a, #2a2727);
-  color: #ffffff;
-  /* #2a2727 */
-  padding: 4rem 1rem 2rem;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: block;
   width: 100%;
+
+  padding: 4rem 1rem 2rem;
+
+  background: linear-gradient(135deg, #52106a, #2a2727);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -18,6 +21,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 2rem;
+
   padding-bottom: 2rem;
   border-bottom: 1px solid #444;
 }
@@ -28,29 +32,34 @@
 }
 
 .col p {
-  font-size: 1rem;
-  color: #ddd;
-  line-height: 1.7;
   margin: 0.5rem 0;
+
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #ddd;
 }
 
 .col2 h3 {
   margin-bottom: 1.2rem;
-  font-size: 1.4rem;
-  color: #fff;
-  border-left: 5px solid #e4b5ff;
   padding-left: 0.7rem;
+
+  border-left: 5px solid #e4b5ff;
+
+  font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: 0.5px;
+  color: #fff;
 }
 
 .col2 p {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+
+  margin: 0.6rem 0;
+
   font-size: 1rem;
   color: #ddd;
-  margin: 0.6rem 0;
 }
 
 .icons svg {
@@ -63,12 +72,14 @@
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
+
   margin-top: 1rem;
 }
 
 .facebook-icon,
 .instagram-icon {
   color: #ffffff;
+
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
@@ -84,10 +95,11 @@
 }
 
 .copyright p {
-  font-size: 0.85rem;
-  color: #bbb;
-  line-height: 1.4;
   margin: 0;
+
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #bbb;
 }
 
 /* Responsive styles */

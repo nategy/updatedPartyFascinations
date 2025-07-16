@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Logo from "../images/pf-logo.png";
 
@@ -28,17 +27,9 @@ function Navbar({ navOpen, setNavOpen }) {
   return (
     <nav className='navbar' role='navigation' aria-label='Main navigation'>
       <div className='navbar-container'>
-        {/* <Link
-          to='/'
-          className='navbar-logo'
-          onClick={closeMobileMenu}
-          aria-label='Home'
-        > */}
-        {/* <img src={Logo} alt='Party Fascinations Logo' className='main-icon' /> */}
         <p className='nav-header' aria-label='PF Event Modeler header'>
           PF Event Modeler
         </p>
-        {/* </Link> */}
         <button
           className='menu-icon'
           onClick={handleClick}
@@ -50,7 +41,6 @@ function Navbar({ navOpen, setNavOpen }) {
         <ul className={navOpen ? "nav-menu active" : "nav-menu"}>
           <li className='nav-item'>
             <a
-              id='nav-home-link'
               href='https://partyfascinations.com/'
               className='nav-links'
               onClick={closeMobileMenu}
