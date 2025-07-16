@@ -2,15 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 12px 20px;
-
   background-color: rgb(99, 11, 140);
   color: #fff;
   font-size: 14px;
   font-family: "Arial", "Helvetica", sans-serif;
   font-weight: bold;
-
   position: sticky;
   top: 0;
   z-index: 10000;
@@ -26,10 +23,6 @@
   margin-right: 10px;
 }
 
-.logo-text {
-  display: block;
-}
-
 .left-group {
   display: none;
 }
@@ -37,10 +30,11 @@
 .right-group {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 16px;
+}
 
-  flex: 1;
+.phone {
+  display: none !important;
 }
 
 .icon-text {
@@ -52,9 +46,7 @@
 .header a {
   display: flex;
   align-items: center;
-
   margin: 0 5px;
-
   color: #fff;
   text-decoration: none;
 }
@@ -69,23 +61,24 @@
   font-size: 16px;
 }
 
-.phone {
-  display: none;
-}
-
-/* Larger screens (enhance) */
+/* ------- Desktop & Tablet Screens (600px+) ------- */
 @media screen and (min-width: 600px) {
+  .logo-text {
+    display: block;
+  }
+
   .left-group {
     display: flex;
     align-items: center;
     flex: 1;
   }
 
-  .phone {
-    display: flex;
+  .right-group {
+    justify-content: flex-end;
+    flex: 1;
   }
 
-  .logo-text {
-    display: none;
+  .phone {
+    display: flex !important;
   }
 }

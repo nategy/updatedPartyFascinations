@@ -3,10 +3,10 @@
   justify-content: center;
   align-items: center;
 
-  min-height: 90vh;
+  min-height: 75vh;
   position: relative;
 
-  background-image: url("/public/login-bg.png");
+  background-image: url("/public/images/login-bg.png");
   background-size: cover;
   background-position: center;
 }
@@ -31,7 +31,7 @@
   gap: 1rem;
 
   width: 320px;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding: 2rem;
 
   background-color: #2e2e2e;

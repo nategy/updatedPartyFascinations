@@ -60,9 +60,9 @@ function Footer() {
         </div>
         <div className='copyright'>
           <p className='col-sm'>
-            &copy; 2020 Party Fascinations. Site created by CS Web Design. Model
-            Feature created by GrayWebCreations.
+            &copy; 2020 Party Fascinations. Site created by CS Web Design.
           </p>
+          <p className='col-sm'>Model Feature created by GrayWebCreations.</p>
         </div>
       </div>
     </div>

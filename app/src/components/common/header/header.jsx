@@ -12,7 +12,6 @@ function Header() {
     <section className='header'>
       <div className='logo-container'>
         <img src={Logo} alt='Party Fascinations Logo' className='main-logo' />
-        <h2 className='logo-text'>Party Fascinations</h2>
       </div>
       <div className='left-group'>
         <p className='location'>

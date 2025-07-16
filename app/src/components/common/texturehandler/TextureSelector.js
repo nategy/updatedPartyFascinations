@@ -34,15 +34,13 @@ function TextureSelector({
 
   const scrollLeft = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -100, behavior: "smooth" });
-      setTimeout(updateScrollButtons, 300);
+      scrollRef.current?.scrollBy({ left: -150, behavior: "smooth" });
     }
   };
 
   const scrollRight = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 100, behavior: "smooth" });
-      setTimeout(updateScrollButtons, 300);
+      scrollRef.current?.scrollBy({ left: 150, behavior: "smooth" });
     }
   };
 
@@ -61,12 +59,20 @@ function TextureSelector({
     const el = scrollRef.current;
     if (!el) return;
 
-    el.addEventListener("scroll", updateScrollButtons);
+    let debounceTimeout = null;
+
+    const handleScroll = () => {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(updateScrollButtons, 100);
+    };
+
+    el.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", checkCenter);
 
     return () => {
-      el.removeEventListener("scroll", updateScrollButtons);
+      el.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", checkCenter);
+      clearTimeout(debounceTimeout);
     };
   }, []);
 

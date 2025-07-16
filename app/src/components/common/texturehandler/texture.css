@@ -13,13 +13,13 @@
 }
 
 .header h2 {
+  font-size: 1.25rem;
   color: #dfdddd;
-  font-size: 24px;
   margin: 0;
 }
 
 .s-down-arrow {
-  font-size: 24px;
+  font-size: 1.5rem;
   color: #d1cfcf;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -32,46 +32,48 @@
 .s-slider-wrapper {
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-top: 10px;
   padding: 10px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
 }
 
 .s-arrow {
-  width: 40px;
-  height: 40px;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  color: #52106a;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
 .s-arrow:hover {
   transform: scale(1.1);
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .s-arrow.disabled {
   opacity: 0.3;
-  cursor: default;
   pointer-events: none;
 }
 
 .s-selector {
   display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 7px;
-  margin-top: 2px;
-  padding: 0 20px;
-  width: 100%;
-
+  flex-grow: 1;
+  gap: 10px;
+  padding: 10px 0;
+  scroll-behavior: smooth;
   scrollbar-gutter: stable;
+  min-width: 0;
 }
 
 .s-selector::-webkit-scrollbar {
-  height: 2px;
+  height: 3px;
 }
 
 .s-selector::-webkit-scrollbar-thumb {
@@ -85,8 +87,8 @@
 
 .s-inner {
   display: flex;
-  gap: 7px;
-  width: fit-content;
+  gap: 10px;
+  min-width: fit-content;
 }
 
 .s-inner.centered {
@@ -100,7 +102,9 @@
 }
 
 .texture-price {
+  margin-top: 4px;
   font-size: 0.85rem;
+  color: #444;
   text-align: center;
 }
 
@@ -108,6 +112,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .s-btn:hover {
@@ -115,13 +120,13 @@
 }
 
 .s-btn img {
-  height: 60px;
   width: 60px;
+  height: 60px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 6px;
   transition: box-shadow 0.3s ease;
 }
 
 .s-btn img:hover {
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }

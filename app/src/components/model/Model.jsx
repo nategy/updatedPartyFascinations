@@ -1,39 +1,38 @@
-import React, { useRef, memo } from "react";
+import React, { useRef } from "react";
 import * as THREE from "three";
 import { useGLTF, useTexture } from "@react-three/drei";
 
-useGLTF.preload("/PFScene10.gltf");
+// Preload model
+useGLTF.preload("/resources/PFScene10.gltf");
 
-const BasicChair = memo(({ position, rotation, geometry }) => (
+const BasicChair = ({ position, rotation, geometry }) => (
   <group position={position} rotation={rotation} scale={[1, 1, 1]}>
     <mesh geometry={geometry}>
       <meshStandardMaterial color='#2b2b2b' />
     </mesh>
   </group>
-));
+);
 
-const Chair = memo(
-  ({
-    position,
-    rotation,
-    coverTexture,
-    runnerTexture,
-    coverGeometry,
-    runnerGeometry,
-  }) => (
-    <group position={position} rotation={rotation} scale={[1, 1, 1]}>
-      <mesh geometry={coverGeometry}>
-        <meshStandardMaterial map={coverTexture} side={THREE.DoubleSide} />
-      </mesh>
-      {runnerGeometry && (
-        <group scale={[1, 1, 1]} position={[0, -1, 0]}>
-          <mesh geometry={runnerGeometry}>
-            <meshStandardMaterial map={runnerTexture} side={THREE.DoubleSide} />
-          </mesh>
-        </group>
-      )}
-    </group>
-  )
+const Chair = ({
+  position,
+  rotation,
+  coverTexture,
+  runnerTexture,
+  coverGeometry,
+  runnerGeometry,
+}) => (
+  <group position={position} rotation={rotation} scale={[1, 1, 1]}>
+    <mesh geometry={coverGeometry}>
+      <meshStandardMaterial map={coverTexture} side={THREE.DoubleSide} />
+    </mesh>
+    {runnerGeometry && (
+      <group scale={[1, 1, 1]} position={[0, -1, 0]}>
+        <mesh geometry={runnerGeometry}>
+          <meshStandardMaterial map={runnerTexture} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+    )}
+  </group>
 );
 
 function Model({
@@ -46,11 +45,12 @@ function Model({
   chairRunnerTexture,
 }) {
   const group = useRef();
-  const { nodes } = useGLTF("/PFScene10.gltf");
+  const { nodes } = useGLTF("/resources/PFScene10.gltf");
 
   const allowedKeys = packages[selectedPackage] || [];
 
   const tableClothMap = useTexture(tableClothTexture.selectedTableClothTexture);
+
   const rawTableRunner = useTexture(
     tableRunnerTexture.selectedTableRunnerTexture
   );
@@ -60,6 +60,7 @@ function Model({
 
   const plateMap = useTexture(plateTexture.selectedPlateTexture);
   const chairCoverMap = useTexture(chairCoverTexture.selectedChairCoverTexture);
+
   const rawChairRunner = useTexture(
     chairRunnerTexture.selectedChairRunnerTexture
   );
@@ -96,15 +97,18 @@ function Model({
           <meshStandardMaterial map={tableClothMap} />
         </mesh>
       )}
+
       {allowedKeys.includes("tableRunner") && (
         <mesh
           geometry={nodes.TableRunner.geometry}
+          position={[0, 0, 0]}
           rotation={[0, 0.525, 0]}
           scale={[1, 1.4, 1.23]}
         >
           <meshStandardMaterial map={tableRunnerMap} />
         </mesh>
       )}
+
       {allowedKeys.includes("plates") &&
         platePositions.map((pos, i) => (
           <mesh
@@ -116,6 +120,7 @@ function Model({
             <meshStandardMaterial map={plateMap} side={THREE.DoubleSide} />
           </mesh>
         ))}
+
       {(selectedPackage === "silver" || allowedKeys.includes("chairCover")) &&
         positions.map((pos, i) =>
           selectedPackage === "silver" ? (
@@ -141,4 +146,4 @@ function Model({
   );
 }
 
-export default memo(Model);
+export default Model;

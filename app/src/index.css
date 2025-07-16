@@ -36,13 +36,13 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../public/main-bg.png"); /* adjust your image path */
+  background-image: url("../public/images/main-bg.png");
   background-size: cover;
   background-position: center;
   filter: blur(2px);
-  transform: scale(1.1); /* prevents edges from showing when blurred */
   z-index: 1;
-  opacity: 0.6; /* adjust for how dark/faded you want it */
+  opacity: 0.6;
+  transform: none;
 }
 
 .wrapper > * {
@@ -157,6 +157,11 @@ body {
 }
 
 @media screen and (min-width: 768px) {
+  .wrapper::before {
+    transform: scale(1.1); /* only zoom slightly on larger screens */
+    background-size: cover;
+  }
+
   .subtotal-panel {
     position: sticky;
     top: 20px;
