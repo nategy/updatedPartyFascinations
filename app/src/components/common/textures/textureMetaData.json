@@ -3,143 +3,166 @@
     "src": "/pf_textures/tablecloths/brown-flowers.jpg",
     "tags": ["brown", "flowers"],
     "type": "tableCloth",
-    "price": 250
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/tablecloths/brown-striped.jpg",
     "tags": ["brown", "stripes", "modern"],
     "type": "tableCloth",
-    "price": 250
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/tablecloths/soft-white.jpg",
     "tags": ["white", "elegant"],
     "type": "tableCloth",
-    "price": 250
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
 
   {
     "src": "/pf_textures/tablerunners/green-flannel.jpg",
     "tags": ["green", "rustic"],
     "type": "tableRunner",
-    "price": 10
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/tablerunners/white-ornaments.jpg",
     "tags": ["bold", "solid", "white", "modern"],
     "type": "tableRunner",
-    "price": 10
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/tablerunners/brown-flowers.jpg",
     "tags": ["brown", "rustic", "modern"],
     "type": "tableRunner",
-    "price": 10
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/tablerunners/pink-solid.jpg",
     "tags": ["luxury", "solid", "pink"],
     "type": "tableRunner",
-    "price": 10
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
 
   {
     "src": "/pf_textures/chaircovers/black-fireworks.jpg",
     "tags": ["bold", "black"],
     "type": "chairCover",
-    "price": 10
+    "price": 400,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/chaircovers/blue-confetti.jpg",
     "tags": ["blue", "modern"],
     "type": "chairCover",
-    "price": 10
+    "price": 400,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/chaircovers/brown-striped.jpg",
     "tags": ["brown", "striped", "elegant"],
     "type": "chairCover",
-    "price": 90
+    "price": 400,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
 
   {
     "src": "/pf_textures/chairrunners/black-fireworks.jpg",
     "tags": ["bold", "black"],
     "type": "chairRunner",
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/chairrunners/blue-confetti.jpg",
     "tags": ["blue", "modern"],
     "type": "chairRunner",
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/chairrunners/brown-striped.jpg",
     "tags": ["brown", "striped", "elegant"],
     "type": "chairRunner",
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/chairrunners/green-flannel.jpg",
     "tags": ["green", "elegant"],
     "type": "chairRunner",
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
 
   {
     "src": "/pf_textures/plates/blue-solid.jpg",
     "tags": ["blue", "solid", "elegant"],
     "type": "plates",
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/plates/pink-solid.jpg",
     "tags": ["pink", "solid", "elegant"],
     "type": "plates",
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/plates/teal-solid.jpg",
     "tags": ["teal", "solid", "elegant"],
     "type": "plates",
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/plates/soft-white.jpg",
     "tags": ["white", "solid", "elegant"],
     "type": "plates",
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
 
   {
     "src": "/pf_textures/multi/orange-solid.jpg",
     "tags": ["teal", "solid", "elegant"],
     "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/blue-solid.jpg",
     "tags": ["teal", "solid", "elegant"],
     "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/pink-solid.jpg",
     "tags": ["teal", "solid", "elegant"],
     "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/yellow-solid.jpg",
     "tags": ["teal", "solid", "elegant"],
     "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/soft-white.jpg",
     "tags": ["teal", "solid", "elegant"],
     "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
-    "price": 10
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
   }
 ]
