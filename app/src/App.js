@@ -14,172 +14,101 @@ import Model from "./components/model/Model";
 import textureMetadata from "./components/common/textures/textureMetaData.json";
 import "./index.css";
 
+// Package tiers
+const packages = {
+  silver: ["tableCloth", "tableRunner"],
+  bronze: ["tableCloth", "chairCover", "chairRunner"],
+  gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plates"],
+};
+
+// Default selections
+const initialTextures = {
+  tableCloth: "/pf_textures/tablecloths/soft-white.jpg",
+  tableRunner: "/pf_textures/tablerunners/pink-solid.jpg",
+  plates: "/pf_textures/plates/soft-white.jpg",
+  chairCover: "/pf_textures/chaircovers/blue-confetti.jpg",
+  chairRunner: "/pf_textures/chairrunners/brown-striped.jpg",
+};
+
+const initialPrices = {
+  tableCloth: 350,
+  tableRunner: 200,
+  plates: 200,
+  chairCover: 600,
+  chairRunner: 300,
+};
+
+const typesList = [
+  "tableCloth",
+  "tableRunner",
+  "plates",
+  "chairCover",
+  "chairRunner",
+];
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState("silver");
-
-  const isInitiallyMobile = window.innerWidth <= 768;
-  const [cameraPosition, setCameraPosition] = useState(
-    isInitiallyMobile ? [0, 2, 5] : [0, 3, 5]
+  const [selectedTextures, setSelectedTextures] = useState(initialTextures);
+  const [prices, setPrices] = useState(initialPrices);
+  const [tags, setTags] = useState(
+    typesList.reduce((acc, type) => {
+      acc[type] = [];
+      return acc;
+    }, {})
   );
-  const [isMobile, setIsMobile] = useState(isInitiallyMobile);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [cameraPosition, setCameraPosition] = useState(
+    window.innerWidth <= 768 ? [0, 2, 5] : [0, 3, 5]
+  );
+
+  // Responsive camera
   useEffect(() => {
-    const updateView = () => {
+    const handleResize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
       setCameraPosition(mobile ? [0, 5, 5] : [0, 2, 5]);
     };
-    window.addEventListener("resize", updateView);
-    return () => window.removeEventListener("resize", updateView);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const [selectedTableClothTexture, setSelectedTableClothTexture] = useState(
-    "/tablecloths/soft-white.jpg"
-  );
-  const [selectedTableRunnerTexture, setSelectedTableRunnerTexture] = useState(
-    "/tablecloths/brown-flowers.jpg"
-  );
-  const [selectedPlateTexture, setSelectedPlateTexture] = useState(
-    "/tablecloths/soft-white.jpg"
-  );
-  const [selectedChairCoverTexture, setSelectedChairCoverTexture] = useState(
-    "/tablecloths/green-flannel.jpg"
-  );
-  const [selectedChairRunnerTexture, setSelectedChairRunnerTexture] = useState(
-    "/tablecloths/brown-striped.jpg"
-  );
+  // Categorize textures by type
+  const textureTypes = typesList.reduce((acc, type) => {
+    acc[type] = textureMetadata.filter((tex) => tex.type.includes(type));
+    return acc;
+  }, {});
 
-  const [tableClothPrice, setTableClothPrice] = useState(350);
-  const [tableRunnerPrice, setTableRunnerPrice] = useState(200);
-  const [platePrice, setPlatePrice] = useState(200);
-  const [chairCoverPrice, setChairCoverPrice] = useState(600);
-  const [chairRunnerPrice, setChairRunnerPrice] = useState(300);
-
-  const packages = {
-    silver: ["tableCloth", "tableRunner"],
-    bronze: ["tableCloth", "chairCover", "chairRunner"],
-    gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plates"],
+  // Handle texture selection
+  const handleSelectTexture = (type, textureObj) => {
+    setSelectedTextures((prev) => ({ ...prev, [type]: textureObj.src }));
+    setPrices((prev) => ({ ...prev, [type]: textureObj.price }));
   };
 
-  const textureTypes = {};
-  const typesList = [
-    "tableCloth",
-    "tableRunner",
-    "plates",
-    "chairCover",
-    "chairRunner",
-  ];
+  // Panel configuration
+  const textureConfig = typesList.reduce((acc, type) => {
+    acc[type] = {
+      textures: textureTypes[type],
+      selectedTexture: selectedTextures[type],
+      onSelectTexture: (textureObj) => handleSelectTexture(type, textureObj),
+      selectedTags: tags[type],
+      setSelectedTags: (newTags) =>
+        setTags((prev) => ({ ...prev, [type]: newTags })),
+    };
+    return acc;
+  }, {});
 
-  typesList.forEach((type) => {
-    textureTypes[type] = textureMetadata.filter(
-      (tex) =>
-        (Array.isArray(tex.type) && tex.type.includes(type)) ||
-        tex.type === type
-    );
-  });
+  // Create readable list for subtotal
+  const getTextureName = (path) => path?.split("/")?.pop() || "None";
 
-  const [tableClothTags, setTableClothTags] = useState([]);
-  const [tableRunnerTags, setTableRunnerTags] = useState([]);
-  const [plateTags, setPlateTags] = useState([]);
-  const [chairCoverTags, setChairCoverTags] = useState([]);
-  const [chairRunnerTags, setChairRunnerTags] = useState([]);
-
-  const getTextureName = (texturePath) =>
-    texturePath.split("/").pop() || "None";
-
-  const handleSelectTableCloth = (textureObj) => {
-    setSelectedTableClothTexture(textureObj.src);
-    setTableClothPrice(textureObj.price);
-  };
-  const handleSelectTableRunner = (textureObj) => {
-    setSelectedTableRunnerTexture(textureObj.src);
-    setTableRunnerPrice(textureObj.price);
-  };
-  const handleSelectPlate = (textureObj) => {
-    setSelectedPlateTexture(textureObj.src);
-    setPlatePrice(textureObj.price);
-  };
-  const handleSelectChairCover = (textureObj) => {
-    setSelectedChairCoverTexture(textureObj.src);
-    setChairCoverPrice(textureObj.price);
-  };
-  const handleSelectChairRunner = (textureObj) => {
-    setSelectedChairRunnerTexture(textureObj.src);
-    setChairRunnerPrice(textureObj.price);
-  };
-
-  const textureConfig = {
-    tableCloth: {
-      textures: textureTypes.tableCloth,
-      selectedTexture: selectedTableClothTexture,
-      onSelectTexture: handleSelectTableCloth,
-      selectedTags: tableClothTags,
-      setSelectedTags: setTableClothTags,
-    },
-    tableRunner: {
-      textures: textureTypes.tableRunner,
-      selectedTexture: selectedTableRunnerTexture,
-      onSelectTexture: handleSelectTableRunner,
-      selectedTags: tableRunnerTags,
-      setSelectedTags: setTableRunnerTags,
-    },
-    plates: {
-      textures: textureTypes.plates,
-      selectedTexture: selectedPlateTexture,
-      onSelectTexture: handleSelectPlate,
-      selectedTags: plateTags,
-      setSelectedTags: setPlateTags,
-    },
-    chairCover: {
-      textures: textureTypes.chairCover,
-      selectedTexture: selectedChairCoverTexture,
-      onSelectTexture: handleSelectChairCover,
-      selectedTags: chairCoverTags,
-      setSelectedTags: setChairCoverTags,
-    },
-    chairRunner: {
-      textures: textureTypes.chairRunner,
-      selectedTexture: selectedChairRunnerTexture,
-      onSelectTexture: handleSelectChairRunner,
-      selectedTags: chairRunnerTags,
-      setSelectedTags: setChairRunnerTags,
-    },
-  };
-
-  const itemizedItems = [
-    {
-      name: "Table Cloth",
-      key: "tableCloth",
-      textureName: getTextureName(selectedTableClothTexture),
-      price: tableClothPrice,
-    },
-    {
-      name: "Table Runner",
-      key: "tableRunner",
-      textureName: getTextureName(selectedTableRunnerTexture),
-      price: tableRunnerPrice,
-    },
-    {
-      name: "Plate",
-      key: "plates",
-      textureName: getTextureName(selectedPlateTexture),
-      price: platePrice,
-    },
-    {
-      name: "Chair Cover",
-      key: "chairCover",
-      textureName: getTextureName(selectedChairCoverTexture),
-      price: chairCoverPrice,
-    },
-    {
-      name: "Chair Runner",
-      key: "chairRunner",
-      textureName: getTextureName(selectedChairRunnerTexture),
-      price: chairRunnerPrice,
-    },
-  ];
+  const itemizedItems = typesList.map((type) => ({
+    name: type.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase()),
+    key: type,
+    textureName: getTextureName(selectedTextures[type]),
+    price: prices[type],
+  }));
 
   const allowedKeys = packages[selectedPackage] || [];
   const filteredItems = itemizedItems.filter((item) =>
@@ -215,15 +144,12 @@ function App() {
                     position={[0, 20, 10]}
                     castShadow
                   />
-                  <mesh
-                    rotation={[-Math.PI / 2, 0, 0]}
-                    position={[0, -0.5, 0]}
-                    receiveShadow
-                  >
+                  {/* Floor and Backdrop */}
+                  <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
                     <planeGeometry args={[30, 30]} />
                     <meshStandardMaterial color='#eeeeee' />
                   </mesh>
-                  <mesh position={[0, 5, -7.5]} receiveShadow>
+                  <mesh position={[0, 5, -7.5]}>
                     <planeGeometry args={[30, 20]} />
                     <meshStandardMaterial color='#fafafa' />
                   </mesh>
@@ -231,18 +157,28 @@ function App() {
                     <mesh
                       rotation={[-Math.PI / 2, 0, 0]}
                       position={[0, -0.5, 0]}
-                      receiveShadow
                     >
                       <planeGeometry args={[30, 30]} />
                       <shadowMaterial opacity={0.5} />
                     </mesh>
                   )}
+                  {/* Main Model */}
                   <Model
-                    tableClothTexture={{ selectedTableClothTexture }}
-                    tableRunnerTexture={{ selectedTableRunnerTexture }}
-                    plateTexture={{ selectedPlateTexture }}
-                    chairCoverTexture={{ selectedChairCoverTexture }}
-                    chairRunnerTexture={{ selectedChairRunnerTexture }}
+                    tableClothTexture={{
+                      selectedTableClothTexture: selectedTextures.tableCloth,
+                    }}
+                    tableRunnerTexture={{
+                      selectedTableRunnerTexture: selectedTextures.tableRunner,
+                    }}
+                    plateTexture={{
+                      selectedPlateTexture: selectedTextures.plates,
+                    }}
+                    chairCoverTexture={{
+                      selectedChairCoverTexture: selectedTextures.chairCover,
+                    }}
+                    chairRunnerTexture={{
+                      selectedChairRunnerTexture: selectedTextures.chairRunner,
+                    }}
                     packages={packages}
                     selectedPackage={selectedPackage}
                   />
@@ -258,6 +194,7 @@ function App() {
                 </Suspense>
               </Canvas>
             </div>
+
             <div className='texture-scroll-area'>
               <TabbedTexturePanel
                 navOpen={navOpen}
@@ -267,6 +204,7 @@ function App() {
               />
             </div>
           </div>
+
           <SubtotalPanel
             items={filteredItems}
             subtotal={subtotal}
@@ -274,6 +212,7 @@ function App() {
           />
         </div>
       )}
+
       <Footer />
     </div>
   );

@@ -1,88 +1,145 @@
 [
   {
-    "src": "/tablecloths/brown-flowers.jpg",
+    "src": "/pf_textures/tablecloths/brown-flowers.jpg",
     "tags": ["brown", "flowers"],
-    "type": ["tableCloth","tableRunner"],
+    "type": "tableCloth",
     "price": 250
   },
   {
-    "src": "/tablecloths/brown-striped.jpg",
+    "src": "/pf_textures/tablecloths/brown-striped.jpg",
     "tags": ["brown", "stripes", "modern"],
-    "type": ["tableCloth","tableRunner", "chairRunner"],
+    "type": "tableCloth",
     "price": 250
   },
   {
-    "src": "/tablecloths/soft-white.jpg",
+    "src": "/pf_textures/tablecloths/soft-white.jpg",
     "tags": ["white", "elegant"],
-    "type": ["tableCloth","tableRunner", "chairCover", "chairRunner", "plates"],
+    "type": "tableCloth",
     "price": 250
   },
-  
+
   {
-    "src": "/tablecloths/green-flannel.jpg",
+    "src": "/pf_textures/tablerunners/green-flannel.jpg",
     "tags": ["green", "rustic"],
-    "type": "chairCover",
+    "type": "tableRunner",
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/tablerunners/white-ornaments.jpg",
+    "tags": ["bold", "solid", "white", "modern"],
+    "type": "tableRunner",
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/tablerunners/brown-flowers.jpg",
+    "tags": ["brown", "rustic", "modern"],
+    "type": "tableRunner",
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/tablerunners/pink-solid.jpg",
+    "tags": ["luxury", "solid", "pink"],
+    "type": "tableRunner",
     "price": 10
   },
 
   {
-    "src": "/tablecloths/black-fireworks.jpg",
-    "tags":  ["bold", "solid", "black", "modern"],
-    "type": "tableCloth",
+    "src": "/pf_textures/chaircovers/black-fireworks.jpg",
+    "tags": ["bold", "black"],
+    "type": "chairCover",
     "price": 10
   },
   {
-    "src": "/tablecloths/blue-confetti.jpg",
+    "src": "/pf_textures/chaircovers/blue-confetti.jpg",
     "tags": ["blue", "modern"],
-    "type": ["tableCloth","chairCover"],
-    "price": 10
-  },  
-  {
-    "src": "/tablecloths/purple-wave.jpg",
-    "tags": ["luxury", "solid", "purple"],
-    "type": ["tableCloth","tableRunner", "plates"],
-    "price": 10
-  },  
-  {
-    "src": "/tablecloths/white-ornaments.jpg",
-    "tags": ["bold", "white", "elegant"],
-    "type": ["tableCloth","tableRunner", "chairRunner"],
+    "type": "chairCover",
     "price": 10
   },
   {
-    "src": "/tablecloths/orange-solid.jpg",
-    "tags": ["bold", "solid", "rustic"],
-    "type": "tableCloth",
+    "src": "/pf_textures/chaircovers/brown-striped.jpg",
+    "tags": ["brown", "striped", "elegant"],
+    "type": "chairCover",
+    "price": 90
+  },
+
+  {
+    "src": "/pf_textures/chairrunners/black-fireworks.jpg",
+    "tags": ["bold", "black"],
+    "type": "chairRunner",
     "price": 10
   },
   {
-    "src": "/tablecloths/blue-solid.jpg",
-    "tags": ["blue", "solid", "modern"],
-    "type": ["tableCloth","chairCover"],
+    "src": "/pf_textures/chairrunners/blue-confetti.jpg",
+    "tags": ["blue", "modern"],
+    "type": "chairRunner",
     "price": 10
-  },  
-    {
-    "src": "/tablecloths/blue-solid.jpg",
+  },
+  {
+    "src": "/pf_textures/chairrunners/brown-striped.jpg",
+    "tags": ["brown", "striped", "elegant"],
+    "type": "chairRunner",
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/chairrunners/green-flannel.jpg",
+    "tags": ["green", "elegant"],
+    "type": "chairRunner",
+    "price": 10
+  },
+
+  {
+    "src": "/pf_textures/plates/blue-solid.jpg",
     "tags": ["blue", "solid", "elegant"],
     "type": "plates",
-    "price": 90
-  },  
-  {
-    "src": "/tablecloths/pink-solid.jpg",
-    "tags": ["bold", "solid", "luxury", "pink"],
-    "type": ["tableCloth","tableRunner", "plates"],
-    "price": 10
-  },  
-  {
-    "src": "/tablecloths/yellow-solid.jpg",
-    "tags": ["bold", "solid", "yellow"],
-    "type": ["tableCloth","tableRunner", "chairRunner"],
     "price": 10
   },
-    {
-    "src": "/tablecloths/teal-solid.jpg",
+  {
+    "src": "/pf_textures/plates/pink-solid.jpg",
+    "tags": ["pink", "solid", "elegant"],
+    "type": "plates",
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/plates/teal-solid.jpg",
     "tags": ["teal", "solid", "elegant"],
-    "type": ["tableCloth","tableRunner", "chairRunner"],
+    "type": "plates",
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/plates/soft-white.jpg",
+    "tags": ["white", "solid", "elegant"],
+    "type": "plates",
+    "price": 10
+  },
+
+  {
+    "src": "/pf_textures/multi/orange-solid.jpg",
+    "tags": ["teal", "solid", "elegant"],
+    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/multi/blue-solid.jpg",
+    "tags": ["teal", "solid", "elegant"],
+    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/multi/pink-solid.jpg",
+    "tags": ["teal", "solid", "elegant"],
+    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/multi/yellow-solid.jpg",
+    "tags": ["teal", "solid", "elegant"],
+    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    "price": 10
+  },
+  {
+    "src": "/pf_textures/multi/soft-white.jpg",
+    "tags": ["teal", "solid", "elegant"],
+    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
     "price": 10
   }
 ]
