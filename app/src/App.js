@@ -1,6 +1,5 @@
-import React, { Suspense, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import LoginPage from "./components/common/login/LoginPage";
@@ -134,64 +133,26 @@ function App() {
                 camera={{ position: cameraPosition, fov: 24 }}
                 frameloop='demand'
               >
-                <color attach='background' args={["#fcfcfc"]} />
-                <Suspense fallback={null}>
-                  <ambientLight intensity={0.3} />
-                  <spotLight
-                    intensity={0.8}
-                    angle={0.25}
-                    penumbra={1}
-                    position={[0, 20, 10]}
-                    castShadow
-                  />
-                  {/* Floor and Backdrop */}
-                  <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
-                    <planeGeometry args={[30, 30]} />
-                    <meshStandardMaterial color='#eeeeee' />
-                  </mesh>
-                  <mesh position={[0, 5, -7.5]}>
-                    <planeGeometry args={[30, 20]} />
-                    <meshStandardMaterial color='#fafafa' />
-                  </mesh>
-                  {!isMobile && (
-                    <mesh
-                      rotation={[-Math.PI / 2, 0, 0]}
-                      position={[0, -0.5, 0]}
-                    >
-                      <planeGeometry args={[30, 30]} />
-                      <shadowMaterial opacity={0.5} />
-                    </mesh>
-                  )}
-                  {/* Main Model */}
-                  <Model
-                    tableClothTexture={{
-                      selectedTableClothTexture: selectedTextures.tableCloth,
-                    }}
-                    tableRunnerTexture={{
-                      selectedTableRunnerTexture: selectedTextures.tableRunner,
-                    }}
-                    plateTexture={{
-                      selectedPlateTexture: selectedTextures.plates,
-                    }}
-                    chairCoverTexture={{
-                      selectedChairCoverTexture: selectedTextures.chairCover,
-                    }}
-                    chairRunnerTexture={{
-                      selectedChairRunnerTexture: selectedTextures.chairRunner,
-                    }}
-                    packages={packages}
-                    selectedPackage={selectedPackage}
-                  />
-                  <OrbitControls
-                    enablePan
-                    enableZoom
-                    enableRotate
-                    enableDamping
-                    maxPolarAngle={Math.PI / 2.2}
-                    minDistance={2}
-                    maxDistance={7}
-                  />
-                </Suspense>
+                {/* Main Model */}
+                <Model
+                  tableClothTexture={{
+                    selectedTableClothTexture: selectedTextures.tableCloth,
+                  }}
+                  tableRunnerTexture={{
+                    selectedTableRunnerTexture: selectedTextures.tableRunner,
+                  }}
+                  plateTexture={{
+                    selectedPlateTexture: selectedTextures.plates,
+                  }}
+                  chairCoverTexture={{
+                    selectedChairCoverTexture: selectedTextures.chairCover,
+                  }}
+                  chairRunnerTexture={{
+                    selectedChairRunnerTexture: selectedTextures.chairRunner,
+                  }}
+                  packages={packages}
+                  selectedPackage={selectedPackage}
+                />
               </Canvas>
             </div>
 

@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import * as THREE from "three";
-import { useGLTF, useTexture } from "@react-three/drei";
+import { useGLTF, useTexture, OrbitControls } from "@react-three/drei";
+import { Suspense } from "react";
 
 // Preload model
-useGLTF.preload("/resources/PFScene10.gltf");
+useGLTF.preload("/resources/PFScene11.gltf");
 
 const BasicChair = ({ position, rotation, geometry }) => (
   <group position={position} rotation={rotation} scale={[1, 1, 1]}>
@@ -45,7 +46,7 @@ function Model({
   chairRunnerTexture,
 }) {
   const group = useRef();
-  const { nodes } = useGLTF("/resources/PFScene10.gltf");
+  const { nodes } = useGLTF("/resources/PFScene11.gltf");
 
   const allowedKeys = packages[selectedPackage] || [];
 
@@ -91,58 +92,105 @@ function Model({
   ];
 
   return (
-    <group ref={group} scale={[0.01, 0.01, 0.01]} rotation={[0, -0.5, 0]}>
-      {allowedKeys.includes("tableCloth") && (
-        <mesh geometry={nodes.TableCloth.geometry} scale={[1.25, 1.25, 1.25]}>
-          <meshStandardMaterial map={tableClothMap} />
-        </mesh>
-      )}
+    <Suspense fallback={null}>
+      <color attach='background' args={["#fcfcfc"]} />
+      <ambientLight intensity={0.3} />
+      <spotLight
+        intensity={0.8}
+        angle={0.25}
+        penumbra={1}
+        position={[0, 20, 10]}
+        castShadow
+      />
+      {/* Floor and Backdrop */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
+        <planeGeometry args={[30, 30]} />
+        <meshStandardMaterial color='#eeeeee' />
+      </mesh>
+      <mesh position={[0, 5, -7.5]}>
+        <planeGeometry args={[30, 20]} />
+        <meshStandardMaterial color='#fafafa' />
+      </mesh>
 
-      {allowedKeys.includes("tableRunner") && (
-        <mesh
-          geometry={nodes.TableRunner.geometry}
-          position={[0, 0, 0]}
-          rotation={[0, 0.525, 0]}
-          scale={[1, 1.4, 1.23]}
-        >
-          <meshStandardMaterial map={tableRunnerMap} />
-        </mesh>
-      )}
-
-      {allowedKeys.includes("plates") &&
-        platePositions.map((pos, i) => (
-          <mesh
-            key={i}
-            geometry={nodes.Plate.geometry}
-            position={pos}
-            scale={[1.5, 1.5, 1.5]}
-          >
-            <meshStandardMaterial map={plateMap} side={THREE.DoubleSide} />
+      <group ref={group} scale={[0.01, 0.01, 0.01]} rotation={[0, -0.5, 0]}>
+        {allowedKeys.includes("tableCloth") && (
+          <mesh geometry={nodes.TableCloth.geometry} scale={[1.25, 1.25, 1.25]}>
+            <meshStandardMaterial map={tableClothMap} />
           </mesh>
-        ))}
-
-      {(selectedPackage === "silver" || allowedKeys.includes("chairCover")) &&
-        positions.map((pos, i) =>
-          selectedPackage === "silver" ? (
-            <BasicChair
-              key={i}
-              position={pos}
-              rotation={rotations[i]}
-              geometry={nodes.BasicChair.geometry}
-            />
-          ) : (
-            <Chair
-              key={i}
-              position={pos}
-              rotation={rotations[i]}
-              coverTexture={chairCoverMap}
-              runnerTexture={chairRunnerMap}
-              coverGeometry={nodes.Chair001.geometry}
-              runnerGeometry={nodes.ChairRunner.geometry}
-            />
-          )
         )}
-    </group>
+
+        {allowedKeys.includes("tableRunner") && (
+          <mesh
+            geometry={nodes.TableRunner.geometry}
+            position={[0, 0, 0]}
+            rotation={[0, 0.525, 0]}
+            scale={[1, 1.4, 1.23]}
+          >
+            <meshStandardMaterial map={tableRunnerMap} />
+          </mesh>
+        )}
+
+        {allowedKeys.includes("plates") &&
+          platePositions.map((pos, i) => (
+            <mesh
+              key={i}
+              geometry={nodes.Plate.geometry}
+              position={pos}
+              scale={[1.5, 1.5, 1.5]}
+            >
+              <meshStandardMaterial map={plateMap} side={THREE.DoubleSide} />
+            </mesh>
+          ))}
+
+        {(selectedPackage === "silver" || allowedKeys.includes("chairCover")) &&
+          positions.map((pos, i) =>
+            selectedPackage === "silver" ? (
+              <BasicChair
+                key={i}
+                position={pos}
+                rotation={rotations[i]}
+                geometry={nodes.BasicChair.geometry}
+              />
+            ) : (
+              <Chair
+                key={i}
+                position={pos}
+                rotation={rotations[i]}
+                coverTexture={chairCoverMap}
+                runnerTexture={chairRunnerMap}
+                coverGeometry={nodes.Chair001.geometry}
+                runnerGeometry={nodes.ChairRunner.geometry}
+              />
+            )
+          )}
+        {/* Outer Curtains */}
+        <mesh
+          geometry={nodes.Outercurtains.geometry}
+          position={[0, 0, -60]} // Adjust this based on your wall location
+          scale={[1, 1, 1]}
+        >
+          <meshStandardMaterial color='#cc3f2f' side={THREE.DoubleSide} />
+        </mesh>
+
+        {/* Inner Curtains */}
+        <mesh
+          geometry={nodes.innercurtains.geometry}
+          position={[0, 0, -59.5]} // Slightly forward from the outer curtain
+          scale={[1, 1, 1]}
+        >
+          <meshStandardMaterial color='#ffffff' side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+      <OrbitControls
+        enablePan
+        enableZoom
+        enableRotate
+        enableDamping
+        maxPolarAngle={Math.PI / 2.2}
+        minDistance={2}
+        maxDistance={7}
+      />
+    </Suspense>
   );
 }
 
