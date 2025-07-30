@@ -124,7 +124,7 @@ function Model({
     switch (centerpieceTexture.selectedCenterpieceTexture) {
       case "/pf_textures/centerpieces/centerpiece1.jpg":
         centerpieceElement = (
-          <group scale={[1.5, 1, 1.5]}>
+          <group position={[0, 10, 0]} scale={[1.5, 1, 1.5]}>
             <mesh geometry={nodes.Centerpiece1.geometry}>
               <meshStandardMaterial
                 map={selectedCenterpieceMap}
@@ -140,7 +140,8 @@ function Model({
 
       case "/pf_textures/centerpieces/centerpiece2.jpg":
         centerpieceElement = (
-          <group position={[0, -22, 0]} scale={[2, 2, 2]}>
+          // <group position={[0, -22, 0]} scale={[2, 2, 2]}>
+          <group position={[0, -26.5, 0]} scale={[2, 2, 2]}>
             <mesh geometry={nodes.Centerpiece2.geometry}>
               <meshStandardMaterial
                 map={selectedCenterpieceMap}
@@ -153,17 +154,21 @@ function Model({
 
       case "/pf_textures/centerpieces/centerpiece3.jpg":
         centerpieceElement = (
-          <mesh geometry={nodes.Centerpiece3.geometry}>
-            <meshStandardMaterial map={selectedCenterpieceMap} />
-          </mesh>
+          <group position={[0, 0, 0]} scale={[1.5, 1, 1.5]}>
+            <mesh geometry={nodes.Centerpiece3.geometry}>
+              <meshStandardMaterial map={selectedCenterpieceMap} />
+            </mesh>
+          </group>
         );
         break;
 
       case "/pf_textures/centerpieces/centerpiece4.jpg":
         centerpieceElement = (
-          <mesh geometry={nodes.Centerpiece4.geometry}>
-            <meshStandardMaterial map={selectedCenterpieceMap} />
-          </mesh>
+          <group position={[0, 10, 0]} scale={[1.5, 1, 1.5]}>
+            <mesh geometry={nodes.Centerpiece4.geometry}>
+              <meshStandardMaterial map={selectedCenterpieceMap} />
+            </mesh>
+          </group>
         );
         break;
 

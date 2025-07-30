@@ -200,5 +200,15 @@
     "src": "/pf_textures/centerpieces/centerpiece2.jpg",
     "type": ["centerpiece"],
     "price": 300
+  },
+  {
+    "src": "/pf_textures/centerpieces/centerpiece3.jpg",
+    "type": ["centerpiece"],
+    "price": 250
+  },
+  {
+    "src": "/pf_textures/centerpieces/centerpiece4.jpg",
+    "type": ["centerpiece"],
+    "price": 300
   }
 ]
