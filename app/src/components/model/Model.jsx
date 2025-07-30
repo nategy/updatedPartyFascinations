@@ -44,6 +44,9 @@ function Model({
   plateTexture,
   chairCoverTexture,
   chairRunnerTexture,
+  innerCurtainsTexture,
+  outerCurtainsTexture,
+  centerpieceTexture,
 }) {
   const group = useRef();
   const { nodes } = useGLTF("/resources/PFScene11.gltf");
@@ -67,13 +70,20 @@ function Model({
   );
   const chairRunnerMap = rawChairRunner.clone();
 
+  const innerCurtainsMap = useTexture(
+    innerCurtainsTexture.selectedInnerCurtainsTexture
+  );
+  const outerCurtainsMap = useTexture(
+    outerCurtainsTexture.selectedOuterCurtainsTexture
+  );
+
   const platePositions = [
-    [2, -8, 15],
-    [0, -8, -15.5],
-    [-24, -8, -32],
-    [-62, -8, -12],
-    [-57, -8, 15.5],
-    [-35, -8, 35],
+    [-8, -8, 30],
+    [0, -8, 0],
+    [-7, -8, -31],
+    [-50, -8, -32],
+    [-60, -8, 0],
+    [-52, -8, 30],
   ];
 
   const chairRadius = 1.3;
@@ -83,7 +93,7 @@ function Model({
   });
 
   const rotations = [
-    [0, Math.PI, 0],
+    [0, Math.PI - 0.01, 0],
     [0, (8 * Math.PI) / 6, 0],
     [0, (4 * Math.PI) / 6, 0],
     [0, 0, 0],
@@ -91,28 +101,110 @@ function Model({
     [0, Math.PI / 3, 0],
   ];
 
+  // centerpiece logic
+  const showCenterpiece =
+    selectedPackage === "bronze" || selectedPackage === "gold";
+
+  // Always call useTexture with a valid path (use transparent placeholder if none selected)
+  const safeCenterpiecePath =
+    centerpieceTexture.selectedCenterpieceTexture &&
+    centerpieceTexture.selectedCenterpieceTexture !== "none"
+      ? centerpieceTexture.selectedCenterpieceTexture
+      : "/pf_textures/centerpieces/transparent.jpg"; // 1x1 transparent image
+
+  const selectedCenterpieceMap = useTexture(safeCenterpiecePath);
+
+  let centerpieceElement = null;
+
+  if (
+    showCenterpiece &&
+    centerpieceTexture.selectedCenterpieceTexture &&
+    centerpieceTexture.selectedCenterpieceTexture !== "none"
+  ) {
+    switch (centerpieceTexture.selectedCenterpieceTexture) {
+      case "/pf_textures/centerpieces/centerpiece1.jpg":
+        centerpieceElement = (
+          <group scale={[1.5, 1, 1.5]}>
+            <mesh geometry={nodes.Centerpiece1.geometry}>
+              <meshStandardMaterial
+                map={selectedCenterpieceMap}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+            <mesh geometry={nodes.Centerpiece1legs.geometry}>
+              <meshStandardMaterial side={THREE.DoubleSide} />
+            </mesh>
+          </group>
+        );
+        break;
+
+      case "/pf_textures/centerpieces/centerpiece2.jpg":
+        centerpieceElement = (
+          <group position={[0, -22, 0]} scale={[2, 2, 2]}>
+            <mesh geometry={nodes.Centerpiece2.geometry}>
+              <meshStandardMaterial
+                map={selectedCenterpieceMap}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+          </group>
+        );
+        break;
+
+      case "/pf_textures/centerpieces/centerpiece3.jpg":
+        centerpieceElement = (
+          <mesh geometry={nodes.Centerpiece3.geometry}>
+            <meshStandardMaterial map={selectedCenterpieceMap} />
+          </mesh>
+        );
+        break;
+
+      case "/pf_textures/centerpieces/centerpiece4.jpg":
+        centerpieceElement = (
+          <mesh geometry={nodes.Centerpiece4.geometry}>
+            <meshStandardMaterial map={selectedCenterpieceMap} />
+          </mesh>
+        );
+        break;
+
+      default:
+        break;
+    }
+  }
+
   return (
     <Suspense fallback={null}>
-      <color attach='background' args={["#fcfcfc"]} />
+      <color attach='background' args={["#ffffff"]} />
       <ambientLight intensity={0.3} />
       <spotLight
         intensity={0.8}
         angle={0.25}
         penumbra={1}
-        position={[0, 20, 10]}
+        position={[0, 10, 7]}
         castShadow
       />
-      {/* Floor and Backdrop */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
-        <planeGeometry args={[30, 30]} />
-        <meshStandardMaterial color='#eeeeee' />
-      </mesh>
-      <mesh position={[0, 5, -7.5]}>
-        <planeGeometry args={[30, 20]} />
-        <meshStandardMaterial color='#fafafa' />
-      </mesh>
 
-      <group ref={group} scale={[0.01, 0.01, 0.01]} rotation={[0, -0.5, 0]}>
+      <group
+        ref={group}
+        position={[0, 0, 0.75]}
+        rotation={[0, 3.15, 0]}
+        scale={[0.01, 0.01, 0.01]}
+      >
+        {/* Floor and Backdrop */}
+        <mesh
+          geometry={nodes.Wall.geometry}
+          position={[0, 0, 0]}
+          scale={[1.5, 1, 1]}
+        >
+          <meshStandardMaterial color='#ffffff' side={THREE.DoubleSide} />
+        </mesh>
+        <mesh
+          geometry={nodes.Floor.geometry}
+          position={[0, 0, 0]}
+          scale={[1.5, 1, 1]}
+        >
+          <meshStandardMaterial color='#ffffff' side={THREE.DoubleSide} />
+        </mesh>
         {allowedKeys.includes("tableCloth") && (
           <mesh geometry={nodes.TableCloth.geometry} scale={[1.25, 1.25, 1.25]}>
             <meshStandardMaterial map={tableClothMap} />
@@ -123,7 +215,7 @@ function Model({
           <mesh
             geometry={nodes.TableRunner.geometry}
             position={[0, 0, 0]}
-            rotation={[0, 0.525, 0]}
+            rotation={[0, -0.02, 0]}
             scale={[1, 1.4, 1.23]}
           >
             <meshStandardMaterial map={tableRunnerMap} />
@@ -166,20 +258,31 @@ function Model({
         {/* Outer Curtains */}
         <mesh
           geometry={nodes.Outercurtains.geometry}
-          position={[0, 0, -60]} // Adjust this based on your wall location
+          position={[0, 10, 0]}
+          rotation={[0, 0, 0]}
           scale={[1, 1, 1]}
         >
-          <meshStandardMaterial color='#cc3f2f' side={THREE.DoubleSide} />
+          <meshStandardMaterial
+            map={outerCurtainsMap}
+            side={THREE.DoubleSide}
+          />
         </mesh>
 
         {/* Inner Curtains */}
         <mesh
           geometry={nodes.innercurtains.geometry}
-          position={[0, 0, -59.5]} // Slightly forward from the outer curtain
-          scale={[1, 1, 1]}
+          position={[0, 1, 0]}
+          rotation={[0, 0, 0]}
+          scale={[-1, 1, 1]}
         >
-          <meshStandardMaterial color='#ffffff' side={THREE.DoubleSide} />
+          <meshStandardMaterial
+            map={innerCurtainsMap}
+            side={THREE.DoubleSide}
+          />
         </mesh>
+
+        {/* centerpieces */}
+        {centerpieceElement}
       </group>
       <OrbitControls
         enablePan
@@ -188,7 +291,7 @@ function Model({
         enableDamping
         maxPolarAngle={Math.PI / 2.2}
         minDistance={2}
-        maxDistance={7}
+        maxDistance={8}
       />
     </Suspense>
   );

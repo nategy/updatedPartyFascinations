@@ -15,9 +15,25 @@ import "./index.css";
 
 // Package tiers
 const packages = {
-  silver: ["tableCloth", "tableRunner"],
-  bronze: ["tableCloth", "chairCover", "chairRunner"],
-  gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plates"],
+  silver: ["tableCloth", "tableRunner", "innerCurtains", "outerCurtains"],
+  bronze: [
+    "tableCloth",
+    "chairCover",
+    "chairRunner",
+    "innerCurtains",
+    "outerCurtains",
+    "centerpiece",
+  ],
+  gold: [
+    "tableCloth",
+    "tableRunner",
+    "chairCover",
+    "chairRunner",
+    "plates",
+    "innerCurtains",
+    "outerCurtains",
+    "centerpiece",
+  ],
 };
 
 // Default selections
@@ -27,6 +43,9 @@ const initialTextures = {
   plates: "/pf_textures/plates/soft-white.jpg",
   chairCover: "/pf_textures/chaircovers/blue-confetti.jpg",
   chairRunner: "/pf_textures/chairrunners/brown-striped.jpg",
+  innerCurtains: "/pf_textures/multi/pink-solid.jpg",
+  outerCurtains: "/pf_textures/multi/teal-solid.jpg",
+  centerpiece: "none",
 };
 
 const initialPrices = {
@@ -35,6 +54,9 @@ const initialPrices = {
   plates: 200,
   chairCover: 600,
   chairRunner: 300,
+  innerCurtains: 200,
+  outerCurtains: 200,
+  centerpiece: 0,
 };
 
 const typesList = [
@@ -43,6 +65,9 @@ const typesList = [
   "plates",
   "chairCover",
   "chairRunner",
+  "innerCurtains",
+  "outerCurtains",
+  "centerpiece",
 ];
 
 function App() {
@@ -60,7 +85,7 @@ function App() {
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [cameraPosition, setCameraPosition] = useState(
-    window.innerWidth <= 768 ? [0, 2, 5] : [0, 3, 5]
+    window.innerWidth <= 768 ? [0, 1.5, 5.5] : [0, 3, 5]
   );
 
   // Responsive camera
@@ -123,56 +148,65 @@ function App() {
         <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
       </Router>
 
-      {!isLoggedIn ? (
+      {/* {!isLoggedIn ? (
         <LoginPage onLogin={() => setIsLoggedIn(true)} />
-      ) : (
-        <div className='wrapper'>
-          <div className='card'>
-            <div className='product-canvas'>
-              <Canvas
-                camera={{ position: cameraPosition, fov: 24 }}
-                frameloop='demand'
-              >
-                {/* Main Model */}
-                <Model
-                  tableClothTexture={{
-                    selectedTableClothTexture: selectedTextures.tableCloth,
-                  }}
-                  tableRunnerTexture={{
-                    selectedTableRunnerTexture: selectedTextures.tableRunner,
-                  }}
-                  plateTexture={{
-                    selectedPlateTexture: selectedTextures.plates,
-                  }}
-                  chairCoverTexture={{
-                    selectedChairCoverTexture: selectedTextures.chairCover,
-                  }}
-                  chairRunnerTexture={{
-                    selectedChairRunnerTexture: selectedTextures.chairRunner,
-                  }}
-                  packages={packages}
-                  selectedPackage={selectedPackage}
-                />
-              </Canvas>
-            </div>
-
-            <div className='texture-scroll-area'>
-              <TabbedTexturePanel
-                navOpen={navOpen}
+      ) : ( */}
+      <div className='wrapper'>
+        <div className='card'>
+          <div className='product-canvas'>
+            <Canvas
+              camera={{ position: cameraPosition, fov: 30 }}
+              frameloop='demand'
+            >
+              {/* Main Model */}
+              <Model
+                tableClothTexture={{
+                  selectedTableClothTexture: selectedTextures.tableCloth,
+                }}
+                tableRunnerTexture={{
+                  selectedTableRunnerTexture: selectedTextures.tableRunner,
+                }}
+                plateTexture={{
+                  selectedPlateTexture: selectedTextures.plates,
+                }}
+                chairCoverTexture={{
+                  selectedChairCoverTexture: selectedTextures.chairCover,
+                }}
+                chairRunnerTexture={{
+                  selectedChairRunnerTexture: selectedTextures.chairRunner,
+                }}
+                innerCurtainsTexture={{
+                  selectedInnerCurtainsTexture: selectedTextures.innerCurtains,
+                }}
+                outerCurtainsTexture={{
+                  selectedOuterCurtainsTexture: selectedTextures.outerCurtains,
+                }}
+                centerpieceTexture={{
+                  selectedCenterpieceTexture: selectedTextures.centerpiece,
+                }}
+                packages={packages}
                 selectedPackage={selectedPackage}
-                setSelectedPackage={setSelectedPackage}
-                textureConfig={textureConfig}
               />
-            </div>
+            </Canvas>
           </div>
 
-          <SubtotalPanel
-            items={filteredItems}
-            subtotal={subtotal}
-            selectedPackage={selectedPackage}
-          />
+          <div className='texture-scroll-area'>
+            <TabbedTexturePanel
+              navOpen={navOpen}
+              selectedPackage={selectedPackage}
+              setSelectedPackage={setSelectedPackage}
+              textureConfig={textureConfig}
+            />
+          </div>
         </div>
-      )}
+
+        <SubtotalPanel
+          items={filteredItems}
+          subtotal={subtotal}
+          selectedPackage={selectedPackage}
+        />
+      </div>
+      {/* )} */}
 
       <Footer />
     </div>

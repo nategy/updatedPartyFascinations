@@ -164,5 +164,41 @@
     "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/soft-white.jpg",
+    "tags": ["white", "solid", "elegant"],
+    "type": ["innerCurtains", "outerCurtains"],
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/teal-solid.jpg",
+    "tags": ["teal", "solid", "elegant"],
+    "type": ["innerCurtains", "outerCurtains"],
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/yellow-solid.jpg",
+    "tags": ["yellow", "solid", "elegant"],
+    "type": ["innerCurtains", "outerCurtains"],
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "none",
+    "type": ["centerpiece"],
+    "price": 0
+  },
+  {
+    "src": "/pf_textures/centerpieces/centerpiece1.jpg",
+    "type": ["centerpiece"],
+    "price": 250
+  },
+  {
+    "src": "/pf_textures/centerpieces/centerpiece2.jpg",
+    "type": ["centerpiece"],
+    "price": 300
   }
 ]

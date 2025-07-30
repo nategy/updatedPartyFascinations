@@ -8,14 +8,33 @@ const allTabs = [
   { label: "Chair Covers", key: "chairCover" },
   { label: "Chair Runners", key: "chairRunner" },
   { label: "Plates", key: "plates" },
+  { label: "Curtains (Inner)", key: "innerCurtains" },
+  { label: "Curtains (Outer)", key: "outerCurtains" },
+  { label: "Centerpieces", key: "centerpiece" },
 ];
 
 const availableTags = ["modern", "elegant", "rustic", "luxury", "bold"];
 
 const packages = {
-  silver: ["tableCloth", "tableRunner"],
-  bronze: ["tableCloth", "chairCover", "chairRunner"],
-  gold: ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plates"],
+  silver: ["tableCloth", "tableRunner", "innerCurtains", "outerCurtains"],
+  bronze: [
+    "tableCloth",
+    "chairCover",
+    "chairRunner",
+    "innerCurtains",
+    "outerCurtains",
+    "centerpiece",
+  ],
+  gold: [
+    "tableCloth",
+    "tableRunner",
+    "chairCover",
+    "chairRunner",
+    "plates",
+    "innerCurtains",
+    "outerCurtains",
+    "centerpiece",
+  ],
 };
 
 export default function TabbedTexturePanel({
