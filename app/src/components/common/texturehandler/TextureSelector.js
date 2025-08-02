@@ -20,70 +20,70 @@ function TextureSelector({
     setShowTextures((prev) => !prev);
   }, []);
 
-  const updateScrollButtons = () => {
+  const updateScrollButtons = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
 
     const scrollLeft = el.scrollLeft;
     const maxScrollLeft = el.scrollWidth - el.clientWidth;
 
-    // Allow margin of ~5px
-    setCanScrollLeft(scrollLeft > 5);
-    setCanScrollRight(scrollLeft < maxScrollLeft - 5);
-  };
+    // Small margin for floating point differences
+    const margin = 5;
 
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current?.scrollBy({ left: -150, behavior: "smooth" });
-    }
-  };
+    setCanScrollLeft(scrollLeft > margin);
+    setCanScrollRight(scrollLeft < maxScrollLeft - margin);
 
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current?.scrollBy({ left: 150, behavior: "smooth" });
-    }
-  };
-
-  const checkCenter = () => {
-    const el = scrollRef.current;
-    if (!el) return;
     setIsCentered(el.scrollWidth <= el.clientWidth);
+  }, []);
+
+  const scrollLeftFunc = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -150, behavior: "smooth" });
+      setTimeout(updateScrollButtons, 200);
+    }
   };
 
-  useEffect(() => {
-    updateScrollButtons();
-    checkCenter();
-  }, [textures]);
+  const scrollRightFunc = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 150, behavior: "smooth" });
+      setTimeout(updateScrollButtons, 200);
+    }
+  };
 
+  // Run on mount, when textures change, or when dropdown opens
+  useEffect(() => {
+    if (showTextures) {
+      requestAnimationFrame(updateScrollButtons);
+    }
+  }, [showTextures, textures, updateScrollButtons]);
+
+  // Recalculate on scroll & resize
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
-    let debounceTimeout = null;
-
-    const handleScroll = () => {
-      clearTimeout(debounceTimeout);
-      debounceTimeout = setTimeout(updateScrollButtons, 100);
-    };
+    const handleScroll = () => updateScrollButtons();
+    const handleResize = () => updateScrollButtons();
 
     el.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", checkCenter);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       el.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", checkCenter);
-      clearTimeout(debounceTimeout);
+      window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [updateScrollButtons]);
 
+  // Also recheck when images load (important for dynamic sizes)
   useEffect(() => {
-    if (showTextures) {
-      setTimeout(() => {
-        updateScrollButtons();
-        checkCenter();
-      }, 100);
-    }
-  }, [showTextures]);
+    const imgs = document.querySelectorAll(".texture-option img");
+    imgs.forEach((img) => img.addEventListener("load", updateScrollButtons));
+    return () => {
+      imgs.forEach((img) =>
+        img.removeEventListener("load", updateScrollButtons)
+      );
+    };
+  }, [textures, updateScrollButtons]);
 
   return (
     <div className='s-wrapper'>
@@ -101,8 +101,9 @@ function TextureSelector({
           <BsArrowLeftCircleFill
             className={`s-arrow ${!canScrollLeft ? "disabled" : ""}`}
             aria-label='Previous textures'
-            onClick={canScrollLeft ? scrollLeft : undefined}
+            onClick={canScrollLeft ? scrollLeftFunc : undefined}
           />
+
           <div className='s-selector' ref={scrollRef}>
             <div className={`s-inner ${isCentered ? "centered" : ""}`}>
               {textures.map((texture, index) => (
@@ -119,10 +120,11 @@ function TextureSelector({
               ))}
             </div>
           </div>
+
           <BsArrowRightCircleFill
             className={`s-arrow ${!canScrollRight ? "disabled" : ""}`}
             aria-label='Next textures'
-            onClick={canScrollRight ? scrollRight : undefined}
+            onClick={canScrollRight ? scrollRightFunc : undefined}
           />
         </div>
       )}

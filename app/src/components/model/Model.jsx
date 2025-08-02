@@ -77,13 +77,15 @@ function Model({
     outerCurtainsTexture.selectedOuterCurtainsTexture
   );
 
+  console.log(Object.keys(nodes));
+
   const platePositions = [
-    [-8, -8, 30],
-    [0, -8, 0],
-    [-7, -8, -31],
-    [-50, -8, -32],
-    [-60, -8, 0],
-    [-52, -8, 30],
+    [-8, -9, 30],
+    [0, -9, 0],
+    [-7, -9, -31],
+    [-50, -9, -32],
+    [-60, -9, 0],
+    [-52, -9, 30],
   ];
 
   const chairRadius = 1.3;
@@ -153,18 +155,24 @@ function Model({
         break;
 
       case "/pf_textures/centerpieces/centerpiece3.jpg":
-        centerpieceElement = (
-          <group position={[0, 0, 0]} scale={[1.5, 1, 1.5]}>
-            <mesh geometry={nodes.Centerpiece3.geometry}>
-              <meshStandardMaterial map={selectedCenterpieceMap} />
-            </mesh>
-          </group>
+        if (
+          (centerpieceElement = (
+            <group position={[0, 11, 0]} scale={[1.5, 1, 1.5]}>
+              {nodes.Centerpiece3.isMesh ? (
+                <mesh geometry={nodes.Centerpiece3.geometry}>
+                  <meshStandardMaterial map={selectedCenterpieceMap} />
+                </mesh>
+              ) : (
+                <primitive object={nodes.Centerpiece3} />
+              )}
+            </group>
+          ))
         );
         break;
 
       case "/pf_textures/centerpieces/centerpiece4.jpg":
         centerpieceElement = (
-          <group position={[0, 10, 0]} scale={[1.5, 1, 1.5]}>
+          <group position={[0, 11, 0]} scale={[1.5, 1, 1.5]}>
             <mesh geometry={nodes.Centerpiece4.geometry}>
               <meshStandardMaterial map={selectedCenterpieceMap} />
             </mesh>
@@ -219,9 +227,9 @@ function Model({
         {allowedKeys.includes("tableRunner") && (
           <mesh
             geometry={nodes.TableRunner.geometry}
-            position={[0, 0, 0]}
+            position={[0, -4.5, 0]}
             rotation={[0, -0.02, 0]}
-            scale={[1, 1.4, 1.23]}
+            scale={[1, 1.4, 1.285]}
           >
             <meshStandardMaterial map={tableRunnerMap} />
           </mesh>
