@@ -229,7 +229,7 @@ function Model({
             geometry={nodes.TableRunner.geometry}
             position={[0, -4.5, 0]}
             rotation={[0, -0.02, 0]}
-            scale={[1, 1.4, 1.285]}
+            scale={[1.35, 1.4, 1.285]}
           >
             <meshStandardMaterial map={tableRunnerMap} />
           </mesh>

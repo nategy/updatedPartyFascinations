@@ -15,9 +15,16 @@ import "./index.css";
 
 // Package tiers
 const packages = {
-  silver: ["tableCloth", "tableRunner", "innerCurtains", "outerCurtains"],
+  silver: [
+    "tableCloth",
+    "tableRunner",
+    "overlay",
+    "innerCurtains",
+    "outerCurtains",
+  ],
   bronze: [
     "tableCloth",
+    "overlay",
     "chairCover",
     "chairRunner",
     "innerCurtains",
@@ -27,6 +34,7 @@ const packages = {
   gold: [
     "tableCloth",
     "tableRunner",
+    "overlay",
     "chairCover",
     "chairRunner",
     "plates",
@@ -40,6 +48,7 @@ const packages = {
 const initialTextures = {
   tableCloth: "/pf_textures/tablecloths/soft-white.jpg",
   tableRunner: "/pf_textures/tablerunners/pink-solid.jpg",
+  overlay: "/pf_textures/overlays/blue-solid.jpg",
   plates: "/pf_textures/plates/soft-white.jpg",
   chairCover: "/pf_textures/chaircovers/blue-confetti.jpg",
   chairRunner: "/pf_textures/chairrunners/brown-striped.jpg",
@@ -51,6 +60,7 @@ const initialTextures = {
 const initialPrices = {
   tableCloth: 350,
   tableRunner: 200,
+  overlay: 120,
   plates: 200,
   chairCover: 600,
   chairRunner: 300,
@@ -62,6 +72,7 @@ const initialPrices = {
 const typesList = [
   "tableCloth",
   "tableRunner",
+  "overlay",
   "plates",
   "chairCover",
   "chairRunner",
@@ -112,17 +123,19 @@ function App() {
   };
 
   // Panel configuration
-  const textureConfig = typesList.reduce((acc, type) => {
-    acc[type] = {
-      textures: textureTypes[type],
-      selectedTexture: selectedTextures[type],
-      onSelectTexture: (textureObj) => handleSelectTexture(type, textureObj),
-      selectedTags: tags[type],
-      setSelectedTags: (newTags) =>
-        setTags((prev) => ({ ...prev, [type]: newTags })),
-    };
-    return acc;
-  }, {});
+  const textureConfig = Object.fromEntries(
+    typesList.map((type) => [
+      type,
+      {
+        textures: textureTypes[type],
+        selectedTexture: selectedTextures[type],
+        onSelectTexture: (textureObj) => handleSelectTexture(type, textureObj),
+        selectedTags: tags[type],
+        setSelectedTags: (newTags) =>
+          setTags((prev) => ({ ...prev, [type]: newTags })),
+      },
+    ])
+  );
 
   // Create readable list for subtotal
   const getTextureName = (path) => path?.split("/")?.pop() || "None";
@@ -148,65 +161,70 @@ function App() {
         <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
       </Router>
 
-      {/* {!isLoggedIn ? (
+      {!isLoggedIn ? (
         <LoginPage onLogin={() => setIsLoggedIn(true)} />
-      ) : ( */}
-      <div className='wrapper'>
-        <div className='card'>
-          <div className='product-canvas'>
-            <Canvas
-              camera={{ position: cameraPosition, fov: 30 }}
-              frameloop='demand'
-            >
-              {/* Main Model */}
-              <Model
-                tableClothTexture={{
-                  selectedTableClothTexture: selectedTextures.tableCloth,
-                }}
-                tableRunnerTexture={{
-                  selectedTableRunnerTexture: selectedTextures.tableRunner,
-                }}
-                plateTexture={{
-                  selectedPlateTexture: selectedTextures.plates,
-                }}
-                chairCoverTexture={{
-                  selectedChairCoverTexture: selectedTextures.chairCover,
-                }}
-                chairRunnerTexture={{
-                  selectedChairRunnerTexture: selectedTextures.chairRunner,
-                }}
-                innerCurtainsTexture={{
-                  selectedInnerCurtainsTexture: selectedTextures.innerCurtains,
-                }}
-                outerCurtainsTexture={{
-                  selectedOuterCurtainsTexture: selectedTextures.outerCurtains,
-                }}
-                centerpieceTexture={{
-                  selectedCenterpieceTexture: selectedTextures.centerpiece,
-                }}
-                packages={packages}
+      ) : (
+        <div className='wrapper'>
+          <div className='card'>
+            <div className='product-canvas'>
+              <Canvas
+                camera={{ position: cameraPosition, fov: 30 }}
+                frameloop='demand'
+              >
+                {/* Main Model */}
+                <Model
+                  tableClothTexture={{
+                    selectedTableClothTexture: selectedTextures.tableCloth,
+                  }}
+                  tableRunnerTexture={{
+                    selectedTableRunnerTexture: selectedTextures.tableRunner,
+                  }}
+                  overlayTexture={{
+                    selectedOverlayTexture: selectedTextures.overlay,
+                  }}
+                  plateTexture={{
+                    selectedPlateTexture: selectedTextures.plates,
+                  }}
+                  chairCoverTexture={{
+                    selectedChairCoverTexture: selectedTextures.chairCover,
+                  }}
+                  chairRunnerTexture={{
+                    selectedChairRunnerTexture: selectedTextures.chairRunner,
+                  }}
+                  innerCurtainsTexture={{
+                    selectedInnerCurtainsTexture:
+                      selectedTextures.innerCurtains,
+                  }}
+                  outerCurtainsTexture={{
+                    selectedOuterCurtainsTexture:
+                      selectedTextures.outerCurtains,
+                  }}
+                  centerpieceTexture={{
+                    selectedCenterpieceTexture: selectedTextures.centerpiece,
+                  }}
+                  packages={packages}
+                  selectedPackage={selectedPackage}
+                />
+              </Canvas>
+            </div>
+
+            <div className='texture-scroll-area'>
+              <TabbedTexturePanel
+                navOpen={navOpen}
                 selectedPackage={selectedPackage}
+                setSelectedPackage={setSelectedPackage}
+                textureConfig={textureConfig}
               />
-            </Canvas>
+            </div>
           </div>
 
-          <div className='texture-scroll-area'>
-            <TabbedTexturePanel
-              navOpen={navOpen}
-              selectedPackage={selectedPackage}
-              setSelectedPackage={setSelectedPackage}
-              textureConfig={textureConfig}
-            />
-          </div>
+          <SubtotalPanel
+            items={filteredItems}
+            subtotal={subtotal}
+            selectedPackage={selectedPackage}
+          />
         </div>
-
-        <SubtotalPanel
-          items={filteredItems}
-          subtotal={subtotal}
-          selectedPackage={selectedPackage}
-        />
-      </div>
-      {/* )} */}
+      )}
 
       <Footer />
     </div>

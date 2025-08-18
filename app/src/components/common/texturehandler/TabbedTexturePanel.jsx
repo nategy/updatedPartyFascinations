@@ -5,6 +5,7 @@ import "./tabtexture.css";
 const allTabs = [
   { label: "Table Cloths", key: "tableCloth" },
   { label: "Table Runners", key: "tableRunner" },
+  { label: "Overlays", key: "overlay" },
   { label: "Chair Covers", key: "chairCover" },
   { label: "Chair Runners", key: "chairRunner" },
   { label: "Plates", key: "plates" },
@@ -16,9 +17,16 @@ const allTabs = [
 const availableTags = ["modern", "elegant", "rustic", "luxury", "bold"];
 
 const packages = {
-  silver: ["tableCloth", "tableRunner", "innerCurtains", "outerCurtains"],
+  silver: [
+    "tableCloth",
+    "tableRunner",
+    "overlay",
+    "innerCurtains",
+    "outerCurtains",
+  ],
   bronze: [
     "tableCloth",
+    "overlay",
     "chairCover",
     "chairRunner",
     "innerCurtains",
@@ -28,6 +36,7 @@ const packages = {
   gold: [
     "tableCloth",
     "tableRunner",
+    "overlay",
     "chairCover",
     "chairRunner",
     "plates",

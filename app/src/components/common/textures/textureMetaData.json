@@ -51,6 +51,25 @@
   },
 
   {
+    "src": "/pf_textures/overlays/blue-solid.jpg",
+    "tags": ["elegant", "white", "sheer"],
+    "type": ["overlay"],
+    "price": 120
+  },
+  {
+    "src": "/pf_textures/overlays/pink-solid.jpg",
+    "tags": ["luxury", "gold"],
+    "type": ["overlay"],
+    "price": 150
+  },
+  {
+    "src": "/pf_textures/overlays/teal-solid.jpg",
+    "tags": ["luxury", "gold"],
+    "type": ["overlay"],
+    "price": 135
+  },
+
+  {
     "src": "/pf_textures/chaircovers/black-fireworks.jpg",
     "tags": ["bold", "black"],
     "type": "chairCover",
