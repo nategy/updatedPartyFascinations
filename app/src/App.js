@@ -196,6 +196,9 @@ function App() {
                   chairRunnerTexture={{
                     selectedChairRunnerTexture: selectedTextures.chairRunner,
                   }}
+                  chairClipTexture={{
+                    selectedChairClipTexture: selectedTextures.chairClip,
+                  }}
                   innerCurtainsTexture={{
                     selectedInnerCurtainsTexture:
                       selectedTextures.innerCurtains,

@@ -273,6 +273,20 @@
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
+  {
+    "src": "/pf_textures/chairclips/pf-gold.jpg",
+    "tags": ["green", "elegant"],
+    "type": "chairRunner",
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/chairclips/pf-silver.jpg",
+    "tags": ["green", "elegant"],
+    "type": "chairRunner",
+    "price": 300,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
 
   {
     "src": "/pf_textures/plates/blue-solid.jpg",

@@ -19,17 +19,29 @@ const Chair = ({
   rotation,
   coverTexture,
   runnerTexture,
+  clipTexture,
   coverGeometry,
   runnerGeometry,
+  clipGeometry,
 }) => (
   <group position={position} rotation={rotation} scale={[1, 1, 1]}>
     <mesh geometry={coverGeometry}>
       <meshStandardMaterial map={coverTexture} side={THREE.DoubleSide} />
     </mesh>
+    {/* Chair Runner */}
     {runnerGeometry && (
       <group scale={[1, 1, 1]} position={[0, -1, 0]}>
         <mesh geometry={runnerGeometry}>
           <meshStandardMaterial map={runnerTexture} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+    )}
+
+    {/* Chair Clips */}
+    {clipGeometry && (
+      <group scale={[1, 1, 1]} position={[0, -1, 0]}>
+        <mesh geometry={clipGeometry}>
+          <meshStandardMaterial map={clipTexture} side={THREE.DoubleSide} />
         </mesh>
       </group>
     )}
@@ -41,6 +53,7 @@ function Model({
   selectedPackage,
   tableClothTexture,
   tableRunnerTexture,
+  chairClipTexture,
   plateTexture,
   chairCoverTexture,
   chairRunnerTexture,
@@ -69,6 +82,9 @@ function Model({
     chairRunnerTexture.selectedChairRunnerTexture
   );
   const chairRunnerMap = rawChairRunner.clone();
+
+  const rawChairClip = useTexture(chairClipTexture.selectedChairClipTexture);
+  const chairClipMap = rawChairClip.clone();
 
   const innerCurtainsMap = useTexture(
     innerCurtainsTexture.selectedInnerCurtainsTexture
@@ -266,8 +282,10 @@ function Model({
                 rotation={rotations[i]}
                 coverTexture={chairCoverMap}
                 runnerTexture={chairRunnerMap}
+                clipTexture={chairClipMap}
                 coverGeometry={nodes.ChiavariChair.geometry}
                 runnerGeometry={nodes.ChairRunner.geometry}
+                clipGeometry={nodes.ChairClip.geometry}
               />
             )
           )}
