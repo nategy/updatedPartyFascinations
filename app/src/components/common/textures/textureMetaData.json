@@ -1,21 +1,175 @@
 [
   {
-    "src": "/pf_textures/tablecloths/brown-flowers.jpg",
-    "tags": ["brown", "flowers"],
+    "src": "/pf_textures/multi/pf-magenta.png",
+    "tags": [],
     "type": "tableCloth",
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/tablecloths/brown-striped.jpg",
-    "tags": ["brown", "stripes", "modern"],
+    "src": "/pf_textures/multi/pf-white.png",
+    "tags": [],
     "type": "tableCloth",
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/tablecloths/soft-white.jpg",
-    "tags": ["white", "elegant"],
+    "src": "/pf_textures/multi/pf-gray.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-black.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-plum.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-babyblue.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-dustyblue.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-royalblue.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-navyblue.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-sagegreen.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-ivory.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-canaryyellow.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-goldantique.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-champagne.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-taupe.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-blush.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-terracotta.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-cinnamonrose.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-mauve.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-coral.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-fuchsia.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-red.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-rust.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-burgundy.png",
+    "tags": [],
+    "type": "tableCloth",
+    "price": 275,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/multi/pf-applered.png",
+    "tags": [],
     "type": "tableCloth",
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
@@ -150,56 +304,56 @@
   },
 
   {
-    "src": "/pf_textures/multi/orange-solid.jpg",
+    "src": "/pf_textures/multi/pf-canaryyellow.png",
     "tags": ["teal", "solid", "elegant"],
-    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    "type": ["tableRunner", "chairCover", "chairRunner", "plate"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/multi/blue-solid.jpg",
+    "src": "/pf_textures/multi/pf-applered.png",
     "tags": ["teal", "solid", "elegant"],
-    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    "type": ["tableRunner", "chairCover", "chairRunner", "plate"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/multi/pink-solid.jpg",
+    "src": "/pf_textures/multi/pf-coral.png",
     "tags": ["teal", "solid", "elegant"],
-    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    "type": ["tableRunner", "chairCover", "chairRunner", "plate"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/multi/yellow-solid.jpg",
+    "src": "/pf_textures/multi/pf-cinnamonrose.png",
     "tags": ["teal", "solid", "elegant"],
-    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    "type": ["tableRunner", "chairCover", "chairRunner", "plate"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/multi/soft-white.jpg",
+    "src": "/pf_textures/multi/pf-dustyblue.png",
     "tags": ["teal", "solid", "elegant"],
-    "type": ["tableCloth", "tableRunner", "chairCover", "chairRunner", "plate"],
+    "type": ["tableRunner", "chairCover", "chairRunner", "plate"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/multi/soft-white.jpg",
+    "src": "/pf_textures/multi/pf-champagne.png",
     "tags": ["white", "solid", "elegant"],
     "type": ["innerCurtains", "outerCurtains"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/multi/teal-solid.jpg",
+    "src": "/pf_textures/multi/pf-blush.png",
     "tags": ["teal", "solid", "elegant"],
     "type": ["innerCurtains", "outerCurtains"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/multi/yellow-solid.jpg",
+    "src": "/pf_textures/multi/pf-goldantique.png",
     "tags": ["yellow", "solid", "elegant"],
     "type": ["innerCurtains", "outerCurtains"],
     "price": 300,

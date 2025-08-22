@@ -27,6 +27,7 @@ const packages = {
     "overlay",
     "chairCover",
     "chairRunner",
+    "chairClip",
     "innerCurtains",
     "outerCurtains",
     "centerpiece",
@@ -37,6 +38,7 @@ const packages = {
     "overlay",
     "chairCover",
     "chairRunner",
+    "chairClip",
     "plates",
     "innerCurtains",
     "outerCurtains",
@@ -46,20 +48,22 @@ const packages = {
 
 // Default selections
 const initialTextures = {
-  tableCloth: "/pf_textures/tablecloths/soft-white.jpg",
-  tableRunner: "/pf_textures/tablerunners/pink-solid.jpg",
+  tableCloth: "/pf_textures/multi/pf-babyblue.png",
+  tableRunner: "/pf_textures/multi/pf-fuchsia.png",
   overlay: "/pf_textures/overlays/blue-solid.jpg",
   plates: "/pf_textures/plates/soft-white.jpg",
   chairCover: "/pf_textures/chaircovers/blue-confetti.jpg",
   chairRunner: "/pf_textures/chairrunners/brown-striped.jpg",
-  innerCurtains: "/pf_textures/multi/pink-solid.jpg",
-  outerCurtains: "/pf_textures/multi/teal-solid.jpg",
+  chairClip: "/pf_textures/overlays/blue-solid.jpg",
+  innerCurtains: "/pf_textures/multi/pf-white.png",
+  outerCurtains: "/pf_textures/multi/pf-navyblue.png",
   centerpiece: "none",
 };
 
 const initialPrices = {
   tableCloth: 350,
   tableRunner: 200,
+  chairClip: 50,
   overlay: 120,
   plates: 200,
   chairCover: 600,
@@ -76,6 +80,7 @@ const typesList = [
   "plates",
   "chairCover",
   "chairRunner",
+  "chairClip",
   "innerCurtains",
   "outerCurtains",
   "centerpiece",

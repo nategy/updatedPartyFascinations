@@ -4,12 +4,12 @@ import { useGLTF, useTexture, OrbitControls } from "@react-three/drei";
 import { Suspense } from "react";
 
 // Preload model
-useGLTF.preload("/resources/PFScene11.gltf");
+useGLTF.preload("/resources/PFScene20.gltf");
 
 const BasicChair = ({ position, rotation, geometry }) => (
   <group position={position} rotation={rotation} scale={[1, 1, 1]}>
     <mesh geometry={geometry}>
-      <meshStandardMaterial color='#2b2b2b' />
+      <meshStandardMaterial color='#2b2b2b' side={THREE.DoubleSide} />
     </mesh>
   </group>
 );
@@ -49,7 +49,7 @@ function Model({
   centerpieceTexture,
 }) {
   const group = useRef();
-  const { nodes } = useGLTF("/resources/PFScene11.gltf");
+  const { nodes } = useGLTF("/resources/PFScene20.gltf");
 
   const allowedKeys = packages[selectedPackage] || [];
 
@@ -77,7 +77,7 @@ function Model({
     outerCurtainsTexture.selectedOuterCurtainsTexture
   );
 
-  console.log(Object.keys(nodes));
+  console.log(nodes);
 
   const platePositions = [
     [-8, -9, 30],
@@ -219,7 +219,10 @@ function Model({
           <meshStandardMaterial color='#ffffff' side={THREE.DoubleSide} />
         </mesh>
         {allowedKeys.includes("tableCloth") && (
-          <mesh geometry={nodes.TableCloth.geometry} scale={[1.25, 1.25, 1.25]}>
+          <mesh
+            geometry={nodes.NewTableCloth.geometry}
+            scale={[1.25, 1.25, 1.25]}
+          >
             <meshStandardMaterial map={tableClothMap} />
           </mesh>
         )}
@@ -254,7 +257,7 @@ function Model({
                 key={i}
                 position={pos}
                 rotation={rotations[i]}
-                geometry={nodes.BasicChair.geometry}
+                geometry={nodes.ChiavariChair.geometry}
               />
             ) : (
               <Chair
@@ -263,15 +266,48 @@ function Model({
                 rotation={rotations[i]}
                 coverTexture={chairCoverMap}
                 runnerTexture={chairRunnerMap}
-                coverGeometry={nodes.Chair001.geometry}
+                coverGeometry={nodes.ChiavariChair.geometry}
                 runnerGeometry={nodes.ChairRunner.geometry}
               />
             )
           )}
         {/* Outer Curtains */}
         <mesh
-          geometry={nodes.Outercurtains.geometry}
-          position={[0, 10, 0]}
+          geometry={nodes["Сurtain"].geometry}
+          position={[0, 0, -0.2]}
+          rotation={[0, 0, 0]}
+          scale={[1, 1, 1]}
+        >
+          <meshStandardMaterial
+            map={outerCurtainsMap}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+        <mesh
+          geometry={nodes["Сurtain001"].geometry}
+          position={[0, 0, -0.2]}
+          rotation={[0, 0, 0]}
+          scale={[1, 1, 1]}
+        >
+          <meshStandardMaterial
+            map={outerCurtainsMap}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+        <mesh
+          geometry={nodes["Сurtain002"].geometry}
+          position={[0, 0, -0.2]}
+          rotation={[0, 0, 0]}
+          scale={[1, 1, 1]}
+        >
+          <meshStandardMaterial
+            map={outerCurtainsMap}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+        <mesh
+          geometry={nodes["Сurtain003"].geometry}
+          position={[0, 0, -0.2]}
           rotation={[0, 0, 0]}
           scale={[1, 1, 1]}
         >
@@ -283,7 +319,18 @@ function Model({
 
         {/* Inner Curtains */}
         <mesh
-          geometry={nodes.innercurtains.geometry}
+          geometry={nodes.TiedCurtain.geometry}
+          position={[0, 1, 0]}
+          rotation={[0, 0, 0]}
+          scale={[-1, 1, 1]}
+        >
+          <meshStandardMaterial
+            map={innerCurtainsMap}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+        <mesh
+          geometry={nodes.TiedCurtain2.geometry}
           position={[0, 1, 0]}
           rotation={[0, 0, 0]}
           scale={[-1, 1, 1]}
