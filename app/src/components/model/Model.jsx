@@ -6,10 +6,10 @@ import { Suspense } from "react";
 // Preload model
 useGLTF.preload("/resources/PFScene20.gltf");
 
-const BasicChair = ({ position, rotation, geometry }) => (
+const BasicChair = ({ position, rotation, geometry, texture }) => (
   <group position={position} rotation={rotation} scale={[1, 1, 1]}>
     <mesh geometry={geometry}>
-      <meshStandardMaterial color='#2b2b2b' side={THREE.DoubleSide} />
+      <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
     </mesh>
   </group>
 );
@@ -51,12 +51,15 @@ const Chair = ({
 function Model({
   packages,
   selectedPackage,
+  chairType,
   tableClothTexture,
   tableRunnerTexture,
-  chairClipTexture,
-  plateTexture,
+  tableOverlayTexture,
+  chiavariTexture,
   chairCoverTexture,
+  chairClipTexture,
   chairRunnerTexture,
+  plateTexture,
   innerCurtainsTexture,
   outerCurtainsTexture,
   centerpieceTexture,
@@ -75,7 +78,12 @@ function Model({
   tableRunnerMap.wrapS = tableRunnerMap.wrapT = THREE.RepeatWrapping;
   tableRunnerMap.repeat.set(1, 6);
 
+  const tableOverlayMap = useTexture(
+    tableOverlayTexture.selectedTableOverlayTexture
+  );
+
   const plateMap = useTexture(plateTexture.selectedPlateTexture);
+  const chiavariMap = useTexture(chiavariTexture.selectedChiavariTexture);
   const chairCoverMap = useTexture(chairCoverTexture.selectedChairCoverTexture);
 
   const rawChairRunner = useTexture(
@@ -96,12 +104,12 @@ function Model({
   console.log(nodes);
 
   const platePositions = [
-    [-8, -9, 30],
-    [0, -9, 0],
-    [-7, -9, -31],
-    [-50, -9, -32],
-    [-60, -9, 0],
-    [-52, -9, 30],
+    [0, -9, 35],
+    [15, -9, 2],
+    [2, -9, -32],
+    [-60, -9, -32],
+    [-75, -9, 2],
+    [-62, -9, 35],
   ];
 
   const chairRadius = 1.3;
@@ -142,7 +150,7 @@ function Model({
     switch (centerpieceTexture.selectedCenterpieceTexture) {
       case "/pf_textures/centerpieces/centerpiece1.jpg":
         centerpieceElement = (
-          <group position={[0, 10, 0]} scale={[1.5, 1, 1.5]}>
+          <group position={[0, -8.5, 0]} scale={[2, 1.5, 2]}>
             <mesh geometry={nodes.Centerpiece1.geometry}>
               <meshStandardMaterial
                 map={selectedCenterpieceMap}
@@ -159,7 +167,7 @@ function Model({
       case "/pf_textures/centerpieces/centerpiece2.jpg":
         centerpieceElement = (
           // <group position={[0, -22, 0]} scale={[2, 2, 2]}>
-          <group position={[0, -26.5, 0]} scale={[2, 2, 2]}>
+          <group position={[0, -8.5, 0]} scale={[2, 1.5, 2]}>
             <mesh geometry={nodes.Centerpiece2.geometry}>
               <meshStandardMaterial
                 map={selectedCenterpieceMap}
@@ -173,7 +181,7 @@ function Model({
       case "/pf_textures/centerpieces/centerpiece3.jpg":
         if (
           (centerpieceElement = (
-            <group position={[0, 11, 0]} scale={[1.5, 1, 1.5]}>
+            <group position={[0, -8.5, 0]} scale={[2.5, 1.5, 2.5]}>
               {nodes.Centerpiece3.isMesh ? (
                 <mesh geometry={nodes.Centerpiece3.geometry}>
                   <meshStandardMaterial map={selectedCenterpieceMap} />
@@ -188,7 +196,7 @@ function Model({
 
       case "/pf_textures/centerpieces/centerpiece4.jpg":
         centerpieceElement = (
-          <group position={[0, 11, 0]} scale={[1.5, 1, 1.5]}>
+          <group position={[0, -8.5, 0]} scale={[2.5, 1.5, 2.5]}>
             <mesh geometry={nodes.Centerpiece4.geometry}>
               <meshStandardMaterial map={selectedCenterpieceMap} />
             </mesh>
@@ -254,6 +262,15 @@ function Model({
           </mesh>
         )}
 
+        <mesh
+          geometry={nodes.TableOverlay.geometry}
+          position={[0, -5, 0]}
+          rotation={[0, -0.02, 0]}
+          scale={[1.35, 1.4, 1.285]}
+        >
+          <meshStandardMaterial map={tableOverlayMap} />
+        </mesh>
+
         {allowedKeys.includes("plates") &&
           platePositions.map((pos, i) => (
             <mesh
@@ -268,12 +285,13 @@ function Model({
 
         {(selectedPackage === "silver" || allowedKeys.includes("chairCover")) &&
           positions.map((pos, i) =>
-            selectedPackage === "silver" ? (
+            chairType === "chiavari" ? (
               <BasicChair
                 key={i}
                 position={pos}
                 rotation={rotations[i]}
                 geometry={nodes.ChiavariChair.geometry}
+                texture={chiavariMap}
               />
             ) : (
               <Chair
@@ -289,6 +307,16 @@ function Model({
               />
             )
           )}
+        {/* Table Overlay */}
+        <mesh
+          geometry={nodes.TableRunner.geometry}
+          position={[0, -4.5, 0]}
+          rotation={[0, -0.02, 0]}
+          scale={[1.35, 1.4, 1.285]}
+        >
+          <meshStandardMaterial map={tableRunnerMap} />
+        </mesh>
+
         {/* Outer Curtains */}
         <mesh
           geometry={nodes["Сurtain"].geometry}

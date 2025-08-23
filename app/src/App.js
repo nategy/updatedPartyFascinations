@@ -18,13 +18,15 @@ const packages = {
   silver: [
     "tableCloth",
     "tableRunner",
-    "overlay",
+    "tableOverlay",
+    "chiavari",
     "innerCurtains",
     "outerCurtains",
   ],
   bronze: [
     "tableCloth",
-    "overlay",
+    "tableOverlay",
+    "chiavari",
     "chairCover",
     "chairRunner",
     "chairClip",
@@ -35,7 +37,8 @@ const packages = {
   gold: [
     "tableCloth",
     "tableRunner",
-    "overlay",
+    "tableOverlay",
+    "chiavari",
     "chairCover",
     "chairRunner",
     "chairClip",
@@ -50,11 +53,12 @@ const packages = {
 const initialTextures = {
   tableCloth: "/pf_textures/multi/pf-babyblue.png",
   tableRunner: "/pf_textures/multi/pf-fuchsia.png",
-  overlay: "/pf_textures/overlays/blue-solid.jpg",
-  plates: "/pf_textures/plates/soft-white.jpg",
+  tableOverlay: "/pf_textures/overlays/blue-solid.jpg",
+  chiavari: "/pf_textures/chiavaris/pf-black.png",
   chairCover: "/pf_textures/chaircovers/blue-confetti.jpg",
   chairRunner: "/pf_textures/chairrunners/brown-striped.jpg",
-  chairClip: "/pf_textures/overlays/blue-solid.jpg",
+  chairClip: "/pf_textures/chairclips/pf-goldclip.jpg",
+  plates: "/pf_textures/plates/soft-white.jpg",
   innerCurtains: "/pf_textures/multi/pf-white.png",
   outerCurtains: "/pf_textures/multi/pf-navyblue.png",
   centerpiece: "none",
@@ -63,11 +67,12 @@ const initialTextures = {
 const initialPrices = {
   tableCloth: 350,
   tableRunner: 200,
-  chairClip: 50,
-  overlay: 120,
-  plates: 200,
+  tableOverlay: 120,
+  chiavari: 300,
   chairCover: 600,
   chairRunner: 300,
+  chairClip: 50,
+  plates: 200,
   innerCurtains: 200,
   outerCurtains: 200,
   centerpiece: 0,
@@ -76,11 +81,12 @@ const initialPrices = {
 const typesList = [
   "tableCloth",
   "tableRunner",
-  "overlay",
-  "plates",
+  "tableOverlay",
+  "chiavari",
   "chairCover",
   "chairRunner",
   "chairClip",
+  "plates",
   "innerCurtains",
   "outerCurtains",
   "centerpiece",
@@ -90,6 +96,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState("silver");
+  const [chairType, setChairType] = useState("chiavari");
   const [selectedTextures, setSelectedTextures] = useState(initialTextures);
   const [prices, setPrices] = useState(initialPrices);
   const [tags, setTags] = useState(
@@ -125,6 +132,14 @@ function App() {
   const handleSelectTexture = (type, textureObj) => {
     setSelectedTextures((prev) => ({ ...prev, [type]: textureObj.src }));
     setPrices((prev) => ({ ...prev, [type]: textureObj.price }));
+
+    // Switch between chiavari and cover depending on texture type
+    if (type === "chairCover") {
+      setChairType("cover");
+    }
+    if (type === "chiavari") {
+      setChairType("chiavari");
+    }
   };
 
   // Panel configuration
@@ -184,17 +199,20 @@ function App() {
                   tableRunnerTexture={{
                     selectedTableRunnerTexture: selectedTextures.tableRunner,
                   }}
-                  overlayTexture={{
-                    selectedOverlayTexture: selectedTextures.overlay,
+                  tableOverlayTexture={{
+                    selectedTableOverlayTexture: selectedTextures.tableOverlay,
                   }}
-                  plateTexture={{
-                    selectedPlateTexture: selectedTextures.plates,
+                  chiavariTexture={{
+                    selectedChiavariTexture: selectedTextures.chiavari,
                   }}
                   chairCoverTexture={{
                     selectedChairCoverTexture: selectedTextures.chairCover,
                   }}
                   chairRunnerTexture={{
                     selectedChairRunnerTexture: selectedTextures.chairRunner,
+                  }}
+                  plateTexture={{
+                    selectedPlateTexture: selectedTextures.plates,
                   }}
                   chairClipTexture={{
                     selectedChairClipTexture: selectedTextures.chairClip,
@@ -212,6 +230,7 @@ function App() {
                   }}
                   packages={packages}
                   selectedPackage={selectedPackage}
+                  chairType={chairType}
                 />
               </Canvas>
             </div>

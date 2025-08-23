@@ -224,21 +224,43 @@
   },
 
   {
-    "src": "/pf_textures/chaircovers/black-fireworks.jpg",
+    "src": "/pf_textures/chiavaris/pf-black.png",
+    "tags": ["bold", "black"],
+    "type": "chiavari",
+    "price": 400,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/chiavaris/pf-gray.png",
+    "tags": ["blue", "modern"],
+    "type": "chiavari",
+    "price": 400,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+  {
+    "src": "/pf_textures/chiavaris/pf-canaryyellow.png",
+    "tags": ["brown", "striped", "elegant"],
+    "type": "chiavari",
+    "price": 400,
+    "packageTiers": ["silver", "bronze", "gold"]
+  },
+
+  {
+    "src": "/pf_textures/chiavaris/pf-black.png",
     "tags": ["bold", "black"],
     "type": "chairCover",
     "price": 400,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/chaircovers/blue-confetti.jpg",
+    "src": "/pf_textures/chiavaris/pf-gray.png",
     "tags": ["blue", "modern"],
     "type": "chairCover",
     "price": 400,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/chaircovers/brown-striped.jpg",
+    "src": "/pf_textures/chiavaris/pf-canaryyellow.png",
     "tags": ["brown", "striped", "elegant"],
     "type": "chairCover",
     "price": 400,
@@ -274,16 +296,16 @@
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/chairclips/pf-gold.jpg",
+    "src": "/pf_textures/chairclips/pf-goldclip.jpg",
     "tags": ["green", "elegant"],
-    "type": "chairRunner",
+    "type": "chairClip",
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "/pf_textures/chairclips/pf-silver.jpg",
+    "src": "/pf_textures/chairclips/pf-silverclip.jpg",
     "tags": ["green", "elegant"],
-    "type": "chairRunner",
+    "type": "chairClip",
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
@@ -320,7 +342,7 @@
   {
     "src": "/pf_textures/multi/pf-canaryyellow.png",
     "tags": ["teal", "solid", "elegant"],
-    "type": ["tableRunner", "chairCover", "chairRunner", "plate"],
+    "type": ["tableRunner", "chairRunner", "plate"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },

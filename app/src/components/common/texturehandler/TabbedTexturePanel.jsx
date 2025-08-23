@@ -5,10 +5,11 @@ import "./tabtexture.css";
 const allTabs = [
   { label: "Table Cloths", key: "tableCloth" },
   { label: "Table Runners", key: "tableRunner" },
-  { label: "Overlays", key: "overlay" },
+  { label: "Overlays", key: "tableOverlay" },
+  { label: "Chiavari Chairs", key: "chiavari" },
   { label: "Chair Covers", key: "chairCover" },
   { label: "Chair Runners", key: "chairRunner" },
-  { label: "Chair Clip", key: "chairClip" },
+  { label: "Chair Clip", key: "chairClip" }, // New Chair Clip tab
   { label: "Plates", key: "plates" },
   { label: "Curtains (Inner)", key: "innerCurtains" },
   { label: "Curtains (Outer)", key: "outerCurtains" },
@@ -21,16 +22,18 @@ const packages = {
   silver: [
     "tableCloth",
     "tableRunner",
-    "overlay",
+    "tableOverlay",
+    "chiavari",
     "innerCurtains",
     "outerCurtains",
   ],
   bronze: [
     "tableCloth",
-    "overlay",
+    "tableOverlay",
+    "chiavari",
     "chairCover",
     "chairRunner",
-    "chairClip",
+    "chairClip", // Bronze includes Chair Clip
     "innerCurtains",
     "outerCurtains",
     "centerpiece",
@@ -38,10 +41,11 @@ const packages = {
   gold: [
     "tableCloth",
     "tableRunner",
-    "overlay",
+    "tableOverlay",
+    "chiavari",
     "chairCover",
     "chairRunner",
-    "chairClip",
+    "chairClip", // Gold includes Chair Clip
     "plates",
     "innerCurtains",
     "outerCurtains",
@@ -58,6 +62,7 @@ export default function TabbedTexturePanel({
   const [activeTab, setActiveTab] = useState("tableCloth");
   const [selectedTag, setSelectedTag] = useState("");
 
+  // Tabs allowed based on selected package
   const allowedTabs = useMemo(
     () => packages[selectedPackage],
     [selectedPackage]
@@ -68,18 +73,14 @@ export default function TabbedTexturePanel({
     [allowedTabs]
   );
 
-  // Reset active tab if it becomes invalid when package changes
+  // Reset active tab if invalid after package change
   useEffect(() => {
-    const newAllowedTabs = packages[selectedPackage];
-    const newFilteredTabs = allTabs.filter((tab) =>
-      newAllowedTabs.includes(tab.key)
-    );
-
-    if (!newAllowedTabs.includes(activeTab) && newFilteredTabs.length > 0) {
-      setActiveTab(newFilteredTabs[0].key);
+    if (!allowedTabs.includes(activeTab) && filteredTabs.length > 0) {
+      setActiveTab(filteredTabs[0].key);
     }
-  }, [selectedPackage, activeTab]);
+  }, [allowedTabs, activeTab, filteredTabs]);
 
+  // Filter textures by tag
   const filteredTextures =
     textureConfig[activeTab]?.textures?.filter((tex) =>
       selectedTag === "" ? true : tex.tags.includes(selectedTag)
@@ -87,6 +88,7 @@ export default function TabbedTexturePanel({
 
   return (
     <div className={`tabbed-panel ${navOpen ? "hide-panel" : ""}`}>
+      {/* Package and Tag Selectors */}
       <div className='selectors-row'>
         <div className='package-selector'>
           <label htmlFor='package'>Select Package:</label>
@@ -118,6 +120,7 @@ export default function TabbedTexturePanel({
         </div>
       </div>
 
+      {/* Tab Buttons */}
       <div className='tab-buttons'>
         {filteredTabs.map(({ label, key }) => (
           <button
@@ -130,6 +133,7 @@ export default function TabbedTexturePanel({
         ))}
       </div>
 
+      {/* Texture Selector */}
       <div className='tab-content'>
         {textureConfig[activeTab] && (
           <TextureSelector
