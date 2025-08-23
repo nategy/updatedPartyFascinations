@@ -301,7 +301,7 @@ function Model({
                 coverTexture={chairCoverMap}
                 runnerTexture={chairRunnerMap}
                 clipTexture={chairClipMap}
-                coverGeometry={nodes.ChiavariChair.geometry}
+                coverGeometry={nodes.Chair001.geometry}
                 runnerGeometry={nodes.ChairRunner.geometry}
                 clipGeometry={nodes.ChairClip.geometry}
               />
