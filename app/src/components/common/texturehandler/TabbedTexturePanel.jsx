@@ -13,6 +13,7 @@ const allTabs = [
   { label: "Plates", key: "plates" },
   { label: "Curtains (Inner)", key: "innerCurtains" },
   { label: "Curtains (Outer)", key: "outerCurtains" },
+  { label: "Drapes", key: "drape" },
   { label: "Centerpieces", key: "centerpiece" },
 ];
 
@@ -26,6 +27,7 @@ const packages = {
     "chiavari",
     "innerCurtains",
     "outerCurtains",
+    "drape",
   ],
   bronze: [
     "tableCloth",
@@ -36,6 +38,7 @@ const packages = {
     "chairClip", // Bronze includes Chair Clip
     "innerCurtains",
     "outerCurtains",
+    "drape",
     "centerpiece",
   ],
   gold: [
@@ -49,6 +52,7 @@ const packages = {
     "plates",
     "innerCurtains",
     "outerCurtains",
+    "drape",
     "centerpiece",
   ],
 };

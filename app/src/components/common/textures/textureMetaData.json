@@ -268,6 +268,13 @@
   },
 
   {
+    "src": "none",
+    "price": 0,
+    "tags": [],
+    "type": ["chairRunner"],
+    "name": "No Chair Runner"
+  },
+  {
     "src": "/pf_textures/chairrunners/black-fireworks.jpg",
     "tags": ["bold", "black"],
     "type": "chairRunner",
@@ -377,21 +384,21 @@
   {
     "src": "/pf_textures/multi/pf-champagne.png",
     "tags": ["white", "solid", "elegant"],
-    "type": ["innerCurtains", "outerCurtains"],
+    "type": ["innerCurtains", "outerCurtains", "drape"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/pf-blush.png",
     "tags": ["teal", "solid", "elegant"],
-    "type": ["innerCurtains", "outerCurtains"],
+    "type": ["innerCurtains", "outerCurtains", "drape"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/pf-goldantique.png",
     "tags": ["yellow", "solid", "elegant"],
-    "type": ["innerCurtains", "outerCurtains"],
+    "type": ["innerCurtains", "outerCurtains", "drape"],
     "price": 300,
     "packageTiers": ["silver", "bronze", "gold"]
   },

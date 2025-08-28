@@ -22,6 +22,7 @@ const packages = {
     "chiavari",
     "innerCurtains",
     "outerCurtains",
+    "drape",
   ],
   bronze: [
     "tableCloth",
@@ -32,6 +33,7 @@ const packages = {
     "chairClip",
     "innerCurtains",
     "outerCurtains",
+    "drape",
     "centerpiece",
   ],
   gold: [
@@ -45,6 +47,7 @@ const packages = {
     "plates",
     "innerCurtains",
     "outerCurtains",
+    "drape",
     "centerpiece",
   ],
 };
@@ -61,6 +64,7 @@ const initialTextures = {
   plates: "/pf_textures/plates/soft-white.jpg",
   innerCurtains: "/pf_textures/multi/pf-white.png",
   outerCurtains: "/pf_textures/multi/pf-navyblue.png",
+  drape: "/pf_textures/multi/pf-white.png",
   centerpiece: "none",
 };
 
@@ -75,6 +79,7 @@ const initialPrices = {
   plates: 200,
   innerCurtains: 200,
   outerCurtains: 200,
+  drape: 100,
   centerpiece: 0,
 };
 
@@ -89,6 +94,7 @@ const typesList = [
   "plates",
   "innerCurtains",
   "outerCurtains",
+  "drape",
   "centerpiece",
 ];
 
@@ -133,7 +139,7 @@ function App() {
     setSelectedTextures((prev) => ({ ...prev, [type]: textureObj.src }));
     setPrices((prev) => ({ ...prev, [type]: textureObj.price }));
 
-    // Switch between chiavari and cover depending on texture type
+    // Only change base chair type when selecting covers or chiavari
     if (type === "chairCover") {
       setChairType("cover");
     }
@@ -224,6 +230,9 @@ function App() {
                   outerCurtainsTexture={{
                     selectedOuterCurtainsTexture:
                       selectedTextures.outerCurtains,
+                  }}
+                  drapesTexture={{
+                    selectedDrapesTexture: selectedTextures.drape,
                   }}
                   centerpieceTexture={{
                     selectedCenterpieceTexture: selectedTextures.centerpiece,
