@@ -113,8 +113,9 @@ function App() {
   );
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  // Update initial camera position
   const [cameraPosition, setCameraPosition] = useState(
-    window.innerWidth <= 768 ? [0, 1.5, 5.5] : [0, 3, 5]
+    window.innerWidth <= 768 ? [0, 2, 6] : [0, 3, 7] // zoomed out a bit
   );
 
   // Responsive camera
@@ -122,7 +123,7 @@ function App() {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      setCameraPosition(mobile ? [0, 5, 5] : [0, 2, 5]);
+      setCameraPosition(mobile ? [0, 2.5, 6] : [0, 3, 7]); // slightly zoomed out for mobile and desktop
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
