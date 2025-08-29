@@ -1,13 +1,9 @@
-// Model.jsx
 import React, { useRef, Suspense } from "react";
 import * as THREE from "three";
 import { useGLTF, useTexture, OrbitControls } from "@react-three/drei";
 
-// Preload model
 useGLTF.preload("/resources/PFScene23.gltf");
 
-// Use an existing tiny transparent image in your project.
-// Update path if you keep a different placeholder.
 const TRANSPARENT_PLACEHOLDER = "/pf_textures/centerpieces/transparent.jpg";
 
 const BasicChair = ({
@@ -27,7 +23,6 @@ const BasicChair = ({
       <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
     </mesh>
 
-    {/* Runner applied to Chiavari if enabled */}
     {runnerGeometry && runnerEnabled && (
       <group position={[0, -1, 0]}>
         <mesh geometry={runnerGeometry}>
@@ -36,7 +31,6 @@ const BasicChair = ({
       </group>
     )}
 
-    {/* Clip applied to Chiavari if enabled */}
     {clipGeometry && clipEnabled && (
       <group position={[0, -1, 0]}>
         <mesh geometry={clipGeometry}>
@@ -64,7 +58,6 @@ const Chair = ({
       <meshStandardMaterial map={coverTexture} side={THREE.DoubleSide} />
     </mesh>
 
-    {/* Runner */}
     {runnerGeometry && runnerEnabled && (
       <group position={[0, -1, 0]}>
         <mesh geometry={runnerGeometry}>
@@ -73,7 +66,6 @@ const Chair = ({
       </group>
     )}
 
-    {/* Clip */}
     {clipGeometry && clipEnabled && (
       <group position={[0, -1, 0]}>
         <mesh geometry={clipGeometry}>
@@ -103,23 +95,18 @@ function Model({
 }) {
   const group = useRef();
   const { nodes } = useGLTF("/resources/PFScene23.gltf");
-  // console.log(nodes);
 
   const allowedKeys = packages[selectedPackage] || [];
-
-  // safe helper: return a valid path (placeholder when 'none' or falsy)
   const safePath = (p) =>
     p && typeof p === "string" && p !== "none" ? p : TRANSPARENT_PLACEHOLDER;
 
-  // Load textures (using safePath to avoid passing "none" which throws)
+  // Always call useTexture even if we'll ignore the result
   const tableClothMap = useTexture(
     safePath(tableClothTexture?.selectedTableClothTexture)
   );
-
   const rawTableRunner = useTexture(
     safePath(tableRunnerTexture?.selectedTableRunnerTexture)
   );
-  // repeat wrapping only if texture exists (we always have placeholder so okay to set)
   const tableRunnerMap = rawTableRunner.clone();
   tableRunnerMap.wrapS = tableRunnerMap.wrapT = THREE.RepeatWrapping;
   tableRunnerMap.repeat.set(1, 6);
@@ -127,7 +114,6 @@ function Model({
   const tableOverlayMap = useTexture(
     safePath(tableOverlayTexture?.selectedTableOverlayTexture)
   );
-
   const plateMap = useTexture(safePath(plateTexture?.selectedPlateTexture));
   const chiavariMap = useTexture(
     safePath(chiavariTexture?.selectedChiavariTexture)
@@ -152,19 +138,88 @@ function Model({
   const outerCurtainsMap = useTexture(
     safePath(outerCurtainsTexture?.selectedOuterCurtainsTexture)
   );
-
   const drapesMap = useTexture(safePath(drapesTexture?.selectedDrapeTexture));
 
-  // Enabled only if package allows AND user selected a runner/clip that's not "none"
+  // Centerpiece texture: use transparent placeholder if "none" selected
+  const safeCenterpiecePath =
+    centerpieceTexture.selectedCenterpieceTexture &&
+    centerpieceTexture.selectedCenterpieceTexture !== "none"
+      ? centerpieceTexture.selectedCenterpieceTexture
+      : "/pf_textures/centerpieces/transparent.jpg";
+
+  const selectedCenterpieceMap = useTexture(safeCenterpiecePath);
+
+  // Show centerpiece only if package allows it and texture isn't "none"
+  const showCenterpiece =
+    (selectedPackage === "bronze" || selectedPackage === "gold") &&
+    centerpieceTexture.selectedCenterpieceTexture !== "none";
+
+  let centerpieceElement = null;
+  if (showCenterpiece) {
+    switch (centerpieceTexture.selectedCenterpieceTexture) {
+      case "/pf_textures/centerpieces/centerpiece1.jpg":
+        centerpieceElement = (
+          <group position={[0, -8.5, 0]} scale={[2, 1.5, 2]}>
+            <mesh geometry={nodes.Centerpiece1.geometry}>
+              <meshStandardMaterial
+                map={selectedCenterpieceMap}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+            <mesh geometry={nodes.Centerpiece1legs.geometry}>
+              <meshStandardMaterial side={THREE.DoubleSide} />
+            </mesh>
+          </group>
+        );
+        break;
+
+      case "/pf_textures/centerpieces/centerpiece2.jpg":
+        centerpieceElement = (
+          <group position={[0, -8.5, 0]} scale={[2, 1.5, 2]}>
+            <mesh geometry={nodes.Centerpiece2.geometry}>
+              <meshStandardMaterial
+                map={selectedCenterpieceMap}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+          </group>
+        );
+        break;
+
+      case "/pf_textures/centerpieces/centerpiece3.jpg":
+        centerpieceElement = (
+          <group position={[0, -8.5, 0]} scale={[2.5, 1.5, 2.5]}>
+            {nodes.Centerpiece3.isMesh ? (
+              <mesh geometry={nodes.Centerpiece3.geometry}>
+                <meshStandardMaterial map={selectedCenterpieceMap} />
+              </mesh>
+            ) : (
+              <primitive object={nodes.Centerpiece3} />
+            )}
+          </group>
+        );
+        break;
+
+      case "/pf_textures/centerpieces/centerpiece4.jpg":
+        centerpieceElement = (
+          <group position={[0, -8.5, 0]} scale={[2.5, 1.5, 2.5]}>
+            <mesh geometry={nodes.Centerpiece4.geometry}>
+              <meshStandardMaterial map={selectedCenterpieceMap} />
+            </mesh>
+          </group>
+        );
+        break;
+
+      default:
+        break;
+    }
+  }
   const runnerEnabled =
     allowedKeys.includes("chairRunner") &&
-    !!chairRunnerTexture?.selectedChairRunnerTexture &&
-    chairRunnerTexture.selectedChairRunnerTexture !== "none";
-
+    chairRunnerTexture?.selectedChairRunnerTexture !== "none";
   const clipEnabled =
     allowedKeys.includes("chairClip") &&
-    !!chairClipTexture?.selectedChairClipTexture &&
-    chairClipTexture.selectedChairClipTexture !== "none";
+    chairClipTexture?.selectedChairClipTexture !== "none";
 
   const platePositions = [
     [0, -9, 35],
@@ -190,31 +245,6 @@ function Model({
     [0, Math.PI / 3, 0],
   ];
 
-  // centerpiece logic
-  const showCenterpiece =
-    (selectedPackage === "bronze" || selectedPackage === "gold") &&
-    !!centerpieceTexture?.selectedCenterpieceTexture &&
-    centerpieceTexture.selectedCenterpieceTexture !== "none";
-
-  const selectedCenterpieceMap = useTexture(
-    safePath(centerpieceTexture?.selectedCenterpieceTexture)
-  );
-
-  let centerpieceElement = null;
-  if (showCenterpiece) {
-    // keep selection logic similar to your original switch if you want different centerpiece models
-    centerpieceElement = (
-      <group position={[0, -8.5, 0]} scale={[2, 1.5, 2]}>
-        <mesh geometry={nodes.Centerpiece1.geometry}>
-          <meshStandardMaterial
-            map={selectedCenterpieceMap}
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-      </group>
-    );
-  }
-
   return (
     <Suspense fallback={null}>
       <color attach='background' args={["#ffffff"]} />
@@ -233,20 +263,11 @@ function Model({
         rotation={[0, 3.15, 0]}
         scale={[0.01, 0.01, 0.01]}
       >
-        {/* Floor + Backdrop */}
-        <mesh
-          geometry={nodes.Wall.geometry}
-          position={[0, 0, 0]}
-          scale={[1.5, 1, 1]}
-        >
+        {/* Floor and Backdrop */}
+        <mesh geometry={nodes.Wall.geometry}>
           <meshStandardMaterial color='#ffffff' side={THREE.DoubleSide} />
         </mesh>
-
-        <mesh
-          geometry={nodes.Floor.geometry}
-          position={[0, 0, 0]}
-          scale={[1.5, 1, 1]}
-        >
+        <mesh geometry={nodes.Floor.geometry}>
           <meshStandardMaterial color='#ffffff' side={THREE.DoubleSide} />
         </mesh>
 
@@ -260,7 +281,7 @@ function Model({
           </mesh>
         )}
 
-        {/* Table Runner (package-controlled) */}
+        {/* Table Runner */}
         {allowedKeys.includes("tableRunner") && (
           <mesh
             geometry={nodes.TableRunner.geometry}
@@ -297,7 +318,7 @@ function Model({
             </mesh>
           ))}
 
-        {/* Chairs: show when package allows (silver shows base chiavari; others show covers) */}
+        {/* Chairs */}
         {(selectedPackage === "silver" || allowedKeys.includes("chairCover")) &&
           positions.map((pos, i) => (
             <group key={i}>
@@ -307,7 +328,6 @@ function Model({
                   rotation={rotations[i]}
                   geometry={nodes.ChiavariChair.geometry}
                   texture={chiavariMap}
-                  // pass runner/clip to BasicChair to allow runner on chiavari
                   runnerGeometry={nodes.ChairRunner.geometry}
                   runnerTexture={chairRunnerMap}
                   runnerEnabled={runnerEnabled}
@@ -335,13 +355,7 @@ function Model({
         {/* Outer Curtains */}
         {["Сurtain", "Сurtain001", "Сurtain002", "Сurtain003"].map(
           (name, idx) => (
-            <mesh
-              key={idx}
-              geometry={nodes[name].geometry}
-              position={[0, 0, -0.2]}
-              rotation={[0, 0, 0]}
-              scale={[1, 1, 1]}
-            >
+            <mesh key={idx} geometry={nodes[name].geometry}>
               <meshStandardMaterial
                 map={outerCurtainsMap}
                 side={THREE.DoubleSide}
@@ -356,7 +370,6 @@ function Model({
             key={idx}
             geometry={nodes[name].geometry}
             position={[0, 1, 0]}
-            rotation={[0, 0, 0]}
             scale={[-1, 1, 1]}
           >
             <meshStandardMaterial
@@ -372,7 +385,6 @@ function Model({
             key={idx}
             geometry={nodes[name].geometry}
             position={[0, 1, 0]}
-            rotation={[0, 0, 0]}
             scale={[-1, 1, 1]}
           >
             <meshStandardMaterial map={drapesMap} side={THREE.DoubleSide} />

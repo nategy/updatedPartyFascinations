@@ -26,13 +26,10 @@ function TextureSelector({
 
     const scrollLeft = el.scrollLeft;
     const maxScrollLeft = el.scrollWidth - el.clientWidth;
-
-    // Small margin for floating point differences
     const margin = 5;
 
     setCanScrollLeft(scrollLeft > margin);
     setCanScrollRight(scrollLeft < maxScrollLeft - margin);
-
     setIsCentered(el.scrollWidth <= el.clientWidth);
   }, []);
 
@@ -50,14 +47,10 @@ function TextureSelector({
     }
   };
 
-  // Run on mount, when textures change, or when dropdown opens
   useEffect(() => {
-    if (showTextures) {
-      requestAnimationFrame(updateScrollButtons);
-    }
+    if (showTextures) requestAnimationFrame(updateScrollButtons);
   }, [showTextures, textures, updateScrollButtons]);
 
-  // Recalculate on scroll & resize
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -74,7 +67,6 @@ function TextureSelector({
     };
   }, [updateScrollButtons]);
 
-  // Also recheck when images load (important for dynamic sizes)
   useEffect(() => {
     const imgs = document.querySelectorAll(".texture-option img");
     imgs.forEach((img) => img.addEventListener("load", updateScrollButtons));
@@ -109,13 +101,17 @@ function TextureSelector({
               {textures.map((texture, index) => (
                 <div key={index} className='texture-option'>
                   <button
-                    className='s-btn'
+                    className={`s-btn ${
+                      selectedTexture === texture.src ? "selected" : ""
+                    }`}
                     onClick={() => onSelectTexture(texture)}
                     aria-label={`Select texture ${index + 1}`}
                   >
                     <img src={texture.src} alt={`Texture ${index + 1}`} />
                   </button>
-                  <p className='texture-price'>${texture.price}</p>
+                  <p className='texture-price'>
+                    {texture.price === 0 ? "None" : `$${texture.price}`}
+                  </p>
                 </div>
               ))}
             </div>

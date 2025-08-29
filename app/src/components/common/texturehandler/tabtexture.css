@@ -42,21 +42,70 @@
   border-color: #a787d9;
 }
 
+.tab-buttons-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center everything when not overflowing */
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Tabs container */
 .tab-buttons {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #a35bb7 #f0f0f0;
+  padding-bottom: 4px;
+  scroll-behavior: smooth;
+
+  /* Keep tabs centered by default (when they don't overflow) */
   justify-content: center;
-  margin-bottom: 12px;
+  flex-wrap: nowrap;
+  min-width: 0;
+  max-width: 100%;
+
+  /* Prevent the first/last tab from hugging the very edge,
+     and ensure when scrollLeft=0 the first tab isn't visually clipped */
+  padding-inline: 8px;
+  scroll-padding-inline: 8px;
+}
+
+/* Explicit center class (used when <= 4 tabs) */
+.tab-buttons.center-tabs {
+  justify-content: center;
+}
+
+/* When content overflows, align to start so horizontal scrolling works and nothing is cut off */
+.tab-buttons.scrollable {
+  justify-content: flex-start;
+}
+
+.tab-buttons::-webkit-scrollbar {
+  height: 6px;
+}
+
+.tab-buttons::-webkit-scrollbar-thumb {
+  background-color: #a35bb7;
+  border-radius: 8px;
+}
+
+.tab-buttons::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
 }
 
 .tab-btn {
+  flex: 0 0 auto;
   padding: 6px 12px;
   border: 1px solid #c3aee3;
   background-color: #f5f0fc;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
 }
 
 .tab-btn.active {
@@ -69,10 +118,27 @@
   border-color: #bfa0e0;
 }
 
+.scroll-btn {
+  background-color: #c3aee3;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+.scroll-btn:hover {
+  background-color: #a787d9;
+}
+
 .tab-content {
   margin-top: 8px;
 }
 
+/* Responsive handling */
 @media (max-width: 768px) {
   .selectors-row {
     flex-direction: column;

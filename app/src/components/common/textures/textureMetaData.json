@@ -403,7 +403,7 @@
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
-    "src": "none",
+    "src": "/pf_textures/centerpieces/transparent.jpg",
     "type": ["centerpiece"],
     "price": 0
   },

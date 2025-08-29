@@ -112,19 +112,11 @@ function App() {
     }, {})
   );
 
+  // Keep isMobile and use it in Canvas
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  // Update initial camera position
-  const [cameraPosition, setCameraPosition] = useState(
-    window.innerWidth <= 768 ? [0, 2, 6] : [0, 3, 7] // zoomed out a bit
-  );
 
-  // Responsive camera
   useEffect(() => {
-    const handleResize = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
-      setCameraPosition(mobile ? [0, 2.5, 6] : [0, 3, 7]); // slightly zoomed out for mobile and desktop
-    };
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -140,13 +132,8 @@ function App() {
     setSelectedTextures((prev) => ({ ...prev, [type]: textureObj.src }));
     setPrices((prev) => ({ ...prev, [type]: textureObj.price }));
 
-    // Only change base chair type when selecting covers or chiavari
-    if (type === "chairCover") {
-      setChairType("cover");
-    }
-    if (type === "chiavari") {
-      setChairType("chiavari");
-    }
+    if (type === "chairCover") setChairType("cover");
+    if (type === "chiavari") setChairType("chiavari");
   };
 
   // Panel configuration
@@ -164,7 +151,6 @@ function App() {
     ])
   );
 
-  // Create readable list for subtotal
   const getTextureName = (path) => path?.split("/")?.pop() || "None";
 
   const itemizedItems = typesList.map((type) => ({
@@ -195,10 +181,12 @@ function App() {
           <div className='card'>
             <div className='product-canvas'>
               <Canvas
-                camera={{ position: cameraPosition, fov: 30 }}
+                camera={{
+                  position: isMobile ? [0, 2.5, 6] : [0, 3, 7],
+                  fov: 30,
+                }}
                 frameloop='demand'
               >
-                {/* Main Model */}
                 <Model
                   tableClothTexture={{
                     selectedTableClothTexture: selectedTextures.tableCloth,
