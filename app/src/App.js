@@ -55,13 +55,13 @@ const packages = {
 // Default selections
 const initialTextures = {
   tableCloth: "/pf_textures/multi/pf-babyblue.png",
-  tableRunner: "/pf_textures/multi/pf-fuchsia.png",
-  tableOverlay: "/pf_textures/overlays/blue-solid.jpg",
+  tableRunner: "/pf_textures/multi/pf-blush.png",
+  tableOverlay: "/pf_textures/overlays/pf-royalblue.png",
   chiavari: "/pf_textures/chiavaris/pf-black.png",
-  chairCover: "/pf_textures/chaircovers/blue-confetti.jpg",
-  chairRunner: "/pf_textures/chairrunners/brown-striped.jpg",
+  chairCover: "/pf_textures/chaircovers/pf-ivory.png",
+  chairRunner: "/pf_textures/chairrunners/pf-royalblue.png",
   chairClip: "/pf_textures/chairclips/pf-goldclip.jpg",
-  plates: "/pf_textures/plates/soft-white.jpg",
+  plates: "/pf_textures/plates/pf-white.png",
   innerCurtains: "/pf_textures/multi/pf-white.png",
   outerCurtains: "/pf_textures/multi/pf-navyblue.png",
   drape: "/pf_textures/multi/pf-white.png",

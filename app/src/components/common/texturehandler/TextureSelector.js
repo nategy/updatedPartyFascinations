@@ -109,9 +109,19 @@ function TextureSelector({
                   >
                     <img src={texture.src} alt={`Texture ${index + 1}`} />
                   </button>
+
+                  {/* Price always visible */}
                   <p className='texture-price'>
                     {texture.price === 0 ? "None" : `$${texture.price}`}
                   </p>
+
+                  {/* Show name only for centerpieces & non-transparent */}
+                  {selector === "Centerpieces" &&
+                    texture.src !== "transparent.jpg" && (
+                      <p className='texture-name'>
+                        {texture.name || "Centerpiece"}
+                      </p>
+                    )}
                 </div>
               ))}
             </div>

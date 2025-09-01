@@ -71,9 +71,10 @@ body {
 }
 
 /* 3D Canvas Area */
+/* adjust here for environment height */
 .product-canvas {
   position: relative;
-  height: 45vh;
+  height: 40vh;
   border-radius: 1rem;
   background: #dedede;
   overflow: hidden;

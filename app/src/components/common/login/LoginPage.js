@@ -8,8 +8,13 @@ function LoginPage({ onLogin }) {
   const [error, setError] = useState("");
 
   const handleSubmit = () => {
-    // Dummy logic — replace with server verification later
-    if (username.toLowerCase() === "admin" && password === "1234") {
+    const correctUsername = process.env.REACT_APP_USERNAME;
+    const correctPassword = process.env.REACT_APP_PASSWORD;
+
+    if (
+      username.toLowerCase() === correctUsername &&
+      password === correctPassword
+    ) {
       onLogin();
       setError("");
     } else {
@@ -55,6 +60,7 @@ function LoginPage({ onLogin }) {
 
           {error && <p className='error'>{error}</p>}
         </div>
+
         <div className='pfpage-link'>
           Official website at{" "}
           <a

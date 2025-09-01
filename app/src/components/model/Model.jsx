@@ -138,7 +138,7 @@ function Model({
   const outerCurtainsMap = useTexture(
     safePath(outerCurtainsTexture?.selectedOuterCurtainsTexture)
   );
-  const drapesMap = useTexture(safePath(drapesTexture?.selectedDrapeTexture));
+  const drapesMap = useTexture(safePath(drapesTexture?.selectedDrapesTexture));
 
   // Centerpiece texture: use transparent placeholder if "none" selected
   const safeCenterpiecePath =
@@ -157,7 +157,7 @@ function Model({
   let centerpieceElement = null;
   if (showCenterpiece) {
     switch (centerpieceTexture.selectedCenterpieceTexture) {
-      case "/pf_textures/centerpieces/centerpiece1.jpg":
+      case "/pf_textures/centerpieces/centerpiece1.png":
         centerpieceElement = (
           <group position={[0, -8.5, 0]} scale={[2, 1.5, 2]}>
             <mesh geometry={nodes.Centerpiece1.geometry}>
@@ -173,7 +173,7 @@ function Model({
         );
         break;
 
-      case "/pf_textures/centerpieces/centerpiece2.jpg":
+      case "/pf_textures/centerpieces/centerpiece2.png":
         centerpieceElement = (
           <group position={[0, -8.5, 0]} scale={[2, 1.5, 2]}>
             <mesh geometry={nodes.Centerpiece2.geometry}>
@@ -186,7 +186,7 @@ function Model({
         );
         break;
 
-      case "/pf_textures/centerpieces/centerpiece3.jpg":
+      case "/pf_textures/centerpieces/centerpiece3.png":
         centerpieceElement = (
           <group position={[0, -8.5, 0]} scale={[2.5, 1.5, 2.5]}>
             {nodes.Centerpiece3.isMesh ? (
@@ -200,7 +200,7 @@ function Model({
         );
         break;
 
-      case "/pf_textures/centerpieces/centerpiece4.jpg":
+      case "/pf_textures/centerpieces/centerpiece4.png":
         centerpieceElement = (
           <group position={[0, -8.5, 0]} scale={[2.5, 1.5, 2.5]}>
             <mesh geometry={nodes.Centerpiece4.geometry}>
@@ -352,19 +352,19 @@ function Model({
             </group>
           ))}
 
-        {/* Outer Curtains */}
+        {/* Inner Curtains */}
         {["Сurtain", "Сurtain001", "Сurtain002", "Сurtain003"].map(
           (name, idx) => (
             <mesh key={idx} geometry={nodes[name].geometry}>
               <meshStandardMaterial
-                map={outerCurtainsMap}
+                map={innerCurtainsMap}
                 side={THREE.DoubleSide}
               />
             </mesh>
           )
         )}
 
-        {/* Inner Curtains */}
+        {/* Outer Curtains */}
         {["TiedCurtain", "TiedCurtain2"].map((name, idx) => (
           <mesh
             key={idx}
@@ -373,7 +373,7 @@ function Model({
             scale={[-1, 1, 1]}
           >
             <meshStandardMaterial
-              map={innerCurtainsMap}
+              map={outerCurtainsMap}
               side={THREE.DoubleSide}
             />
           </mesh>
