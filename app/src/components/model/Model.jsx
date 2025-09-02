@@ -214,12 +214,19 @@ function Model({
         break;
     }
   }
+
   const runnerEnabled =
     allowedKeys.includes("chairRunner") &&
-    chairRunnerTexture?.selectedChairRunnerTexture !== "none";
+    chairRunnerTexture?.selectedChairRunnerTexture &&
+    chairRunnerTexture.selectedChairRunnerTexture !== "none" &&
+    !chairRunnerTexture.selectedChairRunnerTexture.includes("transparent");
+
   const clipEnabled =
+    runnerEnabled &&
     allowedKeys.includes("chairClip") &&
-    chairClipTexture?.selectedChairClipTexture !== "none";
+    chairClipTexture?.selectedChairClipTexture &&
+    chairClipTexture.selectedChairClipTexture !== "none" &&
+    !chairClipTexture.selectedChairClipTexture.includes("transparent");
 
   const platePositions = [
     [0, -9, 35],
@@ -233,7 +240,7 @@ function Model({
   const chairRadius = 1.3;
   const positions = Array.from({ length: 6 }, (_, i) => {
     const angle = (i * Math.PI * 2) / 6;
-    return [chairRadius * Math.cos(angle), 0, chairRadius * Math.sin(angle)];
+    return [chairRadius * Math.cos(angle), -1, chairRadius * Math.sin(angle)];
   });
 
   const rotations = [

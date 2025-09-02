@@ -64,7 +64,7 @@ const initialTextures = {
   plates: "/pf_textures/plates/pf-white.png",
   innerCurtains: "/pf_textures/multi/pf-white.png",
   outerCurtains: "/pf_textures/multi/pf-navyblue.png",
-  drape: "/pf_textures/multi/pf-white.png",
+  drape: "/pf_textures/multi/pf-navyblue.png",
   centerpiece: "none",
 };
 

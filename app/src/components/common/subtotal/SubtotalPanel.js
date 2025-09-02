@@ -1,5 +1,4 @@
 import "./subtotal.css";
-
 import React, { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
@@ -8,6 +7,11 @@ export default function SubtotalPanel({ items, subtotal, selectedPackage }) {
 
   const togglePanel = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const formatTextureName = (textureName) => {
+    if (!textureName) return "";
+    return textureName.replace(/^pf-/, "").replace(/\.png$/, "");
   };
 
   return (
@@ -22,8 +26,11 @@ export default function SubtotalPanel({ items, subtotal, selectedPackage }) {
           <h3>Selected Items</h3>
           <ul>
             {items.map((item, index) => (
-              <li key={index}>
-                {item.name}: {item.textureName} - ${item.price}
+              <li key={index} className='subtotal-row'>
+                <span className='subtotal-name'>
+                  {item.name}: {formatTextureName(item.textureName)}
+                </span>
+                <span className='subtotal-price'>${item.price}</span>
               </li>
             ))}
           </ul>

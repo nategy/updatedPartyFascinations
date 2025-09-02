@@ -42,9 +42,9 @@
 .subtotal-divider {
   width: 100%;
   height: 3px;
-  background-color: #5e0d80; /* rich purple shade */
+  background-color: #5e0d80;
   margin: 10px 0;
-  border-radius: 2px; /* optional: for slightly rounded line ends */
+  border-radius: 2px;
 }
 
 .subtotal-content {
@@ -79,7 +79,34 @@
   transform: translateX(0);
 }
 
-/* === DESKTOP VIEW === */
+.subtotal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  gap: 8px;
+  border-bottom: 1px dotted #ccc;
+  padding-bottom: 2px;
+}
+
+.subtotal-name {
+  flex: 1;
+  text-align: left;
+  padding-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subtotal-price {
+  min-width: 65px;
+  text-align: right;
+  font-weight: bold;
+  flex-shrink: 0;
+  color: #333;
+}
+
 @media screen and (min-width: 768px) {
   .subtotal-panel {
     position: absolute;
@@ -97,5 +124,22 @@
 
   .subtotal-panel.open {
     transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .subtotal-row {
+    font-size: 0.9rem;
+    gap: 6px;
+  }
+
+  .subtotal-name {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .subtotal-price {
+    min-width: 55px;
   }
 }

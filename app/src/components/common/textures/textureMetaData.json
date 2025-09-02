@@ -9,14 +9,26 @@
   {
     "src": "/pf_textures/multi/pf-white.png",
     "tags": [],
-    "type": ["tableCloth", "innerCurtains", "outerCurtains", "drape"],
+    "type": [
+      "tableCloth",
+      "tableOverlay",
+      "innerCurtains",
+      "outerCurtains",
+      "drape"
+    ],
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/pf-gray.png",
     "tags": [],
-    "type": ["tableCloth", "innerCurtains", "outerCurtains", "drape"],
+    "type": [
+      "tableCloth",
+      "tableOverlay",
+      "innerCurtains",
+      "outerCurtains",
+      "drape"
+    ],
 
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
@@ -24,7 +36,13 @@
   {
     "src": "/pf_textures/multi/pf-black.png",
     "tags": [],
-    "type": ["tableCloth", "innerCurtains", "outerCurtains", "drape"],
+    "type": [
+      "tableCloth",
+      "tableOverlay",
+      "innerCurtains",
+      "outerCurtains",
+      "drape"
+    ],
 
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
@@ -32,14 +50,20 @@
   {
     "src": "/pf_textures/multi/pf-plum.png",
     "tags": [],
-    "type": "tableCloth",
+    "type": ["tableCloth", "tableOverlay"],
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/pf-babyblue.png",
     "tags": [],
-    "type": ["tableCloth", "innerCurtains", "outerCurtains", "drape"],
+    "type": [
+      "tableCloth",
+      "tableOverlay",
+      "innerCurtains",
+      "outerCurtains",
+      "drape"
+    ],
 
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
@@ -62,7 +86,13 @@
   {
     "src": "/pf_textures/multi/pf-navyblue.png",
     "tags": [],
-    "type": ["tableCloth", "innerCurtains", "outerCurtains", "drape"],
+    "type": [
+      "tableCloth",
+      "tableOverlay",
+      "innerCurtains",
+      "outerCurtains",
+      "drape"
+    ],
 
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
@@ -77,7 +107,7 @@
   {
     "src": "/pf_textures/multi/pf-ivory.png",
     "tags": [],
-    "type": "tableCloth",
+    "type": ["tableCloth", "tableOverlay"],
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
   },
@@ -91,7 +121,13 @@
   {
     "src": "/pf_textures/multi/pf-goldantique.png",
     "tags": [],
-    "type": ["tableCloth", "innerCurtains", "outerCurtains", "drape"],
+    "type": [
+      "tableCloth",
+      "tableOverlay",
+      "innerCurtains",
+      "outerCurtains",
+      "drape"
+    ],
 
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
@@ -113,7 +149,7 @@
   {
     "src": "/pf_textures/multi/pf-blush.png",
     "tags": [],
-    "type": "tableCloth",
+    "type": ["tableCloth", "tableOverlay"],
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
   },
@@ -156,7 +192,13 @@
   {
     "src": "/pf_textures/multi/pf-red.png",
     "tags": [],
-    "type": ["tableCloth", "innerCurtains", "outerCurtains", "drape"],
+    "type": [
+      "tableCloth",
+      "tableOverlay",
+      "innerCurtains",
+      "outerCurtains",
+      "drape"
+    ],
 
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
@@ -164,50 +206,21 @@
   {
     "src": "/pf_textures/multi/pf-rust.png",
     "tags": [],
-    "type": "tableCloth",
+    "type": ["tableCloth", "tableOverlay"],
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/pf-burgundy.png",
     "tags": [],
-    "type": "tableCloth",
+    "type": ["tableCloth", "tableOverlay"],
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
   },
   {
     "src": "/pf_textures/multi/pf-applered.png",
     "tags": [],
-    "type": "tableCloth",
-    "price": 275,
-    "packageTiers": ["silver", "bronze", "gold"]
-  },
-
-  {
-    "src": "/pf_textures/tablerunners/green-flannel.jpg",
-    "tags": ["green", "rustic"],
-    "type": "tableRunner",
-    "price": 275,
-    "packageTiers": ["silver", "bronze", "gold"]
-  },
-  {
-    "src": "/pf_textures/tablerunners/white-ornaments.jpg",
-    "tags": ["bold", "solid", "white", "modern"],
-    "type": "tableRunner",
-    "price": 275,
-    "packageTiers": ["silver", "bronze", "gold"]
-  },
-  {
-    "src": "/pf_textures/tablerunners/brown-flowers.jpg",
-    "tags": ["brown", "rustic", "modern"],
-    "type": "tableRunner",
-    "price": 275,
-    "packageTiers": ["silver", "bronze", "gold"]
-  },
-  {
-    "src": "/pf_textures/tablerunners/pink-solid.jpg",
-    "tags": ["luxury", "solid", "pink"],
-    "type": "tableRunner",
+    "type": ["tableCloth", "tableOverlay"],
     "price": 275,
     "packageTiers": ["silver", "bronze", "gold"]
   },
@@ -259,9 +272,7 @@
   {
     "src": "/pf_textures/chairrunners/transparent.jpg",
     "price": 0,
-    "tags": [],
-    "type": ["chairRunner"],
-    "name": "No Chair Runner"
+    "type": ["chairRunner"]
   },
 
   {
