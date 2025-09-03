@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Navbar.css";
-import Logo from "../images/pf-logo.png";
 
 function Navbar({ navOpen, setNavOpen }) {
-  const [dropdown, setDropdown] = useState(false);
-
   const handleClick = () => setNavOpen(!navOpen);
   const closeMobileMenu = () => setNavOpen(false);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 960) {
-        setDropdown(false);
-      }
-
       // Close mobile menu when resizing to desktop
       if (window.innerWidth >= 960 && navOpen) {
         setNavOpen(false);

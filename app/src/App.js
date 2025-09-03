@@ -241,14 +241,17 @@ function App() {
                 />
               </Canvas>
             </div>
-
             <div className='texture-scroll-area'>
-              <TabbedTexturePanel
-                navOpen={navOpen}
-                selectedPackage={selectedPackage}
-                setSelectedPackage={setSelectedPackage}
-                textureConfig={textureConfig}
-              />
+              {!textureMetadata.length ? (
+                <div className='loading'>Loading textures...</div>
+              ) : (
+                <TabbedTexturePanel
+                  navOpen={navOpen}
+                  selectedPackage={selectedPackage}
+                  setSelectedPackage={setSelectedPackage}
+                  textureConfig={textureConfig}
+                />
+              )}
             </div>
           </div>
 
