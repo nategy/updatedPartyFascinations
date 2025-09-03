@@ -1,0 +1,140 @@
+.s-wrapper {
+  width: 100%;
+  padding: 20px;
+  background-color: #e1d9f1;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2 {
+  font-size: 1.25rem;
+  color: #dfdddd;
+  margin: 0;
+}
+
+.s-down-arrow {
+  font-size: 1.5rem;
+  color: #d1cfcf;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.s-down-arrow:hover {
+  color: #4a90e2;
+}
+
+.s-slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.s-arrow {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  color: #52106a;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.s-arrow:hover {
+  transform: scale(1.1);
+  opacity: 0.7;
+}
+
+.s-arrow.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.s-selector {
+  display: flex;
+  overflow-x: auto;
+  flex-grow: 1;
+  gap: 10px;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  min-width: 0;
+}
+
+.s-selector::-webkit-scrollbar {
+  height: 3px;
+}
+
+.s-selector::-webkit-scrollbar-thumb {
+  background-color: #c3aee3;
+  border-radius: 4px;
+}
+
+.s-selector::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.s-inner {
+  display: flex;
+  gap: 10px;
+  min-width: fit-content;
+}
+
+.s-inner.centered {
+  margin: 0 auto;
+}
+
+.texture-option {
+  flex: 0 0 auto;
+  width: 80px;
+  text-align: center;
+}
+
+.texture-name {
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: #333;
+  text-align: center;
+  font-weight: 500;
+}
+
+.texture-price {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #444;
+  text-align: center;
+}
+
+.s-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.s-btn:hover {
+  transform: scale(1.03);
+}
+
+.s-btn img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: box-shadow 0.3s ease;
+}
+
+.s-btn img:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
