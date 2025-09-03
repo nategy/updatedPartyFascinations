@@ -2,23 +2,31 @@ import React, { useState } from "react";
 import "./login.css";
 
 function LoginPage({ onLogin }) {
-  const [isNewUser, setIsNewUser] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = () => {
-    const correctUsername = process.env.REACT_APP_USERNAME;
-    const correctPassword = process.env.REACT_APP_PASSWORD;
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (
-      username.toLowerCase() === correctUsername &&
-      password === correctPassword
-    ) {
-      onLogin();
-      setError("");
-    } else {
-      setError("Invalid username or password.");
+      const data = await res.json();
+
+      if (data.success) {
+        onLogin();
+        setError("");
+        setUsername("");
+        setPassword("");
+      } else {
+        setError(data.message || "Invalid username or password.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Server error. Please try again.");
     }
   };
 
@@ -26,37 +34,24 @@ function LoginPage({ onLogin }) {
     <div className='login-page'>
       <div className='login-container'>
         <div className='login-box'>
-          <h2>{isNewUser ? "Create Account" : "Login"}</h2>
+          <h2>Login</h2>
 
           <input
             type='text'
-            placeholder={isNewUser ? "New Username" : "Username"}
+            placeholder='Username'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            autoComplete='off'
           />
           <input
             type='password'
-            placeholder={isNewUser ? "New Password" : "Password"}
+            placeholder='Password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete='off'
           />
 
-          <button onClick={handleSubmit}>
-            {isNewUser ? "Register & Enter" : "Log In"}
-          </button>
-
-          <p className='new-user-wrapper'>
-            {isNewUser ? "Already have an account?" : "New user?"}{" "}
-            <span
-              className='link'
-              onClick={() => {
-                setIsNewUser(!isNewUser);
-                setError("");
-              }}
-            >
-              {isNewUser ? "Log In" : "Create an account"}
-            </span>
-          </p>
+          <button onClick={handleSubmit}>Log In</button>
 
           {error && <p className='error'>{error}</p>}
         </div>
