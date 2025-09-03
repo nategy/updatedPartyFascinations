@@ -10,7 +10,7 @@ import TabbedTexturePanel from "./Components/Common/Texturehandler/TabbedTexture
 import SubtotalPanel from "./Components/Common/Subtotal/SubtotalPanel.js";
 import Model from "./Components/Model/Model.jsx";
 
-//use when testing
+//use when testing for textures
 // import textureMetadata from "./data/textureMetaData.json";
 import "./index.css";
 
