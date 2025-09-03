@@ -6,7 +6,7 @@
   min-height: 75vh;
   position: relative;
 
-  background-image: url(".//login-bg.png");
+  background-image: url("/Images/login-bg.png");
   background-size: cover;
   background-position: center;
 }
