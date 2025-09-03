@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import TextureSelector from ".//TextureSelector,js";
+import TextureSelector from ".//TextureSelector.js";
 import "./tabtexture.css";
 
 const allTabs = [
