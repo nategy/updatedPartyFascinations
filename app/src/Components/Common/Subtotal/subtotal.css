@@ -1,7 +1,7 @@
 .subtotal-panel {
   position: absolute;
   top: 5vh;
-  right: 10px;
+  right: 2px;
   width: 85%;
   max-width: 320px;
   background: #ffffff;
@@ -128,19 +128,15 @@
 }
 
 @media screen and (max-width: 480px) {
-  .subtotal-panel {
-    width: 92%;
-    max-width: 350px;
+  .subtotal-panel.closed .subtotal-bar {
+    min-width: 250px;
+    justify-content: space-between;
   }
 
-  .subtotal-bar span {
-    padding-left: 10px;
-    font-size: 1.05rem;
+  .subtotal-panel.closed .subtotal-bar span {
+    padding-left: 5px;
   }
 
-  .subtotal-price {
-    min-width: 65px;
-  }
   .subtotal-row {
     font-size: 0.9rem;
     gap: 6px;
