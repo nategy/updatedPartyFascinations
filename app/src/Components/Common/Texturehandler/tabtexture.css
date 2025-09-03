@@ -44,6 +44,14 @@
   border-color: #a787d9;
 }
 
+.package-btn {
+  color: #333;
+}
+
+.filter-btn {
+  color: #333;
+}
+
 /* Tab buttons wrapper (with scroll buttons) */
 .tab-buttons-wrapper {
   position: relative;
@@ -161,6 +169,7 @@
   }
 
   .tab-btn {
+    color: #333;
     padding: 4px 10px;
     font-size: 0.85rem;
   }

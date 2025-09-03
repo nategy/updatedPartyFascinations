@@ -128,6 +128,7 @@ export default function TabbedTexturePanel({
           <label htmlFor='package'>Select Package:</label>
           <select
             id='package'
+            className='package-btn'
             value={selectedPackage}
             onChange={(e) => setSelectedPackage(e.target.value)}
           >
@@ -141,6 +142,7 @@ export default function TabbedTexturePanel({
           <label htmlFor='tags'>Filter Style:</label>
           <select
             id='tags'
+            className='filter-btn'
             value={selectedTag}
             onChange={(e) => setSelectedTag(e.target.value)}
           >
