@@ -3,17 +3,17 @@
   "name": "PartyFascinations Event Modeler",
   "icons": [
     {
-      "src": "/images/pf-logo.png",
+      "src": "/Images/pf-logo.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "/images/pf-logo.png",
+      "src": "/Images/pf-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "pf-logo-white.png",
+      "src": "/Images/pf-logo-white.png",
       "type": "image/png",
       "sizes": "512x512"
     }
