@@ -3,7 +3,7 @@ import { HiLocationMarker } from "react-icons/hi";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
-import Logo from "../images/pf-logo-white.png";
+import Logo from "./images/pf-logo-white.png";
 
 import "./header.css";
 
