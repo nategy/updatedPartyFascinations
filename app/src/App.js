@@ -121,10 +121,19 @@ function App() {
 
   // Fetch texture data from API on mount
   useEffect(() => {
-    fetch("/api/getTexture")
-      .then((res) => res.json())
-      .then((data) => setTextureMetadata(data))
-      .catch((err) => console.error("Error fetching textures:", err));
+    // Fetch textures from serverless function
+    const fetchTextures = async () => {
+      try {
+        const res = await fetch("/api/getTexture");
+        if (!res.ok) throw new Error("Failed to fetch textures");
+        const data = await res.json();
+        setTextureMetadata(data);
+      } catch (err) {
+        console.error("Error fetching textures:", err);
+      }
+    };
+
+    fetchTextures();
   }, []);
 
   useEffect(() => {
