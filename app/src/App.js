@@ -2,13 +2,13 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import LoginPage from "./components/common/login/LoginPage";
-import Navbar from "./components/common/navbar/Navbar";
-import Header from "./components/common/header/Header";
-import Footer from "./components/common/footer/Footer";
-import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexturePanel";
-import SubtotalPanel from "./components/common/subtotal/SubtotalPanel";
-import Model from "./components/model/Model";
+import LoginPage from "./components/common/Login/LoginPage";
+import Navbar from "./components/common/Navbar/Navbar";
+import Header from "./components/common/Header/Header";
+import Footer from "./components/common/Footer/Footer";
+import TabbedTexturePanel from "./components/common/Texturehandler/TabbedTexturePanel";
+import SubtotalPanel from "./components/common/Subtotal/SubtotalPanel";
+import Model from "./components/Model/Model";
 
 //use when testing
 // import textureMetadata from "./data/textureMetaData.json";
