@@ -5,6 +5,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* Selector rows (package/tag) */
 .selectors-row {
   display: flex;
   flex-wrap: wrap;
@@ -42,11 +43,12 @@
   border-color: #a787d9;
 }
 
+/* Tab buttons wrapper (with scroll buttons) */
 .tab-buttons-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center; /* Center everything when not overflowing */
+  justify-content: center;
   width: 100%;
   overflow: hidden;
 }
@@ -61,25 +63,18 @@
   scrollbar-color: #a35bb7 #f0f0f0;
   padding-bottom: 4px;
   scroll-behavior: smooth;
-
-  /* Keep tabs centered by default (when they don't overflow) */
-  justify-content: center;
+  justify-content: center; /* center when not overflowing */
   flex-wrap: nowrap;
   min-width: 0;
   max-width: 100%;
-
-  /* Prevent the first/last tab from hugging the very edge,
-     and ensure when scrollLeft=0 the first tab isn't visually clipped */
   padding-inline: 8px;
   scroll-padding-inline: 8px;
 }
 
-/* Explicit center class (used when <= 4 tabs) */
 .tab-buttons.center-tabs {
   justify-content: center;
 }
 
-/* When content overflows, align to start so horizontal scrolling works and nothing is cut off */
 .tab-buttons.scrollable {
   justify-content: flex-start;
 }
@@ -97,6 +92,7 @@
   background-color: #f0f0f0;
 }
 
+/* Individual tab button */
 .tab-btn {
   flex: 0 0 auto;
   padding: 6px 12px;
@@ -106,6 +102,7 @@
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
   white-space: nowrap;
+  font-size: 0.9rem;
 }
 
 .tab-btn.active {
@@ -118,6 +115,7 @@
   border-color: #bfa0e0;
 }
 
+/* Scroll buttons for horizontal tab nav */
 .scroll-btn {
   background-color: #c3aee3;
   border: none;
@@ -138,7 +136,7 @@
   margin-top: 8px;
 }
 
-/* Responsive handling */
+/* Responsive styling for mobile */
 @media (max-width: 768px) {
   .selectors-row {
     flex-direction: column;
@@ -149,5 +147,24 @@
   .tag-selector {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .tab-buttons-wrapper {
+    justify-content: flex-start;
+  }
+
+  .tab-buttons {
+    gap: 6px;
+    padding-inline: 4px;
+  }
+
+  .tab-btn {
+    padding: 4px 10px;
+    font-size: 0.85rem;
+  }
+
+  .scroll-btn {
+    padding: 3px 6px;
+    font-size: 0.8rem;
   }
 }

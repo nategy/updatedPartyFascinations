@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -10,7 +10,8 @@ import TabbedTexturePanel from "./components/common/texturehandler/TabbedTexture
 import SubtotalPanel from "./components/common/subtotal/SubtotalPanel";
 import Model from "./components/model/Model";
 
-import textureMetadata from "./data/textureMetaData.json";
+//use when testing
+// import textureMetadata from "./data/textureMetaData.json";
 import "./index.css";
 
 // Package tiers
@@ -101,7 +102,7 @@ const typesList = [
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
-  // const [textureMetadata, setTextureMetadata] = useState([]);
+  const [textureMetadata, setTextureMetadata] = useState([]);
   const [selectedPackage, setSelectedPackage] = useState("silver");
   const [chairType, setChairType] = useState("chiavari");
   const [selectedTextures, setSelectedTextures] = useState(initialTextures);
@@ -114,15 +115,17 @@ function App() {
   );
 
   // Keep isMobile and use it in Canvas
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(
+    typeof window != "undefined" ? window.innerWidth <= 768 : false
+  );
 
   // Fetch texture data from API on mount
-  // useEffect(() => {
-  //   fetch("/api/getTexture")
-  //     .then((res) => res.json())
-  //     .then((data) => setTextureMetadata(data))
-  //     .catch((err) => console.error("Error fetching textures:", err));
-  // }, []);
+  useEffect(() => {
+    fetch("/api/getTexture")
+      .then((res) => res.json())
+      .then((data) => setTextureMetadata(data))
+      .catch((err) => console.error("Error fetching textures:", err));
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -146,19 +149,22 @@ function App() {
   };
 
   // Panel configuration
-  const textureConfig = Object.fromEntries(
-    typesList.map((type) => [
-      type,
-      {
-        textures: textureTypes[type],
-        selectedTexture: selectedTextures[type],
-        onSelectTexture: (textureObj) => handleSelectTexture(type, textureObj),
-        selectedTags: tags[type],
-        setSelectedTags: (newTags) =>
-          setTags((prev) => ({ ...prev, [type]: newTags })),
-      },
-    ])
-  );
+  const textureConfig = useMemo(() => {
+    return Object.fromEntries(
+      typesList.map((type) => [
+        type,
+        {
+          textures: textureTypes[type],
+          selectedTexture: selectedTextures[type],
+          onSelectTexture: (textureObj) =>
+            handleSelectTexture(type, textureObj),
+          selectedTags: tags[type],
+          setSelectedTags: (newTags) =>
+            setTags((prev) => ({ ...prev, [type]: newTags })),
+        },
+      ])
+    );
+  }, [textureTypes, selectedTextures, tags]);
 
   const getTextureName = (path) => path?.split("/")?.pop() || "None";
 
