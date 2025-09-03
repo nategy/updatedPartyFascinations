@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import LoginPage from "./Components/Common/Login/LoginPage.js";
+// import LoginPage from "./Components/Common/Login/LoginPage.js";
 import Navbar from "./Components/Common/Navbar/Navbar.js";
 import Header from "./Components/Common/Header/Header.jsx";
 import Footer from "./Components/Common/Footer/Footer.jsx";
@@ -11,7 +11,7 @@ import SubtotalPanel from "./Components/Common/Subtotal/SubtotalPanel.js";
 import Model from "./Components/Model/Model.jsx";
 
 //use when testing for textures
-// import textureMetadata from "./data/textureMetaData.json";
+import textureMetadata from "./Data/textureMetaData.json";
 import "./index.css";
 
 // Package tiers
@@ -100,9 +100,9 @@ const typesList = [
 ];
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
-  const [textureMetadata, setTextureMetadata] = useState([]);
+  // const [textureMetadata, setTextureMetadata] = useState([]);
   const [selectedPackage, setSelectedPackage] = useState("silver");
   const [chairType, setChairType] = useState("chiavari");
   const [selectedTextures, setSelectedTextures] = useState(initialTextures);
@@ -120,21 +120,21 @@ function App() {
   );
 
   // Fetch texture data from API on mount
-  useEffect(() => {
-    // Fetch textures from serverless function
-    const fetchTextures = async () => {
-      try {
-        const res = await fetch("/api/getTexture");
-        if (!res.ok) throw new Error("Failed to fetch textures");
-        const data = await res.json();
-        setTextureMetadata(data);
-      } catch (err) {
-        console.error("Error fetching textures:", err);
-      }
-    };
+  // useEffect(() => {
+  //   // Fetch textures from serverless function
+  //   const fetchTextures = async () => {
+  //     try {
+  //       const res = await fetch("/api/getTexture");
+  //       if (!res.ok) throw new Error("Failed to fetch textures");
+  //       const data = await res.json();
+  //       setTextureMetadata(data);
+  //     } catch (err) {
+  //       console.error("Error fetching textures:", err);
+  //     }
+  //   };
 
-    fetchTextures();
-  }, []);
+  //   fetchTextures();
+  // }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -198,85 +198,83 @@ function App() {
         <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
       </Router>
 
-      {!isLoggedIn ? (
+      {/* {!isLoggedIn ? (
         <LoginPage onLogin={() => setIsLoggedIn(true)} />
-      ) : (
-        <div className='wrapper'>
-          <div className='card'>
-            <div className='product-canvas'>
-              <Canvas
-                camera={{
-                  position: isMobile ? [0, 2.5, 6] : [0, 3, 7],
-                  fov: 30,
+      ) : ( */}
+      <div className='wrapper'>
+        <div className='card'>
+          <div className='product-canvas'>
+            <Canvas
+              camera={{
+                position: isMobile ? [0, 2.5, 6] : [0, 3, 7],
+                fov: 30,
+              }}
+              frameloop='demand'
+            >
+              <Model
+                tableClothTexture={{
+                  selectedTableClothTexture: selectedTextures.tableCloth,
                 }}
-                frameloop='demand'
-              >
-                <Model
-                  tableClothTexture={{
-                    selectedTableClothTexture: selectedTextures.tableCloth,
-                  }}
-                  tableRunnerTexture={{
-                    selectedTableRunnerTexture: selectedTextures.tableRunner,
-                  }}
-                  tableOverlayTexture={{
-                    selectedTableOverlayTexture: selectedTextures.tableOverlay,
-                  }}
-                  chiavariTexture={{
-                    selectedChiavariTexture: selectedTextures.chiavari,
-                  }}
-                  chairCoverTexture={{
-                    selectedChairCoverTexture: selectedTextures.chairCover,
-                  }}
-                  chairRunnerTexture={{
-                    selectedChairRunnerTexture: selectedTextures.chairRunner,
-                  }}
-                  plateTexture={{
-                    selectedPlateTexture: selectedTextures.plates,
-                  }}
-                  chairClipTexture={{
-                    selectedChairClipTexture: selectedTextures.chairClip,
-                  }}
-                  innerCurtainsTexture={{
-                    selectedInnerCurtainsTexture:
-                      selectedTextures.innerCurtains,
-                  }}
-                  outerCurtainsTexture={{
-                    selectedOuterCurtainsTexture:
-                      selectedTextures.outerCurtains,
-                  }}
-                  drapesTexture={{
-                    selectedDrapesTexture: selectedTextures.drape,
-                  }}
-                  centerpieceTexture={{
-                    selectedCenterpieceTexture: selectedTextures.centerpiece,
-                  }}
-                  packages={packages}
-                  selectedPackage={selectedPackage}
-                  chairType={chairType}
-                />
-              </Canvas>
-            </div>
-            <div className='texture-scroll-area'>
-              {!textureMetadata.length ? (
-                <div className='loading'>Loading textures...</div>
-              ) : (
-                <TabbedTexturePanel
-                  navOpen={navOpen}
-                  selectedPackage={selectedPackage}
-                  setSelectedPackage={setSelectedPackage}
-                  textureConfig={textureConfig}
-                />
-              )}
-            </div>
+                tableRunnerTexture={{
+                  selectedTableRunnerTexture: selectedTextures.tableRunner,
+                }}
+                tableOverlayTexture={{
+                  selectedTableOverlayTexture: selectedTextures.tableOverlay,
+                }}
+                chiavariTexture={{
+                  selectedChiavariTexture: selectedTextures.chiavari,
+                }}
+                chairCoverTexture={{
+                  selectedChairCoverTexture: selectedTextures.chairCover,
+                }}
+                chairRunnerTexture={{
+                  selectedChairRunnerTexture: selectedTextures.chairRunner,
+                }}
+                plateTexture={{
+                  selectedPlateTexture: selectedTextures.plates,
+                }}
+                chairClipTexture={{
+                  selectedChairClipTexture: selectedTextures.chairClip,
+                }}
+                innerCurtainsTexture={{
+                  selectedInnerCurtainsTexture: selectedTextures.innerCurtains,
+                }}
+                outerCurtainsTexture={{
+                  selectedOuterCurtainsTexture: selectedTextures.outerCurtains,
+                }}
+                drapesTexture={{
+                  selectedDrapesTexture: selectedTextures.drape,
+                }}
+                centerpieceTexture={{
+                  selectedCenterpieceTexture: selectedTextures.centerpiece,
+                }}
+                packages={packages}
+                selectedPackage={selectedPackage}
+                chairType={chairType}
+              />
+            </Canvas>
           </div>
-
-          <SubtotalPanel
-            items={filteredItems}
-            subtotal={subtotal}
-            selectedPackage={selectedPackage}
-          />
+          <div className='texture-scroll-area'>
+            {!textureMetadata.length ? (
+              <div className='loading'>Loading textures...</div>
+            ) : (
+              <TabbedTexturePanel
+                navOpen={navOpen}
+                selectedPackage={selectedPackage}
+                setSelectedPackage={setSelectedPackage}
+                textureConfig={textureConfig}
+              />
+            )}
+          </div>
         </div>
-      )}
+
+        <SubtotalPanel
+          items={filteredItems}
+          subtotal={subtotal}
+          selectedPackage={selectedPackage}
+        />
+      </div>
+      {/* )} */}
 
       <Footer />
     </div>
