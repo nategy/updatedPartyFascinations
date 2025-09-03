@@ -129,14 +129,13 @@
 
 @media screen and (max-width: 480px) {
   .subtotal-panel.closed {
-    width: 95%; /* wider than 85% */
-    max-width: 350px; /* so it holds the full subtotal */
-    transform: translateX(40%); /* less shift so it's visible */
+    width: 90%;
+    max-width: 325px;
+    transform: translateX(40%);
   }
 
-  /* Specifically make the bar fill the wider panel */
   .subtotal-panel.closed .subtotal-bar {
-    min-width: 270px; /* ensures enough space for full price */
+    min-width: 270px;
     justify-content: space-between;
   }
 
