@@ -17,7 +17,7 @@ const allTabs = [
   { label: "Centerpieces", key: "centerpiece" },
 ];
 
-const availableTags = ["modern", "elegant", "rustic", "luxury", "bold"];
+const availableTags = ["sequin"];
 
 const packages = {
   silver: [

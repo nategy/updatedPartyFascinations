@@ -2,7 +2,7 @@ import React, { useRef, Suspense } from "react";
 import * as THREE from "three";
 import { useGLTF, useTexture, OrbitControls } from "@react-three/drei";
 
-useGLTF.preload("/resources/PFScene23.gltf");
+useGLTF.preload("/resources/PFModel.gltf");
 
 const TRANSPARENT_PLACEHOLDER = "/pf_textures/centerpieces/transparent.jpg";
 
@@ -94,38 +94,58 @@ function Model({
   centerpieceTexture,
 }) {
   const group = useRef();
-  const { nodes } = useGLTF("/resources/PFScene23.gltf");
+  const { nodes } = useGLTF("/resources/PFModel.gltf");
 
   const allowedKeys = packages[selectedPackage] || [];
   const safePath = (p) =>
     p && typeof p === "string" && p !== "none" ? p : TRANSPARENT_PLACEHOLDER;
 
-  // Always call useTexture even if we'll ignore the result
   const tableClothMap = useTexture(
     safePath(tableClothTexture?.selectedTableClothTexture)
   );
+  tableClothMap.wrapS = tableClothMap.wrapT = THREE.RepeatWrapping;
+  tableClothMap.repeat.set(
+    tableClothTexture?.selectedTableClothTexture?.includes("sequin") ? 5 : 1,
+    tableClothTexture?.selectedTableClothTexture?.includes("sequin") ? 5 : 1
+  );
+
   const rawTableRunner = useTexture(
     safePath(tableRunnerTexture?.selectedTableRunnerTexture)
   );
   const tableRunnerMap = rawTableRunner.clone();
   tableRunnerMap.wrapS = tableRunnerMap.wrapT = THREE.RepeatWrapping;
-  tableRunnerMap.repeat.set(1, 6);
+  tableRunnerMap.repeat.set(
+    tableRunnerTexture?.selectedTableRunnerTexture?.includes("sequin") ? 3 : 1,
+    tableRunnerTexture?.selectedTableRunnerTexture?.includes("sequin") ? 3 : 6
+  );
 
   const tableOverlayMap = useTexture(
     safePath(tableOverlayTexture?.selectedTableOverlayTexture)
   );
+
   const plateMap = useTexture(safePath(plateTexture?.selectedPlateTexture));
   const chiavariMap = useTexture(
     safePath(chiavariTexture?.selectedChiavariTexture)
   );
+
   const chairCoverMap = useTexture(
     safePath(chairCoverTexture?.selectedChairCoverTexture)
+  );
+  chairCoverMap.wrapS = chairCoverMap.wrapT = THREE.RepeatWrapping;
+  chairCoverMap.repeat.set(
+    chairCoverTexture?.selectedChairCoverTexture?.includes("sequin") ? 1 : 1,
+    chairCoverTexture?.selectedChairCoverTexture?.includes("sequin") ? 1 : 1
   );
 
   const rawChairRunner = useTexture(
     safePath(chairRunnerTexture?.selectedChairRunnerTexture)
   );
   const chairRunnerMap = rawChairRunner.clone();
+  chairRunnerMap.wrapS = chairRunnerMap.wrapT = THREE.RepeatWrapping;
+  chairRunnerMap.repeat.set(
+    chairRunnerTexture?.selectedChairRunnerTexture?.includes("sequin") ? 5 : 1,
+    chairRunnerTexture?.selectedChairRunnerTexture?.includes("sequin") ? 4 : 1
+  );
 
   const rawChairClip = useTexture(
     safePath(chairClipTexture?.selectedChairClipTexture)
@@ -140,7 +160,7 @@ function Model({
   );
   const drapesMap = useTexture(safePath(drapesTexture?.selectedDrapesTexture));
 
-  // Centerpiece texture: use transparent placeholder if "none" selected
+  // Centerpiece
   const safeCenterpiecePath =
     centerpieceTexture.selectedCenterpieceTexture &&
     centerpieceTexture.selectedCenterpieceTexture !== "none"
@@ -149,7 +169,6 @@ function Model({
 
   const selectedCenterpieceMap = useTexture(safeCenterpiecePath);
 
-  // Show centerpiece only if package allows it and texture isn't "none"
   const showCenterpiece =
     (selectedPackage === "bronze" || selectedPackage === "gold") &&
     centerpieceTexture.selectedCenterpieceTexture !== "none";
@@ -172,7 +191,6 @@ function Model({
           </group>
         );
         break;
-
       case "/pf_textures/centerpieces/centerpiece2.png":
         centerpieceElement = (
           <group position={[0, -8.5, 0]} scale={[2, 1.5, 2]}>
@@ -185,7 +203,6 @@ function Model({
           </group>
         );
         break;
-
       case "/pf_textures/centerpieces/centerpiece3.png":
         centerpieceElement = (
           <group position={[0, -8.5, 0]} scale={[2.5, 1.5, 2.5]}>
@@ -199,7 +216,6 @@ function Model({
           </group>
         );
         break;
-
       case "/pf_textures/centerpieces/centerpiece4.png":
         centerpieceElement = (
           <group position={[0, -8.5, 0]} scale={[2.5, 1.5, 2.5]}>
@@ -209,7 +225,6 @@ function Model({
           </group>
         );
         break;
-
       default:
         break;
     }
@@ -349,7 +364,7 @@ function Model({
                   coverTexture={chairCoverMap}
                   runnerTexture={chairRunnerMap}
                   clipTexture={chairClipMap}
-                  coverGeometry={nodes.Chair001.geometry}
+                  coverGeometry={nodes.ChairCover.geometry}
                   runnerGeometry={nodes.ChairRunner.geometry}
                   clipGeometry={nodes.ChairClip.geometry}
                   runnerEnabled={runnerEnabled}
